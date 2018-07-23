@@ -36,3 +36,21 @@
   teamId: 'team id',
   userId: 'user id'
 ```
+
+## Событие приглашения бота в "тиму"
+
+#### Query example:
+```js
+  eventType: 'team-on-bot-invited',
+  teamId: 'team id',
+  userId: 'user id',
+```
+
+## Событие удаления бота из "тимы"
+
+#### Query example:
+```js
+  eventType: 'team-on-bot-removed',
+  teamId: 'team id',
+  userId: 'user id'
+```

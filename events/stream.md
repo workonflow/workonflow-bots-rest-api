@@ -8,10 +8,7 @@
   teamId: 'team id',
   id: 'comment id',
   userId: 'user id',
-  threadId: '',
   streamId: 'id stream',
-  to: [],
-  from: '',
   type: 'setStreamRole',
   initialUser: 'initiator user id'
 ```
@@ -24,10 +21,34 @@
   teamId: 'team id',
   id: 'comment id',
   userId: 'user id',
-  threadId: '',
   streamId: 'id stream',
-  to: [],
-  from: '',
   type: 'deleteStreamRole',
   initialUser: 'initiator user id'
 ```
+
+## Событие добавления бота в поток
+
+#### Query example:
+```js
+  eventType: 'stream-on-bot-set',
+  teamId: 'team id',
+  id: 'comment id',
+  userId: 'user id',
+  streamId: 'id stream',
+  type: 'setStreamRole',
+  initialUser: 'initiator user id'
+```
+
+## Событие удаления бота из потока
+
+#### Query example:
+```js
+  eventType: 'stream-on-bot-deleted',
+  teamId: 'team id',
+  id: 'comment id',
+  userId: 'user id',
+  streamId: 'id stream',
+  type: 'deleteStreamRole',
+  initialUser: 'initiator user id'
+```
+

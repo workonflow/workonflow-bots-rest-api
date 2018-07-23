@@ -4,63 +4,40 @@
 
 #### Query example:
 ```js
-  {
-    eventType: 'thread-on-created',
-    teamId: 'team id',
-    data: {
-      threadId: 'thread id',
-      streamId: 'stream id',
-      type: 'create',
-      metadata: {
-        title: '',
-        responsibleUserId: '',
-        userId: 'id user creator'
-      },
-      att: []
-    },
-  }
+  eventType: 'thread-on-created',
+  teamId: 'team id',
+  threadId: 'thread id',
+  streamId: 'stream id',
+  type: 'create',
+  title: '',
+  responsibleUserId: '',
+  userId: 'id user creator'
 ```
 
 ## Событие обновления статуса треда
 
 #### Query example:
 ```js
-  {
-    eventType: 'thread-on-status-update',
-    teamId: 'team id',
-    data: {
-      threadId: 'thread id',
-      streamId: 'stream id',
-      to: [],
-      from: '',
-      type: 'setStatus',
-      metadata: {
-        userId: 'id user initiator',
-        statusId: 'status id',
-        prevStatusId: 'status id'
-      },
-      att: []
-    }
-  }
+  eventType: 'thread-on-status-update',
+  teamId: 'team id',
+  threadId: 'thread id',
+  streamId: 'stream id',
+  statusId: 'status id',
+  from: '',
+  userId: 'id user initiator',
+  prevStatusId: 'status id'
 ```
 
 ## Событие изменения настроек треда
 
 #### Query example:
 ```js
-  {
-    eventType: 'thread-on-settings-update',
-    teamId: 'team id',
-    data: {
-      att: [],
-      from: "",
-      metadata: {
-        userId: "initiator user id",
-        // and fields which been updated
-      },
-      streamId: "stream id",
-      threadId: "thread id",
-      to: []
-    }
-  }
+  eventType: 'thread-on-settings-update',
+  teamId: 'team id',
+  from: "",
+  userId: "initiator user id",
+  streamId: "stream id",
+  threadId: "thread id",
+  fieldName: "",
+  fieldPayload: ""
 ```

@@ -13,7 +13,6 @@
   to: 'bot id',
   from: 'user id',
   attText: 'some text',
-  _id: 'comment id'
 ```
 
 ## Событие создания комментария в личном чате пользователя с ботом
@@ -29,7 +28,6 @@
   to: 'bot id',
   from: 'user id',
   attText: 'some text',
-  _id: 'comment id',
 ```
 
 ## События создания коментария с упоминанием бот-id
@@ -48,7 +46,6 @@
   from: 'user id',
   attText: '@botId@ some text',
   streamId: 'some stream id',
-  _id: 'comment id',
 ```
 
 ### In thread
@@ -65,7 +62,5 @@
   to: 'bot id',
   from: 'user id',
   att: '@botId@ some text',
-  threadId: 'some thread id',
   streamId: 'some stream id',
-  _id: 'comment id',
 ```

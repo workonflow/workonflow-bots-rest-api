@@ -1,5 +1,5 @@
 # Метод для приглашения пользователя в систему workonflow
-```POST api.workonflow.com/1/team/invite-user/{query}```
+```POST api.workonflow.com/{teamId}/team/invite-user/{query}```
 
 ### Query:
 ```js

@@ -2,7 +2,7 @@
 
 ### call/start
 
-**Метод для активации звонка в треде
+**Метод для активации звонка в треде****
 
 ```js
   api.workonflow.com/{teamid}/call/start/{query}
@@ -39,7 +39,7 @@
 
 ### call/end
 
-**Метод для деактивации звонка в треде
+**Метод для деактивации звонка в треде**
 
 ```js
   api.workonflow.com/{teamid}/call/end/{query}
@@ -79,7 +79,7 @@
 
 ### call.user/invite
 
-**Метод для приглашения пользователя(лей) в звонок
+**Метод для приглашения пользователя(лей) в звонок**
 
 ```js
   api.workonflow.com/{teamid}/call.user/invite/{query}
@@ -94,7 +94,7 @@
 | userIds       | array         | array of users ids  |
 | invitedUsersCount| string     | number of invited users|
 
-> Важно: Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
+> **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
 
 **Query params example:**
 
@@ -121,7 +121,7 @@
 
 ### call.user/exclude
 
-**Метод для исключения пользовател(лей) из звонка
+**Метод для исключения пользовател(лей) из звонка**
 
 ```js
   api.workonflow.com/{teamid}/call.user/exclude/{query}
@@ -136,7 +136,7 @@
 | userIds       | array         | array of users ids  |
 | excludedUsersCount| string    | number of excluded users|
 
-> Важно: Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
+> **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
 
 **Query params example:**
 
@@ -163,7 +163,7 @@
 
 ### call/pause
 
-**Метод для постановки звонка на паузу
+**Метод для постановки звонка на паузу**
 
 ```js
   api.workonflow.com/{teamid}/call/pause/{query}
@@ -178,7 +178,7 @@
 | userIds       | array         | array of users ids  |
 | pausedUsersCount| string      | number of users switched on pause|
 
-> Важно: Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
+> **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
 
 **Query params example:**
 
@@ -205,7 +205,7 @@
 
 ### call/unpause
 
-**Метод для снятия звонка с паузы
+**Метод для снятия звонка с паузы**
 
 ```js
   api.workonflow.com/{teamid}/call/unpause/{query}
@@ -220,7 +220,7 @@
 | userIds       | array         | array of users ids  |
 | unpausedUsersCount| string    | number of users switched off pause|
 
-> Важно: Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
+> **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
 
 **Query params example:**
 
@@ -247,7 +247,7 @@
 
 ### call/unpause
 
-**Метод для снятия звонка с паузы
+**Метод для снятия звонка с паузы**
 
 ```js
   api.workonflow.com/{teamid}/call/unpause/{query}
@@ -262,7 +262,7 @@
 | userIds       | array         | array of users ids  |
 | unpausedUsersCount| string    | number of users switched off pause|
 
-> Важно: Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
+> **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
 
 **Query params example:**
 
@@ -289,7 +289,7 @@
 
 ### call.audio/play
 
-**Метод для загрузки и проигрывания аудиозаписи в звонке (для всех пользователей или для конкретных?)
+**Метод для загрузки и проигрывания аудиозаписи в звонке (для всех пользователей или для конкретных?)**
 
 ```js
   api.workonflow.com/{teamid}/call.audio/play/{query}
@@ -302,7 +302,7 @@
 | threadId      | string        | id of thread        |
 | fileUrl       | string        | url of file, intended to play|
 
-> Важно: Аудиофайл должен иметь расширение mp3 или wav и не должен превышать размера в 10мб.
+> **Важно!** Аудиофайл должен иметь расширение mp3 или wav и не должен превышать размера в 10мб.
 
 **Query params example:**
 
@@ -329,7 +329,7 @@
 
 ### call.audio/stop
 
-**Метод для остановки проигрывания аудиозаписи в звонке (для всех пользователей или для конкретных?)
+**Метод для остановки проигрывания аудиозаписи в звонке (для всех пользователей или для конкретных?)**
 
 ```js
   api.workonflow.com/{teamid}/call.audio/stop/{query}
@@ -365,7 +365,7 @@
 
 ### call.recording/start
 
-**Метод для начала записи разговора в звонке
+**Метод для начала записи разговора в звонке**
 
 ```js
   api.workonflow.com/{teamid}/call.recording/start/{query}
@@ -401,7 +401,7 @@
 
 ### call.recording/stop
 
-**Метод для остановки записи разговора в звонке
+**Метод для остановки записи разговора в звонке**
 
 ```js
   api.workonflow.com/{teamid}/call.recording/stop/{query}
@@ -438,7 +438,7 @@
 
 ### call.stream/start
 
-**Метод для начала стрима разговора в звонке
+**Метод для начала стрима разговора в звонке**
 
 ```js
   api.workonflow.com/{teamid}/call.stream/start/{query}
@@ -475,7 +475,7 @@
 
 ### call.stream/stop
 
-**Метод для остановки стрима разговора в звонке
+**Метод для остановки стрима разговора в звонке**
 
 ```js
   api.workonflow.com/{teamid}/call.stream/stop/{query}
@@ -506,5 +506,3 @@
 ```js
   { code: 200, message: "OK" }
 ```
-
----

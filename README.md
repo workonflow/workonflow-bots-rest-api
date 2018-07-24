@@ -59,7 +59,7 @@
 |Название| Возможные действия    |  Возможные события          |
 |-----|:-----:|:------------:|
 | **channel** | [actions](./request/channel.md) |              |
-| **call**    | [actions](./request/calls.md)   | [events](./events/calls.md) |
+| **call**    | [actions](./request/call.md)    | [events](./events/call.md) |
 | **comment** | [actions](./request/comment.md) | [events](./events/comment.md)|
 | **contact** | [actions](./request/contact.md) |              |
 | **file**    | [actions](./request/file.md)    |              |

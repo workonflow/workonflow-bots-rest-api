@@ -1,4 +1,4 @@
-# Support Comment events
+# Comment events
 
 ## Событие создания коментария
 

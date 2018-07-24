@@ -1,13 +1,11 @@
-### Support GET and POST HTTP methods
-
 # Mail
 
-# Method for obtaining email channels
+## Method for obtaining email channels
 ```api.workonflow.com/{teamid}/channel.mail/get/{query}```
 
 ### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
+| название      |тип            | описание                       |
+| ------------- |---------------| ----------------------|
 | userId        | string        | User ID (returns array of available channels) |
 | userIds       | array         | Array of user IDs (analogous to id) (optionally)  |
 | email         | string        | Mail channel (returns channel with indicated email address, optionally) |

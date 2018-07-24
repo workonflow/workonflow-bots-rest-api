@@ -1,92 +1,144 @@
-### Support GET and POST HTTP methods
+# Comments actions
 
-# Метод для получения колличества комментариев
-```p api.workonflow.com/{teamid}/comment/count/{query} ```
+### comment/count
 
-### Query:
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| threadId      | string        | id of thread   |
-| threadIds     | array         | array ids of thread   |
-| streamId      | string        | id of stream |
+**Метод для получения колличества комментариев**
 
-### Query example:
 ```js
-  threadId: '5b0525134c0319001573485e',
-  threadIds: ['5afd6d369a88ff00190baf79', '5afd6d369a88ff22190baf79', '5afd6d369a88ff00190bas12', ...],
-  streamId: '5afd74659a88ff00190baf81'
+  api.workonflow.com/{teamid}/comment/count/{query}
 ```
 
-### RESPONSES:
-| code        | message | description           |
-|:------------|:--------|:----------------------|
-| 200         | OK      | return count of comment. Example: count:1   |
+**Parameters**
 
+| field         | type          | description         |
+| ------------- |---------------| -----------------   |
+| threadId      | string        | id of thread        |
+| threadIds     | array         | array ids of thread |
+| streamId      | string        | id of stream        |
 
-# Метод для создания комментариев
-```api.workonflow.com/{teamid}/comment/create/{query}```
+**Query params example:**
 
-### Query:
-| field         | type          | description|
-| ------------- |---------------|:----------------------|
-| threadId      | string        | id of thread          |
-| streamId      | string        | id of stream          |
-| to            | string        | id of user            |
-| att           | string/array  | принимает текст либо массив типа: [{ type: 'text' data: { text: 'string' } }] (type - тип сообщения может быть text, file. data - объект с текстом либо id файла) |
+```json
+  {
+    "query": {
+      "threadId":"5b0525134c0319001573485e"
+    }
+  }
+```
 
-### Query example:
+**Query example:**
 ```js
-  threadId: '5b0525134c0319001573485e',
-  streamId: '5afd74659a88ff00190baf81',
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/comment/count
+```
+
+**Response example:**
+
+```js
+  { code: 200, message: "OK", data: { count: 1 } }
+```
+
+---
+
+### comment/create
+
+**Метод для создания комментариев**
+
+```js
+  api.workonflow.com/{teamid}/comment/create/{query}
+```
+
+**Parameters:**
+
+| field         | type     | description|
+| ------------- |----------|----------------------|
+| threadId      |string    | id of thread указываем если комментарий необходимо создать в задаче |
+| streamId      |string    | id of stream указываем если комнтарий необходимо создать в потоке |
+| to            |string    | id of user указываем если комнтарий необходимо отправить в личные сообщения |
+| att           |string/array| принимает текст либо массив типа: [{ type: 'text' data: { text: 'string' } }] (type - тип сообщения может быть text, file. data - объект с текстом либо id файла) |
+| commentId     | string | идентификатор комментария, приходит в ответе на запрос |
+
+> **Важно!** должен быть только один параметр получателя: streamId, threadId или to
+
+**Query params example:**
+```js
+{
   to: '5971f31881d3f800149760b4',
-  att: 'new comment',
-  att: [{ type: 'text' data: { text: 'new comment in array' } }],
+  att: 'new comment'
+}
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        | return id of comment. Example: id: 'commentId'   |
+**Query example:**
+TODO
 
+**Response example:**
+```js
+  { code: 200, massage: "OK", data: { commentId: '5971f31881d3f800149760b4' } }
+```
+---
 
-# Метод для получения комментариев
-```api.workonflow.com/{teamid}/comment/read/{query}```
+### comment/read
+
+**Метод для получения комментариев**
+
+```js
+  api.workonflow.com/{teamid}/comment/read/{query}
+```
+
+**Parameters:**
 
 | field         | type          | description|
 | ------------- |---------------|:----------------------|
-| threadId          | string        | id of thread   |
-| streamId      |   string      | id of stream |
-| commentId       | string       | id of comment   |
-| skip          | number         | кол-во комментариев которые необходимо пропустить (optionally) |
+| threadId      | string        | id of thread    |
+| streamId      | string        | id of stream    |
+| commentId     | string        | id of comment   |
+| skip          | number        | кол-во комментариев которые необходимо пропустить (optionally) |
 | type          | string        | type of comment |
-
-### Query example:
+| createdAt     | number        | время создания комментария в формате timestamp |
+| to            | array         | id of user усли комментарий был отправлен в личные сообщения пользователю |
+| from          | string        | id of user который создал комментарий |
+| att           | string        | текст комментария |
+| channel       | string/null   | id of channel, приходит в ответе если комментарий был создан с использованием внешнего канала |
+**Query params example:**
 ```js
+{
   threadId: '5b0525134c0319001573485e',
   streamId: '5afd74659a88ff00190baf81',
   commentId: '5971f31881d3f800149760b4',
   skip: 100,
   type: 'file',
+}
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        | return array of comments. Example see below   |
+**Query example:**
+TODO
+
+**Response example:**
 
 ```js
+{
+  code: 200,
+  message: 'OK',
   data: [ {
     type: 'type comment',
     createdAt: 1520926199680,
-    updatedAt: 1520926199680,
     to: [],
     from: '',
-    metadata: [],
-    att: [],
-    _id: 'id comment',
+    att: '',
+    commentId: 'id comment',
+    channel: null,
+    threadId: 'some thread id',
+    streamId: 'some thread id',
+  }, {
+    type: 'type comment',
+    createdAt: 1520926199680,
+    to: [],
+    from: '',
+    att: '',
+    commentId: 'id comment',
     teamId: 'some time id',
     channel: null,
     threadId: 'some thread id',
     streamId: 'some thread id',
-  } ]
+  }, ... ]
+}
 ```

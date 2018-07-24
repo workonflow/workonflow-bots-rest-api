@@ -58,13 +58,14 @@
 
 |Название| Возможные действия    |  Возможные события          |
 |-----|:-----:|:------------:|
-| **channel** | [actions](./request/channel.md) |          |
-| **comment** | [actions](./request/comment.md) | [events](./events/comment.md) |
-| **contact** | [actions](./request/contact.md) |          |
-| **file**    | [actions](./request/file.md)    |          |
-| **status**  | [actions](./request/status.md)  |          |
+| **channel** | [actions](./request/channel.md) |              |
+| **call**    | [actions](./request/calls.md)   | [events](./events/calls.md) |
+| **comment** | [actions](./request/comment.md) | [events](./events/comment.md)|
+| **contact** | [actions](./request/contact.md) |              |
+| **file**    | [actions](./request/file.md)    |              |
+| **status**  | [actions](./request/status.md)  |              |
 | **stream**  | [actions](./request/stream.md)  | [events](./events/stream.md) |
-| **team**    | [actions](./request/team.md)    | [events](./events/team.md) |
+| **team**    | [actions](./request/team.md)    | [events](./events/team.md)   |
 | **thread**  | [actions](./request/thread.md)  | [events](./events/thread.md) |
 
 Для просмотра метода, выберите событие или действия для просмотра полного списка и примера использования.

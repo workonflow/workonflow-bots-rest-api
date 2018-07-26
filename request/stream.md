@@ -1,91 +1,136 @@
-### Support GET and POST HTTP methods
+# Stream actions
 
-# Create stream
-```api.workonflow.com/{teamid}/stream/create/{query}```
+## stream/create
 
-### Query:
-
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| name          | string        | new name for stream   |
-| isEmpty       | boolean       | по умолчанию поток создаётся с 3мя статусами, если указать данный параметр будет создан пустой поток  |
-| settings      | string/array/object | settings for stream |
-
-### Query example:
+**Метод для создания потока.**
+```js
+  api.workonflow.com/{teamid}/stream/create/{query}
 ```
-  name: 'New stream',
-  isEmpty: true,
-  settings: {
-  roles: [],
-  seenBy: {},
-  settings: {
-    widgets: {
-      DataTime: {on: true, options: "deadline", type: "DataTime"},
-      ExternalFollowers: {on: true, type: "ExternalFollowers"},
-      Priority: {on: true, type: "Priority"},
-      Responsible: {on: true, type: "Responsible"},
-      StreamSelect: {on: true, type: "StreamSelect"},
-      WorkflowStatus: {on: true, type: "WorkflowStatus"},
-  },
-  threadPrioritites: [],
-  threadStatuses: [],
-  visibility: []
+
+**Parameters:**
+| field         | type    | description|
+| ------------- |---------| :----------------------|
+| name          | string  | new name for stream   |
+| isEmpty       | boolean | по умолчанию поток создаётся с 3мя статусами, если указать данный параметр будет создан пустой поток  |
+
+**Query params example:**
+
+```json
+{
+  "query":{
+    "name": "New stream",
+    "isEmpty": "true"
+  }
+}
+```
+**Query example:**
+
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "name":"New stream" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream/create
+```
+
+**Response example:**
+```js
+ { code: 200, message: 'OK', data: { streamId: '5b0525134c0319001573485e' } }
+```
+----------------------------------------------------------------------------------------------------
+
+## stream/delete
+```js
+  api.workonflow.com/{teamid}/stream/delete/{query}
+```
+
+**Parameters:**
+
+| field         | type          | description         |
+| ------------- |---------------| :------------------ |
+| streamId      | string        | uniq id of stream   |
+
+**Query params example:**
+
+```json
+{
+  "query": {
+    "streamId": "5b0525134c0319001573485e"
+  }
 }
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  return new stream id  |
+**Query example:**
 
-
-# Delete stream
-```api.workonflow.com/{teamid}/stream/delete/{query}```
-
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| streamId          | string        | uniq id of stream   |
-
-### Query example:
-```
-  streamId: '5b0525134c0319001573485e'
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream/delete
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  |
+**Response example:**
+```js
+ { code: 200, message: 'OK' }
+```
+----------------------------------------------------------------------------------------------------
 
+## stream/read
 
-# Stream read
-```api.workonflow.com/{teamid}/stream/read/{query}```
+**Метод для получения потоков**
 
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| streamId      | string        | uniq id of stream (optionally)     |
+```js
+  api.workonflow.com/{teamid}/stream/read/{query}
+```
+
+**Parameters:**
+
+| field         | type            | description                        |
+| ------------- |---------------  | :----------------------            |
+| streamId      | string          | uniq id of stream (optionally)     |
 | streamIds     | array of string | array uniq ids of stream  (optionally)|
+| name          | string          | name of stream                     |
+| roles         | array of string | список участников потока           |
+| statuses      | array of string | список статусов потока             |
+| settings      | array of object | список настроек потока содержит в себе настройки виджетов и оповещений, которые будут отображатся на панели задачи|
+| widgets       | object          | объект состояния виджетов, каждый виджет содержит в себе тип и его активность |
+| DataTime      | object          | при включении виджета отображает дедлайн или период времени для выполнения задачи |
+| Priority      | object          | при включении отображает виджет важность задачи |
+| Responsible   | object          | при включении отображает виджет ответственного за задачу |
+| WorkflowStatus| object          | при включении отображает виджет статуса задачи |
+| StreamSelect  | object          | при включении отображает виджет выбора потока бля задачи |
+| Customers     | object          | при включении отображает виджет клиентов задачи |
+| Points        | object          | при включении отображает виджет оценки задачи |
+| notify        | object          | показывает состояния оповещения по изменениям в потоке | 
+| teamId        | string          | id of team |
+| owner         | string          | id of user который создал поток |
+| isPrivate     | boolean         | приватность стрима (при значении false поток будет доступен для всех участников team) |
+| createdAt     | number          | дата создания стрима в формате timestamp (пример: 1516360789475) |
+| updatedAt     | number          | дата последнего обновления в формате timestamp (пример: 1516360789475)|
+| admins        | array of object | список администраторов потока |
 
-### Query example:
-```
-  streamId: '5b0525134c0319001573485e',
-  streamIds: ['5b0525134c0319001573485e', '5b0525134c0319001573485e']
+
+**Query params example:**
+
+```json
+{
+  "query":{
+    "streamId": "5b0525134c0319001573485e",
+    "streamIds": ["5b0525134c0319001573485e", "5b0525134c0319001573485e"]
+  }
+}
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  return stream object. See example below  |
+**Query example:**
 
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream/read
 ```
+
+**Response example:**
+
+```js
+{
+  code: 200,
+  massage: 'OK',
   data: [ {
-    _id: 'stream id',
+    streamId: '5b0525134c0319001573485e',
     name: 'stream name',
-    roles: [Array responsible users],
-    threadStatuses: [Array statuses],
-    visibility: [],
-    seenBy: {},
+    roles: ['5b0525134c0319001573485e', '5b0525134c0319001573485e'],
+    statuses: ['5b0525134c0319001573485e', '5b0525134c0319001573485e'],
     settings: [{
       widgets: {
         DataTime: { on: true, options: 'deadline', type: 'DataTime' },
@@ -98,262 +143,415 @@
       },
       notify: {}
     }],
-    teamId: 'team id',
-    index: 1516360789475,
-    owner: 'id creator stream',
+    teamId: '5b0525134c0319001573485e',
+    owner: '5b0525134c0319001573485e',
     isPrivate: true,
     createdAt: 1516360789475,
     updatedAt: 1516360789475,
-    admins: [id admin list]
+    admins: ['5b0525134c0319001573485e', '5b0525134c0319001573485e']
   } ]
+}
+```
+----------------------------------------------------------------------------------------------------
+
+
+## stream.name/set
+
+**Метод для того что-бы задать или изменить имя потока**
+
+```js
+  api.workonflow.com/{teamid}/stream.name/set/{query}
 ```
 
+**Parameters:**
 
-# Stream set name
-```api.workonflow.com/{teamid}/stream.name/set/{query}```
+| field      | type      | description                        |
+| ---------- |-----------| :-------------------|
+| streamId   | string    | uniq id of stream   |
+| name       | string    | new name for stream |
 
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| streamId          | string        | uniq id of stream   |
-| name       | string       | new name for stream  |
-
-### Query example:
-```
-  streamId: '5b0525134c0319001573485e',
-  name: 'New name for stream'
-```
-
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  |
-
-
-# Stream set admin
-```api.workonflow.com/{teamid}/stream.member/setadmin/{query}```
-
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| streamId          | string        | uniq id of stream   |
-| userId       | string       | uniq id of user  |
-
-### Query example:
-```
-  streamId: '5b0525134c0319001573485e',
-  userId: '5b0525134c0319001573426a'
+**Query params example:**
+```json
+{
+  "query":{
+    "streamId":"5b0525134c0319001573485e",
+    "name":"For sales"
+  }
+}
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |    |
+**Query example:**
 
-
-# Stream revoke admin
-```api.workonflow.com/{teamid}/stream.member/revokeadmin/{query}```
-
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| streamId          | string        | uniq id of stream   |
-| userId       | string       | uniq id of user  |
-
-### Query example:
-```
-  streamId: '5b0525134c0319001573485e',
-  userId: '5b1535134c0319001573485e'
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "name":"For sales" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.name/set
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  |
-
-
-# Stream add member
-```api.workonflow.com/{teamid}/stream.member/add/{query}```
-
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| streamId          | string        | uniq id of stream   |
-| userId       | string       | uniq id of user  |
-
-### Query example:
+**Response example:**
+```js
+  { code: 200, massage: 'OK' }
 ```
-  streamId: '5b0525134c0319001573485e',
-  userId: '5b0635434c0319001573485e'
+----------------------------------------------------------------------------------------------------
+
+## stream.member/set.admin
+
+**Метод для предоставления прав администратора участнику потока**
+```js
+  api.workonflow.com/{teamid}/stream.member/set.admin/{query}
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |   |
+**Parameters:**
 
+| field      | type      | description         |
+| ---------- |-----------| :-------------------|
+| streamId   | string    | uniq id of stream   |
+| userId     | string    | uniq id of user для предоставления прав |
+
+**Query params example:**
+
+```json
+{
+  "query":{
+    "streamId": "5b0525134c0319001573485e",
+    "userId": "5b0525134c0319001573426a"
+  }
+}
+```
+
+**Query example:**
+
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.member/set.admin
+```
+
+**Response example:**
+```js
+  { code: 200, massage: 'OK' }
+```
+----------------------------------------------------------------------------------------------------
+
+
+## stream.member/revoke.admin
+
+**Метод для изъятия прав администратора у участника потока**
+
+```js
+  api.workonflow.com/{teamid}/stream.member/revoke.admin/{query}
+```
+
+**Parameters:**
+
+| field      | type      | description         |
+| -----------|-----------| :----------------------|
+| streamId   | string    | uniq id of stream |
+| userId     | string    | uniq id of user для изъятия прав администратора |
+
+**Query params example:**
+
+```json
+{
+  "query":{
+    "streamId":"5b0525134c0319001573485e",
+    "userId":"5b1535134c0319001573485e"
+  }
+}
+```
+**Query example:**
+
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.member/revoke.admin
+```
+
+**Response example:**
+```js
+  { code: 200, massage: 'OK' }
+```
+----------------------------------------------------------------------------------------------------
+
+## stream.member/add
+
+**Метод для добавления участника в поток**
+
+```js
+  api.workonflow.com/{teamid}/stream.member/add/{query}
+```
+
+**Parameters:**
+| field      | type      | description                 |
+| ---------- |-----------| :----------------------     |
+| streamId   | string    | uniq id of stream           |
+| userId     | string    | uniq id of user которого приглашают в поток  |
+
+**Query params example:**
+
+```json
+{
+  "query":{
+    "streamId":"5b0525134c0319001573485e",
+    "userId":"5b0635434c0319001573485e"
+  }
+}
+```
+
+**Query example:**
+
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.member/add
+```
+
+**Response example:**
+```js
+  { code: 200, massage: 'OK' }
+```
+----------------------------------------------------------------------------------------------------
 
 # Stream remove member
 ```api.workonflow.com/{teamid}/stream.member/remove/{query}```
 
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| streamId          | string        | uniq id of stream   |
-| userId       | string       | uniq id of user  |
+**Parameters:**
 
-### Query example:
-```
-  streamId: '5b0525134c0319001573485e',
-  userId: '5b0534256c0319001573485e'
-```
+| field     | type   | description                     |
+| --------- |--------| :-------------------------------|
+| streamId  | string | uniq id of stream               |
+| userId    | string | uniq id of user, которого необходимо удалить из участников потока|
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  |
+**Query params example:**
 
-
-# Stream set description
-```api.workonflow.com/{teamid}/stream.description/set/{query}```
-
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| streamId          | string        | uniq id of stream   |
-| content       | string       | some text for description |
-
-### Query example:
-```
-  streamId: '5b0525134c0319001573485e',
-  content: 'new description for stream'
+```json
+{
+  "query":{
+    "streamI":"5b0525134c0319001573485e",
+    "userId":"5b0534256c0319001573485e"
+  }
+}
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  |
+**Query example:**
 
-
-# Stream get description
-```api.workonflow.com/{teamid}/stream.description/get/{query}```
-
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| streamId          | string        | uniq id of stream   |
-
-### Query example:
-```
-  streamId: '5b0525134c0319001573485e'
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.member/remove
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  return description stream object. See example below  |
-
-
-# Stream create status
-```api.workonflow.com/{teamid}/stream.status/create/{query}```
-
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| name          | string        | new name for status   |
-| streamId       | string       | uniq id of stream  |
-| type          | string        | on of the types: Wait, In Progress, Done|
-| color         | string        | Color of status in the format: #c0c0c0 |
-
-### Query example:
+**Response example:**
+```js
+  { code: 200, massage: 'OK' }
 ```
-  name: 'New name status',
-  streamId: '5b0525134c0319001573485e',
-  type: 'In Progress,
-  color: '#c0c0c0
+----------------------------------------------------------------------------------------------------
+
+
+## stream.description/set
+
+**Метод для добавления или изменения описания потока**
+
+```js
+  api.workonflow.com/{teamid}/stream.description/set/{query}
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  return new id status  |
+**Parameters:**
 
+| field     | type          | description                     |
+| --------- |---------------| :----------------------|
+| streamId  | string        | uniq id of stream      |
+| content   | string        | some text for description |
 
-# Stream get status
-```api.workonflow.com/{teamid}/stream.status/get/{query}```
+**Query params example:**
 
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| streamId          | string        | uniq id of stream (optionally)   |
-| statusId       | string       | uniq id of status |
-
-### Query example:
-```
-  streamId: '5b0525134c0319001573485e',
-  statusId: '5b0525134c0319001573456s'
+```json
+{
+  "query":{
+    "streamId":"5b0525134c0319001573485e",
+    "content":"new description for stream"
+  }
+}
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  return status object. See example below  |
+**Query example:**
 
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "content":"new description for stream" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.description/set
 ```
-  data: [ {
-    color: "status color in format #c0c0c0",
-    name: "name status",
-    streamId: "id stream",
-    teamId: "id team",
-    type: "global status Wait, In progress or Done",
-    workflow: "",
-    _id: "status id"
-  }, {
-    // если запрос был по streamId то тут будут перечисленны все статусы
-  }, {
-    ...
+
+**Response example:**
+```js
+  { code: 200, massage: 'OK' }
+```
+----------------------------------------------------------------------------------------------------
+
+
+## stream.description/get
+
+**Метод для добавления или изменения описания потока**
+
+```js
+  api.workonflow.com/{teamid}/stream.description/get/{query}
+```
+
+**Parameters:**
+
+| field     | type          | description                     |
+| --------- |---------------| :---------------------|
+| streamId  | string        | uniq id of stream   |
+
+**Query params example:**
+
+```json
+{
+  "query":{
+    "streamId":"5b0525134c0319001573485e"
+  }
+}
+```
+
+**Query example:**
+
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.description/get
+```
+
+**Response example:**
+```js
+  { code: 200, massage: 'OK', data:{ content: 'description stream' } }
+```
+----------------------------------------------------------------------------------------------------
+
+## stream.status/create
+
+**Метод для создания нового статуса в потоке**
+
+```js
+  api.workonflow.com/{teamid}/stream.status/create/{query}
+```
+
+**Parameters:**
+| field     | type      | description                     |
+| --------- |-----------| :---------------------|
+| name      | string    | new name for status   |
+| streamId  | string    | uniq id of stream     |
+| type      | string    | on of the types: Wait, In Progress, Done|
+| color     | string    | Color of status in the format: #c0c0c0 |
+| statusId  | string    | uniq id of new status in response |
+
+**Query params example:**
+
+```json
+{
+  "query":{
+    "name": "End job",
+    "streamId": "5b0525134c0319001573485e",
+    "type": "Done",
+    "color": "#c0c0c0"
+  }
+}
+```
+
+**Query example:**
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "name":"End job", "type":"Done", "color":"#c0c0c0" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.status/create
+```
+
+**Response example:**
+```js
+  { code: 200, message: 'OK', data: { statusId: '5b0525134c0319001573485e' } }
+```
+----------------------------------------------------------------------------------------------------
+
+## stream.status/get
+
+**Метод для получения статусов потока**
+
+```js
+  api.workonflow.com/{teamid}/stream.status/get/{query}
+```
+
+**Parameters:**
+
+| field     | type     | description            |
+| --------- |----------| :----------------------|
+| streamId  | string   | uniq id of stream (optionally)|
+| statusId  | string   | uniq id of status      |
+| name      | string   | status name            |
+| type      | string   | on of the types: Wait, In Progress, Done|
+| color     | string   | Color of status in the format: #c0c0c0 |
+| statusId  | string   | uniq id of new status in response |
+
+**Query params example:**
+
+```json
+{
+  "query":{
+    "streamId":"5b0525134c0319001573485e",
+    "statusId":"5b0525134c0319001573456s"
+  }
+}
+```
+
+**Query example:**
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "statusId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.status/get
+```
+
+**Response example:**
+```js
+{
+  code: 200,
+  message: 'OK',
+  data:[{
+    color: "#c0c0c0",
+    name: "End job",
+    streamId: "5b0525134c0319001573485e",
+    type: "Done",
+    statusId: "5b0525134c0319001573485e"
   }]
+}
+```
+----------------------------------------------------------------------------------------------------
+
+## stream.status/set.name
+
+**Метод для добавления или изменения имени статуса потока**
+
+```js
+  api.workonflow.com/{teamid}/stream.status/set.name/{query}
 ```
 
+**Query params example:**
 
-# Stream set name status
-```api.workonflow.com/{teamid}/stream.status/setname/{query}```
+| field     | type          | description            |
+| --------- |---------------| :------------------ |
+| statusId  | string        | uniq id of status   |
+| name      | string        | new name for status |
+
+**Query example:**
+
+```json
+{
+  "query":{
+    "statusId":"5b0525134c0319001573456s",
+    "name": "Testing",
+  }
+}
+```
+
+**Query example:**
+
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": { "statusId":"5b0525134c0319001573485e", "name":"Testing" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.status/set.name
+```
+
+**Response example:**
+```js
+  { code: 200, message: 'OK' }
+```
+----------------------------------------------------------------------------------------------------
+
+
+## stream.status/delete
+**Метод для удаления статуса у потока**
+```js
+  api.workonflow.com/{teamid}/stream.status/delete/{query}
+```
 
 ### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| statusId          | string        | uniq id of status   |
-| name       | string       | new name for status |
-
-### Query example:
-```
-  statusId: '5b0525134c0319001573456s'
-  name: 'New name status for current status',
-```
-
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  return status object. See example below  |
-
-```
-  data: [ {
-    color: "status color in format #c0c0c0",
-    name: "name status",
-    streamId: "id stream",
-    teamId: "id team",
-    type: "global status Wait, In progress or Done",
-    workflow: "",
-    _id: "status id"
-  }]
-```
-
-
-# Stream delete status
-```api.workonflow.com/{teamid}/stream.status/delete/{query}```
-
-### Query:
-|               |               |                       |
+| field     | type          | description            |
 | ------------- |---------------| ----------------------:|
 | streamId          | string        | uniq id of stream   |
 | statusId       | string       | uniq id of status |

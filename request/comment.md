@@ -8,7 +8,7 @@
   api.workonflow.com/{teamid}/comment/count/{query}
 ```
 
-**Parameters**
+**Parameters:**
 
 | field         | type          | description         |
 | ------------- |---------------| -----------------   |
@@ -142,3 +142,10 @@ TODO
   }, ... ]
 }
 ```
+
+
+
+**Parameters:**
+**Query params example:**
+**Query example:**
+**Response example:**

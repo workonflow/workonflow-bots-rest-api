@@ -1,76 +1,130 @@
-## Support GET and POST HTTP methods
+# Contact actions
 
-# Метод для создания контакта
-```api.workonflow.com/{teamid}/contact/create/{query}```
+### contact/create
 
-### Query:
+**Метод для создания контактов**
+
+```js
+  api.workonflow.com/{teamid}/contact/create/{query}
+```
+
+**Parameters:**
+
 | field         | type          | description|
 | ------------- |---------------| ----------------------:|
 | basicData     | object        | Takes an object with the name of the contact |
 | customFields  | array         | Field for adding channels to the contact  |
+| contactId     | string        | id of contact |
 
-### Query example:
+**Query params example:**
+
+```json
+{
+  "query": {
+    "basicData": {
+      "name": "Alex",
+      "email": "email@email.com"
+    },
+    "customFields": [
+      {"id": "B1R5NTS3z", "label": "Company", "value": "", "type": "company"},
+      {"id": "B1l094TB2M", "label": "Work phone", "value": "", "type": "phone"},
+      {"id": "rkbA9VTH3M", "label": "Work e-mail", "value": "", "type": "email"}
+    ]
+  }
+}
 ```
-  basicData: {
-    name: "Alex",
-    email: "email@email.com"
-  },
-  customFields: [
-    {id: "B1R5NTS3z", label: "Company", value: "", type: "company"},
-    {id: "B1l094TB2M", label: "Work phone", value: "", type: "phone"},
-    {id: "rkbA9VTH3M", label: "Work e-mail", value: "", type: "email"}
-  ]
+
+**Query example:**
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query": {"basicData": {"name": "Alex", "email": "email@email.com"}, "customFields": [{"id": "B1R5NTS3z", "label": "Company", "value": "", "type": "company"}, {"id": "B1l094TB2M", "label": "Work phone", "value": "", "type": "phone"}, {"id": "rkbA9VTH3M", "label": "Work e-mail", "value": "", "type": "email"}]}}' https://api.workonflow.com/333ccc134c0319001573485e/contact/create
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        | return contact id. Example: data: { insertedCount: 1, insertedId: '1491eh1029318du1dqw9' }   |
+**Response example:**
 
+```js
+  { code: 200, message: "OK", data: { contactId: '1491eh1029318du1dqw9' } }
+```
+---
 
-# Метод для получения "языка" пользователя
-```api.workonflow.com/{teamid}/contact/local/{query}```
+## contact/local
 
-### Query:
+**Метод для получения "языка" пользователя**
+
+```js
+  api.workonflow.com/{teamid}/contact/local/{query}
+```
+
+**Parameters:**
+
 | field         | type          | description|
 | ------------- |---------------| ----------------------:|
 | userId     | string        | id of user |
 
-### Query example:
-```
-  userId: '5b0525134c0319001573485e'
-```
-
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        | return locale user. Example: data: { locale: 'en' }   |
-
-
-# Метод для получения пользоватей
-```api.workonflow.com/{teamid}/contact/get/{query}```
-
-### Query:
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| userId        | string        | Contact or user ID |
-| userIds       | array         | Several contact or user IDs  |
-
-### Query example:
-```
-  userId: '5b0525134c0319001573485e',
-  userIds: ['5afd6d369a88ff00190baf79', '5afd6d369a88ff22190baf79']
+**Query params example:**
+```json
+{
+  "query":{
+    "userId":"5b0525134c0319001573485e"
+  }
+}
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        | return user or contact. See example below   |
-
-### user:
+**Query example:**
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query":{"userId":"5b0525134c0319001573485e"}}' https://api.workonflow.com/333ccc134c0319001573485e/contact/create
 ```
+
+**Response example:**
+
+```js
+  { code: 200, message: "OK", data: { userId: "5b0525134c0319001573485e", local: "us" } }
+```
+---
+## contact/get
+
+**Метод для получения пользоватей**
+```js
+  api.workonflow.com/{teamid}/contact/get/{query}
+```
+
+**Parameters:**
+| field         | type    | description|
+| ------------- |---------| :----------------------|
+| userId        | string  | Contact or user ID     |
+| userIds       | array   | Several contact or user IDs|
+| billingType   | string  | тип пользователя, может быть users, contact или bots |
+| basicData     | object  | содержит в себе имя, телефоны и почтовые адреса контакта |
+| extension     | string  | внутренний номер сотрудника |
+| teamId        | string  | id of team |
+| createdAt     | string  | дата создания в формате ISO, пример: '2018-04-02T13:51:03.800Z' |
+| updatedAt     | number  | дата последнего обновления в формате timestamp, пример: 1517574060991|
+| color         | string  | цвет фона и иконки пользователя в виде '#ffffff' |
+| status        | string  | статус пользователя онлайн или нет |
+| voiceRules    | array   | настройки голосовых каналов у пользователя |
+
+**Query params example:**
+
+```json
+{
+  "query":{
+    "userId":"5b0525134c0319001573485e",
+    "userIds":["5afd6d369a88ff00190baf79", "5afd6d369a88ff22190baf79"]
+  }
+}
+```
+
+**Query example:**
+
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{"query":{"userId":"5b0525134c0319001573485e"}}' https://api.workonflow.com/333ccc134c0319001573485e/contact/get
+```
+**Response example:**
+
+```js
+{
+  code: 200,
+  message: 'OK',
   data: [ {
-    _id: 'user id',
     billingType: 'users',
     basicData: {
       name: 'user name',
@@ -78,13 +132,11 @@
       phone: [ 'user phone' ]
     },
     extension: 'number extension in system',
-    canonicalPhone: [],
     teamId: 'team id',
     createdAt: '2017-10-30T10:15:53.245Z',
     updatedAt: 1517574060991,
-    color: 'background name color',
-    hrData: { position: '' },
-    status: 'on||off (online or no)',
+    color: '#ffffff',
+    status: 'off',
     voiceRules: [ {
       type: 'webrtc',
       enabled: true,
@@ -99,47 +151,5 @@
       visible: true
     } ]
   } ]
-```
-
-### external user:
-```
-  data: [ {
-      _id: '5ad848cc014201001f82c947',
-      basicData: { name: 'new name customer' },
-      customFields:  [ {
-        id: 'B1R5NTS3z',
-        label: 'Company',
-        value: '',
-        type: 'company'
-      }, {
-        id: 'B1l094TB2M',
-        label: 'Work phone',
-        value: '',
-        type: 'phone'
-      }, {
-        id: 'rkbA9VTH3M',
-        label: 'Work e-mail',
-        value: '',
-        type: 'email'
-      } ],
-      billingType: 'contacts',
-      teamId: '59f6fbd69af753001e453905',
-      createdAt: '2018-04-19T07:44:12.942Z',
-      updatedAt: '2018-04-19T07:44:12.942Z',
-      color: '#718699',
-      status: 'off',
-      voiceRules: [ {
-        type: 'webrtc',
-        enabled: true,
-        timeout: '',
-        extension: '*9',
-        visible: true
-      }, {
-        type: 'sip',
-        enabled: true,
-        timeout: '',
-        extension: '*1',
-        visible: true
-      } ]
-    } ]
+}
 ```

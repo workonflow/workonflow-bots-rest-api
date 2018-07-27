@@ -1,66 +1,133 @@
 # Comment events
 
-## Событие создания коментария
+## comment.created
 
-#### Query example:
+**Событие создания коментария**
+
+**Parameters:**
+
+| field     | type   | description  |
+| --------- |--------| :----------- |
+| eventType | string | тип события   | 
+| teamId    | string | id of team    |
+| id        | string | id of comment | 
+| createdAt | number | время создания коментария в формате timestamp | 
+| updatedAt | number | время последнего обнавления коментария в формате timestamp | 
+| to        | string | id of user получателя |
+| threadId  | string | id of thread, если комментарий был создан в задаче |
+| streamId  | string | id of stream, если комментарий был создан в потоке |
+| from      | string | id of user создавший комментарий | 
+| attText   | string | comment text | 
+
+**Body example:**
+
 ```js
-  eventType: 'comment-on-created',
-  teamId: 'some team id',
-  id: 'comment id',
-  userId: 'some user id',
+{
+  eventType: 'comment.created',
+  teamId: '595b405b81d3f8001497603d',
+  id: '595b405b81d3f80014976031',
   createdAt: 1524043332761,
   updatedAt: 1524043332761,
-  to: 'bot id',
-  from: 'user id',
-  attText: 'some text',
+  to: '595b405b81d3f80014976032',
+  from: '595b405b81d3f80014976033',
+  streamId: '595b405b81d3f80014976034',
+  attText: 'hello world',
+}
+```
+------------------------------------------------------------------------------------
+
+## comment.direct
+
+**Событие создания комментария в личном чате пользователя с ботом**
+
+**Parameters:**
+
+| field     | type   | description  |
+| --------- |--------| :----------- |
+| eventType | string | тип события   | 
+| teamId    | string | id of team    |
+| id        | string | id of comment | 
+| createdAt | number | время создания коментария в формате timestamp | 
+| updatedAt | number | время последнего обнавления коментария в формате timestamp | 
+| from      | string | id of user создавший комментарий | 
+| attText   | string | comment text | 
+
+
+**Body example:**
+
+```js
+{
+  eventType: 'comment.direct',
+  teamId: '595b405b81d3f8001497603d',
+  id: '595b405b81d3f80014976031',
+  createdAt: 1524043332761,
+  updatedAt: 1524043332761,
+  from: '595b405b81d3f80014976033',
+  attText: 'hello world',
+}
+```
+------------------------------------------------------------------------------------
+
+## comment.mention.stream
+
+**События создания коментария с упоминанием бот-id в потоке**
+
+**Parameters:**
+
+| field     | type   | description  |
+| --------- |--------| :----------- |
+| eventType | string | тип события   | 
+| teamId    | string | id of team    |
+| id        | string | id of comment | 
+| createdAt | number | время создания коментария в формате timestamp | 
+| updatedAt | number | время последнего обнавления коментария в формате timestamp | 
+| streamId  | string | id of stream |
+| attText   | string | comment text with botId | 
+
+**Body example:**
+
+```js
+{
+  eventType: 'comment.mention.stream',
+  teamId: '595b405b81d3f80014976033',
+  id: '595b405b81d3f80014976034',
+  userId: '595b405b81d3f80014976035',
+  createdAt: 1524043332761,
+  updatedAt: 1524043332761,
+  attText: '@595b405b81d3f80014976033@ some text',
+  streamId: '595b405b81d3f80014976036',
+}
 ```
 
-## Событие создания комментария в личном чате пользователя с ботом
+## comment.mention.thread
 
-#### Query example:
+**События создания коментария с упоминанием бот-id в задаче**
+
+
+**Parameters:**
+
+| field     | type   | description  |
+| --------- |--------| :----------- |
+| eventType | string | тип события   | 
+| teamId    | string | id of team    |
+| id        | string | id of comment | 
+| createdAt | number | время создания коментария в формате timestamp | 
+| updatedAt | number | время последнего обнавления коментария в формате timestamp | 
+| threadId  | string | id of thread |
+| attText   | string | comment text | 
+
+
+**Body example:**
+
 ```js
-  eventType: 'comment-on-direct',
-  teamId: 'some team id',
-  id: 'comment id',
-  userId: 'some user id',
+{
+  eventType: 'comment.mention.stream',
+  teamId: '595b405b81d3f80014976033',
+  id: '595b405b81d3f80014976037',
+  userId: '595b405b81d3f80014976036',
   createdAt: 1524043332761,
   updatedAt: 1524043332761,
-  to: 'bot id',
-  from: 'user id',
-  attText: 'some text',
-```
-
-## События создания коментария с упоминанием бот-id
-
-### In stream
-
-#### Query example:
-```js
-  eventType: 'comment-on-mention-in-stream',
-  teamId: 'some team id',
-  id: 'comment id',
-  userId: 'some user id',
-  createdAt: 1524043332761,
-  updatedAt: 1524043332761,
-  to: 'bot id',
-  from: 'user id',
-  attText: '@botId@ some text',
-  streamId: 'some stream id',
-```
-
-### In thread
-
-#### Query example:
-```js
-  eventType: 'comment-on-mention-in-thread',
-  teamId: 'some team id',
-  id: 'comment id',
-  threadId: 'some thread id',
-  userId: 'some user id',
-  createdAt: 1524043332761,
-  updatedAt: 1524043332761,
-  to: 'bot id',
-  from: 'user id',
-  att: '@botId@ some text',
-  streamId: 'some stream id',
+  attText: '@595b405b81d3f80014976035@ some text',
+  threadId: '595b405b81d3f80014976034',
+}
 ```

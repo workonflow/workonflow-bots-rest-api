@@ -2,7 +2,7 @@
 
 ### call/start
 
-**Метод для активации звонка в треде**
+**Метод создания звонка в задаче**
 
 ```js
   api.workonflow.com/{teamid}/call/start/{query}
@@ -39,7 +39,7 @@
 
 ### call/end
 
-**Метод для деактивации звонка в треде**
+**Метод завершения звонка в задаче**
 
 ```js
   api.workonflow.com/{teamid}/call/end/{query}

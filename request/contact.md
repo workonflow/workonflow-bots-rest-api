@@ -1,4 +1,4 @@
-# Contact actions
+# Contact requests
 
 ### contact/create
 
@@ -11,10 +11,13 @@
 **Parameters:**
 
 | field         | type          | description|
-| ------------- |---------------| ----------------------:|
+| ------------- |---------------| :---------------------- |
 | basicData     | object        | Takes an object with the name of the contact |
-| customFields  | array         | Field for adding channels to the contact  |
+| customFields  | array         | Field for adding channels to the contact, содержит в себе объекты содержащие не типичную информацию о пользователе |
 | contactId     | string        | id of contact |
+| label         | string        | nome of custom field   |
+| value         | string        | value of custom field  |
+| type          | string        | type of custom field   |
 
 **Query params example:**
 

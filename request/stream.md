@@ -1,4 +1,4 @@
-# Stream actions
+# Stream requests
 
 ## stream/create
 
@@ -305,7 +305,9 @@
 ----------------------------------------------------------------------------------------------------
 
 # Stream remove member
-```api.workonflow.com/{teamid}/stream.member/remove/{query}```
+```js
+  api.workonflow.com/{teamid}/stream.member/remove/{query}
+```
 
 **Parameters:**
 
@@ -550,69 +552,91 @@
   api.workonflow.com/{teamid}/stream.status/delete/{query}
 ```
 
-### Query:
-| field     | type          | description            |
-| ------------- |---------------| ----------------------:|
-| streamId          | string        | uniq id of stream   |
-| statusId       | string       | uniq id of status |
+**Query params example:**
+| field     | type    | description         |
+| --------- |---------| :-------------------|
+| streamId  | string  | uniq id of stream   |
+| statusId  | string  | uniq id of status   |
 
-### Query example:
-```
-  streamId: '5b0526a34c0319001573456s',
-  statusId: '5b0525134c0319001573456s'
-```
-
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  |
-
-
-# Stream set field
-```api.workonflow.com/{teamid}/stream.field/set/{query}```
-
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| streamId          | string        | uniq id of stream   |
-| budget       | boolean       | on/off field (optionally) |
-| deadline       | boolean       | on/off field (optionally) |
-| priority       | boolean       | on/off field (optionally) |
-| points       | boolean       | on/off field (optionally) |
-| timetoc       | boolean       | on/off field (optionally) |
-
-### Query example:
-```
-  streamId: '5b0526a34c0319001573456s',
-  budget: false,
-  deadline: false,
-  priority: true,
-  points: false,
-  timetoc: false
+**Query example:**
+```json
+{
+  "query":{
+    "streamId": "5b0526a34c0319001573456s",
+    "statusId": "5b0525134c0319001573456s"
+  }
+}
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  |
-
-
-# Stream set channel as default
-```api.workonflow.com/{teamId}/stream.channels/usedefault/{query}```
-
-### Query:
-|               |               |                       |
-| ------------- |---------------| ----------------------:|
-| streamId          | string        | uniq id of stream   |
-| channelId       | string       | uniq id of channel |
-
-### Query example:
+**Response example:**
+```js
+  { code: 200, massage: 'OK' }
 ```
-  streamId: '5b0526a34c0319001573456s',
-  channelId: '5b1635134c0319001573456s'
+---------------------------------------------------------------------------------------------
+
+## stream.field/set
+
+**Метод для включения/отключения вилжетов стрима**
+```js
+  api.workonflow.com/{teamid}/stream.field/set/{query}
 ```
 
-### RESPONSES:
-| code        | message | description|
-|:------------- |:---------------|:----------------------|
-| 200          | OK        |  |
+**Query params example:**
+| field     | type    | description         |
+| --------- |---------| :-------------------|
+| streamId  | string  | uniq id of stream   |
+| budget    | boolean | on/off field (optionally) |
+| deadline  | boolean | on/off field (optionally) |
+| priority  | boolean | on/off field (optionally) |
+| points    | boolean | on/off field (optionally) |
+| timetoc   | boolean | on/off field (optionally) |
+
+**Query example:**
+```json
+{
+  "query":{
+    "streamId":"5b0526a34c0319001573456s",
+    "budget":"false",
+    "deadline":"false",
+    "priority":"true",
+    "points":"false",
+    "timetoc":"false"
+
+  }
+}
+```
+
+**Response example:**
+```js
+  { code: 200, massage: 'OK' }
+```
+-----------------------------------------------------------------------------------
+
+## stream.channels/use.default
+
+**Метод для изменения канала в потоке**
+```js
+  api.workonflow.com/{teamId}/stream.channels/use.default/{query}
+```
+
+**Query params example:**
+
+| field     | type    | description        |
+| --------- |---------| :------------------|
+| streamId  | string  | uniq id of stream  |
+| channelId | string  | uniq id of channel |
+
+**Query example:**
+```json
+{
+  "query":{
+    "streamId":"5b0526a34c0319001573456s",
+    "channelId":"5b1635134c0319001573456s"
+  }
+}
+```
+
+**Response example:**
+```js
+  { code: 200, massage: 'OK }
+```

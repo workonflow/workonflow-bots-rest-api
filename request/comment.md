@@ -1,4 +1,4 @@
-# Comments actions
+# Comments requests
 
 ### comment/count
 
@@ -149,3 +149,4 @@ TODO
 **Query params example:**
 **Query example:**
 **Response example:**
+

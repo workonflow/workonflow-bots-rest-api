@@ -1,4 +1,4 @@
-# Mail
+# Mail requests
 
 ## Method for obtaining email channels
 ```api.workonflow.com/{teamid}/channel.mail/get/{query}```

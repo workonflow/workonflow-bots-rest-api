@@ -1,54 +1,105 @@
 # Support Stream events
 
-## Событие добавления пользователя в поток
+## stream.user.set
 
-#### Query example:
+**Событие добавления пользователя в поток**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| userId    | string | id of user, которого добавили в поток |
+| streamId  | string | id of string  |
+| initialUser| string | id of user, который добавил |
+
+**Body example:**
 ```js
-  eventType: 'stream-on-user-set',
-  teamId: 'team id',
-  id: 'comment id',
-  userId: 'user id',
-  streamId: 'id stream',
-  type: 'setStreamRole',
-  initialUser: 'initiator user id'
+{
+  eventType: 'stream.user.set',
+  teamId: '5b0525134c0319001573485e',
+  userId: '5b0525134c0319001573485f',
+  streamId: '5b0525134c0319001573485d',
+  initialUser: '5b0525134c0319001573485h'
+}
 ```
+--------------------------------------------------------------------------------
 
-## Событие удаления пользователя из потока
+## strema.user.deleted
 
-#### Query example:
+**Событие удаления пользователя из потока**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| userId    | string | id of user, которого удалили из потока |
+| streamId  | string | id of string  |
+| initialUser| string | id of user, который добавил |
+
+**Body example:**
 ```js
-  eventType: 'stream-on-user-deleted',
-  teamId: 'team id',
-  id: 'comment id',
-  userId: 'user id',
-  streamId: 'id stream',
-  type: 'deleteStreamRole',
-  initialUser: 'initiator user id'
+{
+  eventType: 'stream.user.set',
+  teamId: '5b0525134c0319001573485e',
+  userId: '5b0525134c0319001573485f',
+  streamId: '5b0525134c0319001573485d',
+  initialUser: '5b0525134c0319001573485h'
+}
 ```
+---------------------------------------------------------------------------------
 
-## Событие добавления бота в поток
+## stream.bot.set
 
-#### Query example:
+**Событие добавления бота в поток**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| botid     | string | id of bot, которого добавили |
+| streamId  | string | id of string  |
+| initialUser| string | id of user, который добавил |
+
+**Body example:**
 ```js
-  eventType: 'stream-on-bot-set',
-  teamId: 'team id',
-  id: 'comment id',
-  userId: 'user id',
-  streamId: 'id stream',
-  type: 'setStreamRole',
-  initialUser: 'initiator user id'
+{
+  eventType: 'stream.bot.set',
+  teamId: '5b0525134c0319001573485e',
+  botId: '5b0525134c0319001573485f',
+  streamId: '5b0525134c0319001573485d',
+  initialUser: '5b0525134c0319001573485h'
+}
 ```
+---------------------------------------------------------------------------------
 
-## Событие удаления бота из потока
+## stream.bot.deleted
 
-#### Query example:
+**Событие удаления бота из потока**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| userId    | string | id of user, которого удалили из потока |
+| streamId  | string | id of string  |
+| initialUser| string | id of user, который добавил |
+
+
+**Body example:**
 ```js
-  eventType: 'stream-on-bot-deleted',
-  teamId: 'team id',
-  id: 'comment id',
-  userId: 'user id',
-  streamId: 'id stream',
-  type: 'deleteStreamRole',
-  initialUser: 'initiator user id'
+{
+  eventType: 'stream.bot.deleted',
+  teamId: '5b0525134c0319001573485e',
+  botId: '5b0525134c0319001573485f',
+  streamId: '5b0525134c0319001573485d',
+  initialUser: '5b0525134c0319001573485h'
+}
 ```
-

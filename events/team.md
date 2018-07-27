@@ -1,56 +1,141 @@
-# Support Tema events
+# Tema events
 
-## Событие получения пользователем прав администратора
+## team.admin.status.give
 
-#### Query example:
+**Событие получения пользователем прав администратора**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| userId    | string | id of user    |
+
+**Body example:**
+
 ```js
-  eventType: 'team-on-admin-status-give',
+{
+  eventType: 'team.admin.status.give',
+  teamId: '5b0525134c0319001573485e',
+  userId: '5b0525134c0319001573485f'
+}
+```
+-------------------------------------------
+
+## team.admin.status.revoked
+
+**Событие изъятия у пользователем прав администратора**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| userId    | string | id of user    |
+
+**Body example:**
+
+```js
+{
+  eventType: 'team.admin.status.revoked',
+  teamId: '5b0525134c0319001573485e',
+  userId: '5b0525134c0319001573485f' 
+}
+```
+----------------
+
+## team.user.invited
+
+**Событие приглашения пользователя в "тиму"**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| userId    | string | id of user    |
+| email     | string | user email    |
+**Body example:**
+
+```js
+{
+  eventType: 'team.user.invited',
+  teamId: '5b0525134c0319001573485e',
+  userId: '5b0525134c0319001573485f' 
+  email: 'example@gmail.com'
+}
+```
+----------------------------------------------
+
+## team.user.removed
+
+**Событие удаления пользователя из "тимы"**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| userId    | string | id of user    |
+
+**Body example:**
+
+```js
+{
+  eventType: 'team.user.removed',
+  teamId: '5b0525134c0319001573485e',
+  userId: '5b0525134c0319001573485f' 
+}
   teamId: 'team id',
   userId: 'user id'
 ```
+-------------------------
 
-## Событие изъятия у пользователем прав администратора
+## team.bot.invited
 
-#### Query example:
+**Событие приглашения бота в "тиму"**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| userId    | string | id of user    |
+
+**Body example:**
+
 ```js
-  eventType: 'team-on-admin-status-revoked',
-  teamId: 'team id',
-  userId: 'user id'
+{
+  eventType: 'team.bot.invited',
+  teamId: '5b0525134c0319001573485e',
+  userId: '5b0525134c0319001573485f' 
+}
 ```
+------------------
 
-## Событие приглашения пользователя в "тиму"
+## team.bot.removed
 
-#### Query example:
+**Событие удаления бота из "тимы"**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| userId    | string | id of user    |
+
+**Body example:**
+
 ```js
-  eventType: 'team-on-user-invited',
-  teamId: 'team id',
-  userId: 'user id',
-  email: 'user email'
-```
-
-## Событие удаления пользователя из "тимы"
-
-#### Query example:
-```js
-  eventType: 'team-on-user-removed',
-  teamId: 'team id',
-  userId: 'user id'
-```
-
-## Событие приглашения бота в "тиму"
-
-#### Query example:
-```js
-  eventType: 'team-on-bot-invited',
-  teamId: 'team id',
-  userId: 'user id',
-```
-
-## Событие удаления бота из "тимы"
-
-#### Query example:
-```js
-  eventType: 'team-on-bot-removed',
-  teamId: 'team id',
-  userId: 'user id'
+{
+  eventType: 'team.bot.removed',
+  teamId: '5b0525134c0319001573485e',
+  userId: '5b0525134c0319001573485f' 
+}
 ```

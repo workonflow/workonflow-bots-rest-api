@@ -92,7 +92,7 @@
 
 **Parameters:**
 | field         | type    | description|
-| ------------- |---------| :----------------------|
+| ------------- |---------| ----------------------:|
 | userId        | string  | Contact or user ID     |
 | userIds       | array   | Several contact or user IDs|
 | billingType   | string  | тип пользователя, может быть users, contact или bots |

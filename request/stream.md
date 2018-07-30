@@ -94,7 +94,7 @@
 | StreamSelect  | object          | при включении отображает виджет выбора потока бля задачи |
 | Customers     | object          | при включении отображает виджет клиентов задачи |
 | Points        | object          | при включении отображает виджет оценки задачи |
-| notify        | object          | показывает состояния оповещения по изменениям в потоке | 
+| notify        | object          | показывает состояния оповещения по изменениям в потоке |
 | teamId        | string          | id of team |
 | owner         | string          | id of user который создал поток |
 | isPrivate     | boolean         | приватность стрима (при значении false поток будет доступен для всех участников team) |
@@ -276,6 +276,7 @@
 ```
 
 **Parameters:**
+
 | field      | type      | description                 |
 | ---------- |-----------| :----------------------     |
 | streamId   | string    | uniq id of stream           |
@@ -424,7 +425,8 @@
 ```
 
 **Parameters:**
-| field     | type      | description                     |
+
+| field     | type      | description           |
 | --------- |-----------| :---------------------|
 | name      | string    | new name for status   |
 | streamId  | string    | uniq id of stream     |
@@ -553,6 +555,7 @@
 ```
 
 **Query params example:**
+
 | field     | type    | description         |
 | --------- |---------| :-------------------|
 | streamId  | string  | uniq id of stream   |
@@ -582,6 +585,7 @@
 ```
 
 **Query params example:**
+
 | field     | type    | description         |
 | --------- |---------| :-------------------|
 | streamId  | string  | uniq id of stream   |
@@ -638,5 +642,5 @@
 
 **Response example:**
 ```js
-  { code: 200, massage: 'OK }
+  { code: 200, massage: 'OK' }
 ```

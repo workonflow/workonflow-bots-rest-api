@@ -91,6 +91,7 @@
 ```
 
 **Parameters:**
+
 | field         | type    | description|
 | ------------- |---------| ----------------------:|
 | userId        | string  | Contact or user ID     |

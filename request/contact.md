@@ -91,6 +91,7 @@
 ```
 
 **Parameters:**
+
 | field         | type    | description|
 | ------------- |---------| :----------------------|
 | userId        | string  | Contact or user ID     |
@@ -104,7 +105,6 @@
 | color         | string  | цвет фона и иконки пользователя в виде '#ffffff' |
 | status        | string  | статус пользователя онлайн или нет |
 | voiceRules    | array   | настройки голосовых каналов у пользователя |
-
 
 **Query params example:**
 

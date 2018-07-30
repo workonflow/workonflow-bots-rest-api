@@ -105,6 +105,7 @@
 | status        | string  | статус пользователя онлайн или нет |
 | voiceRules    | array   | настройки голосовых каналов у пользователя |
 
+
 **Query params example:**
 
 ```json

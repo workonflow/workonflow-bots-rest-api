@@ -26,7 +26,7 @@
 ```
 --------------------------------------------------------------------------------
 
-## strema.user.deleted
+## stream.user.deleted
 
 **Событие удаления пользователя из потока**
 
@@ -103,3 +103,28 @@
   initialUser: '5b0525134c0319001573485h'
 }
 ```
+---------------------------------------------------------------------------------
+
+## stream.deleted
+
+**Событие удаления потока**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| streamId  | string | id of string  |
+| initialUser| string | id of user, который удалил |
+
+**Body example:**
+```js
+{
+  eventType: 'stream.user.set',
+  teamId: '5b0525134c0319001573485e',
+  streamId: '5b0525134c0319001573485d',
+  initialUser: '5b0525134c0319001573485h'
+}
+```
+---------------------------------------------------------------------------------

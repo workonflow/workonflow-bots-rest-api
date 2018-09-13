@@ -57,11 +57,13 @@
 
 **signature** - это подпись, закодированный параметр, который необходимо передать в заголовке "X-Signature"
 
+**query** - передаваемые параметры для запроса
+
 Для того чтобы создать **signature** вам необходимо создать хэш sha256 в формате Hex, из **botId** + **secretkey** + timestamp в секундах
 
 **Пример создания signature:**
 ```js
-  sha256Hex(botId + secretkey + timestampInSeconds)
+  sha256Hex(botId + secretkey + timestampInSeconds + query)
 ```
 
 > **Важно!** При **каждом** запросе обязательно необходимо передавать следующие зоголовки:

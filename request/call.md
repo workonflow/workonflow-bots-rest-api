@@ -5,7 +5,7 @@
 **Метод создания звонка в задаче**
 
 ```js
-  api.workonflow.com/{teamid}/call/start/{query}
+  api.workonflow.com/{teamid}/call/start/{body}
 ```
 
 **Parameters**
@@ -15,18 +15,16 @@
 | threadId      | string        | id of thread        |
 | direction     | string        | direction of call   |
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e"
-    }
+    "threadId":"5b0525134c0319001573485e"
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/call/start
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call/start
 ```
 
 **Response example:**
@@ -42,7 +40,7 @@
 **Метод завершения звонка в задаче**
 
 ```js
-  api.workonflow.com/{teamid}/call/end/{query}
+  api.workonflow.com/{teamid}/call/end/{body}
 ```
 
 **Parameters**
@@ -55,18 +53,16 @@
 | dialogDuration| integer       | talk time in seconds|
 | result        | string        | result of the call  |
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e"
-    }
+    "threadId":"5b0525134c0319001573485e"
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/call/end
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call/end
 ```
 
 **Response example:**
@@ -82,7 +78,7 @@
 **Метод для приглашения пользователя(лей) в звонок**
 
 ```js
-  api.workonflow.com/{teamid}/call.user/invite/{query}
+  api.workonflow.com/{teamid}/call.user/invite/{body}
 ```
 
 **Parameters**
@@ -96,19 +92,17 @@
 
 > **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e",
-      "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
-    }
+    "threadId":"5b0525134c0319001573485e",
+    "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }}' https://api.workonflow.com/333ccc134c0319001573485e/call.user/invite
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }' https://api.workonflow.com/333ccc134c0319001573485e/call.user/invite
 ```
 
 **Response example:**
@@ -124,7 +118,7 @@
 **Метод для исключения пользовател(лей) из звонка**
 
 ```js
-  api.workonflow.com/{teamid}/call.user/exclude/{query}
+  api.workonflow.com/{teamid}/call.user/exclude/{body}
 ```
 
 **Parameters**
@@ -138,19 +132,17 @@
 
 > **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e",
-      "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
-    }
+    "threadId":"5b0525134c0319001573485e",
+    "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }}' https://api.workonflow.com/333ccc134c0319001573485e/call.user/exclude
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }' https://api.workonflow.com/333ccc134c0319001573485e/call.user/exclude
 ```
 
 **Response example:**
@@ -166,7 +158,7 @@
 **Метод для постановки звонка на паузу**
 
 ```js
-  api.workonflow.com/{teamid}/call/pause/{query}
+  api.workonflow.com/{teamid}/call/pause/{body}
 ```
 
 **Parameters**
@@ -180,19 +172,17 @@
 
 > **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e",
-      "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
-    }
+    "threadId":"5b0525134c0319001573485e",
+    "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }}' https://api.workonflow.com/333ccc134c0319001573485e/call/pause
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }' https://api.workonflow.com/333ccc134c0319001573485e/call/pause
 ```
 
 **Response example:**
@@ -208,7 +198,7 @@
 **Метод для снятия звонка с паузы**
 
 ```js
-  api.workonflow.com/{teamid}/call/unpause/{query}
+  api.workonflow.com/{teamid}/call/unpause/{body}
 ```
 
 **Parameters**
@@ -222,19 +212,17 @@
 
 > **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e",
-      "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
-    }
+    "threadId":"5b0525134c0319001573485e",
+    "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }}' https://api.workonflow.com/333ccc134c0319001573485e/call/unpause
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }' https://api.workonflow.com/333ccc134c0319001573485e/call/unpause
 ```
 
 **Response example:**
@@ -250,7 +238,7 @@
 **Метод для снятия звонка с паузы**
 
 ```js
-  api.workonflow.com/{teamid}/call/unpause/{query}
+  api.workonflow.com/{teamid}/call/unpause/{body}
 ```
 
 **Parameters**
@@ -264,19 +252,17 @@
 
 > **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e",
-      "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
-    }
+    "threadId":"5b0525134c0319001573485e",
+    "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }}' https://api.workonflow.com/333ccc134c0319001573485e/call/unpause
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }' https://api.workonflow.com/333ccc134c0319001573485e/call/unpause
 ```
 
 **Response example:**
@@ -292,7 +278,7 @@
 **Метод для загрузки и проигрывания аудиозаписи в звонке (для всех пользователей или для конкретных?)**
 
 ```js
-  api.workonflow.com/{teamid}/call.audio/play/{query}
+  api.workonflow.com/{teamid}/call.audio/play/{body}
 ```
 
 **Parameters**
@@ -304,19 +290,17 @@
 
 > **Важно!** Аудиофайл должен иметь расширение mp3 или wav и не должен превышать размера в 10мб.
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e",
-      "fileUrl": "https://url.to.your/audiofile.mp3"
-    }
+    "threadId":"5b0525134c0319001573485e",
+    "fileUrl": "https://url.to.your/audiofile.mp3"
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e", "fileUrl": "https://url.to.your/audiofile.mp3" }}' https://api.workonflow.com/333ccc134c0319001573485e/call.audio/play
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "fileUrl": "https://url.to.your/audiofile.mp3"}' https://api.workonflow.com/333ccc134c0319001573485e/call.audio/play
 ```
 
 **Response example:**
@@ -332,7 +316,7 @@
 **Метод для остановки проигрывания аудиозаписи в звонке (для всех пользователей или для конкретных?)**
 
 ```js
-  api.workonflow.com/{teamid}/call.audio/stop/{query}
+  api.workonflow.com/{teamid}/call.audio/stop/{body}
 ```
 
 **Parameters**
@@ -341,18 +325,16 @@
 | ------------- |---------------| -----------------   |
 | threadId      | string        | id of thread        |
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e",
-    }
+    "threadId":"5b0525134c0319001573485e",
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/call.audio/stop
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call.audio/stop
 ```
 
 **Response example:**
@@ -368,7 +350,7 @@
 **Метод для начала записи разговора в звонке**
 
 ```js
-  api.workonflow.com/{teamid}/call.recording/start/{query}
+  api.workonflow.com/{teamid}/call.recording/start/{body}
 ```
 
 **Parameters**
@@ -377,18 +359,16 @@
 | ------------- |---------------| -----------------   |
 | threadId      | string        | id of thread        |
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e",
-    }
+    "threadId":"5b0525134c0319001573485e",
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/call.recording/start
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call.recording/start
 ```
 
 **Response example:**
@@ -404,7 +384,7 @@
 **Метод для остановки записи разговора в звонке**
 
 ```js
-  api.workonflow.com/{teamid}/call.recording/stop/{query}
+  api.workonflow.com/{teamid}/call.recording/stop/{body}
 ```
 
 **Parameters**
@@ -414,18 +394,16 @@
 | threadId      | string        | id of thread        |
 | fileUrl       | string        | url of file, with recorded dialog|
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e",
-    }
+    "threadId":"5b0525134c0319001573485e",
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/call.recording/stop
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call.recording/stop
 ```
 
 **Response example:**
@@ -441,7 +419,7 @@
 **Метод для начала стрима разговора в звонке**
 
 ```js
-  api.workonflow.com/{teamid}/call.stream/start/{query}
+  api.workonflow.com/{teamid}/call.stream/start/{body}
 ```
 
 **Parameters**
@@ -451,18 +429,16 @@
 | threadId      | string        | id of thread        |
 | streamUrl     | string        | url, with streaming dialog|
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e",
-    }
+    "threadId":"5b0525134c0319001573485e"
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/call.stream/start
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call.stream/start
 ```
 
 **Response example:**
@@ -478,7 +454,7 @@
 **Метод для остановки стрима разговора в звонке**
 
 ```js
-  api.workonflow.com/{teamid}/call.stream/stop/{query}
+  api.workonflow.com/{teamid}/call.stream/stop/{body}
 ```
 
 **Parameters**
@@ -487,18 +463,16 @@
 | ------------- |---------------| -----------------   |
 | threadId      | string        | id of thread        |
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e",
-    }
+    "threadId":"5b0525134c0319001573485e",
   }
 ```
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/call.stream/stop
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call.stream/stop
 ```
 
 **Response example:**

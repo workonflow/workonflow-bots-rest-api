@@ -5,7 +5,7 @@
 **Метод для приглашения пользователя в систему workonflow**
 
 ```js
-  api.workonflow.com/{teamId}/team/invite.user/{query}
+  api.workonflow.com/{teamId}/team/invite.user/{body}
 ```
 **Parameters:**
 
@@ -14,21 +14,19 @@
 | name     | string | new name for stream   |
 | email    | string | user name |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "name": "Jon Si",
-    "email": "true"
-  }
+  "name": "Jon Si",
+  "email": "true"
 }
 ```
 
 **Query example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "name":"New stream" }}' https://api.workonflow.com/333ccc134c0319001573485e/team/invite.user
+  curl -H "Content-Type: application/json" -X POST -d '{ "name":"New stream" }' https://api.workonflow.com/333ccc134c0319001573485e/team/invite.user
 ```
 
 **Response example:**

@@ -4,7 +4,7 @@
 
 **Метод для создания потока.**
 ```js
-  api.workonflow.com/{teamid}/stream/create/{query}
+  api.workonflow.com/{teamid}/stream/create/{body}
 ```
 
 **Parameters:**
@@ -13,20 +13,18 @@
 | name          | string  | new name for stream   |
 | isEmpty       | boolean | по умолчанию поток создаётся с 3мя статусами, если указать данный параметр будет создан пустой поток  |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "name": "New stream",
-    "isEmpty": "true"
-  }
+  "name": "New stream",
+  "isEmpty": "true"
 }
 ```
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "name":"New stream" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream/create
+  curl -H "Content-Type: application/json" -X POST -d '{ "name":"New stream" }' https://api.workonflow.com/333ccc134c0319001573485e/stream/create
 ```
 
 **Response example:**
@@ -37,7 +35,7 @@
 
 ## stream/delete
 ```js
-  api.workonflow.com/{teamid}/stream/delete/{query}
+  api.workonflow.com/{teamid}/stream/delete/{body}
 ```
 
 **Parameters:**
@@ -46,20 +44,18 @@
 | ------------- |---------------| :------------------ |
 | streamId      | string        | uniq id of stream   |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query": {
-    "streamId": "5b0525134c0319001573485e"
-  }
+  "streamId": "5b0525134c0319001573485e"
 }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream/delete
+  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/stream/delete
 ```
 
 **Response example:**
@@ -73,7 +69,7 @@
 **Метод для получения потоков**
 
 ```js
-  api.workonflow.com/{teamid}/stream/read/{query}
+  api.workonflow.com/{teamid}/stream/read/{body}
 ```
 
 **Parameters:**
@@ -103,21 +99,19 @@
 | admins        | array of object | список администраторов потока |
 
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "streamId": "5b0525134c0319001573485e",
-    "streamIds": ["5b0525134c0319001573485e", "5b0525134c0319001573485e"]
-  }
+  "streamId": "5b0525134c0319001573485e",
+  "streamIds": ["5b0525134c0319001573485e", "5b0525134c0319001573485e"]
 }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream/read
+  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/stream/read
 ```
 
 **Response example:**
@@ -160,7 +154,7 @@
 **Метод для того что-бы задать или изменить имя потока**
 
 ```js
-  api.workonflow.com/{teamid}/stream.name/set/{query}
+  api.workonflow.com/{teamid}/stream.name/set/{body}
 ```
 
 **Parameters:**
@@ -170,20 +164,18 @@
 | streamId   | string    | uniq id of stream   |
 | name       | string    | new name for stream |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "streamId":"5b0525134c0319001573485e",
-    "name":"For sales"
-  }
+  "streamId":"5b0525134c0319001573485e",
+  "name":"For sales"
 }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "name":"For sales" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.name/set
+  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "name":"For sales" }' https://api.workonflow.com/333ccc134c0319001573485e/stream.name/set
 ```
 
 **Response example:**
@@ -196,7 +188,7 @@
 
 **Метод для предоставления прав администратора участнику потока**
 ```js
-  api.workonflow.com/{teamid}/stream.member/set.admin/{query}
+  api.workonflow.com/{teamid}/stream.member/set.admin/{body}
 ```
 
 **Parameters:**
@@ -206,21 +198,19 @@
 | streamId   | string    | uniq id of stream   |
 | userId     | string    | uniq id of user для предоставления прав |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "streamId": "5b0525134c0319001573485e",
-    "userId": "5b0525134c0319001573426a"
-  }
+  "streamId": "5b0525134c0319001573485e",
+  "userId": "5b0525134c0319001573426a"
 }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.member/set.admin
+  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }' https://api.workonflow.com/333ccc134c0319001573485e/stream.member/set.admin
 ```
 
 **Response example:**
@@ -235,7 +225,7 @@
 **Метод для изъятия прав администратора у участника потока**
 
 ```js
-  api.workonflow.com/{teamid}/stream.member/revoke.admin/{query}
+  api.workonflow.com/{teamid}/stream.member/revoke.admin/{body}
 ```
 
 **Parameters:**
@@ -245,20 +235,18 @@
 | streamId   | string    | uniq id of stream |
 | userId     | string    | uniq id of user для изъятия прав администратора |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "streamId":"5b0525134c0319001573485e",
-    "userId":"5b1535134c0319001573485e"
-  }
+  "streamId":"5b0525134c0319001573485e",
+  "userId":"5b1535134c0319001573485e"
 }
 ```
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.member/revoke.admin
+  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }' https://api.workonflow.com/333ccc134c0319001573485e/stream.member/revoke.admin
 ```
 
 **Response example:**
@@ -272,7 +260,7 @@
 **Метод для добавления участника в поток**
 
 ```js
-  api.workonflow.com/{teamid}/stream.member/add/{query}
+  api.workonflow.com/{teamid}/stream.member/add/{body}
 ```
 
 **Parameters:**
@@ -282,21 +270,19 @@
 | streamId   | string    | uniq id of stream           |
 | userId     | string    | uniq id of user которого приглашают в поток  |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "streamId":"5b0525134c0319001573485e",
-    "userId":"5b0635434c0319001573485e"
-  }
+  "streamId":"5b0525134c0319001573485e",
+  "userId":"5b0635434c0319001573485e"
 }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.member/add
+  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }' https://api.workonflow.com/333ccc134c0319001573485e/stream.member/add
 ```
 
 **Response example:**
@@ -307,7 +293,7 @@
 
 # Stream remove member
 ```js
-  api.workonflow.com/{teamid}/stream.member/remove/{query}
+  api.workonflow.com/{teamid}/stream.member/remove/{body}
 ```
 
 **Parameters:**
@@ -317,21 +303,19 @@
 | streamId  | string | uniq id of stream               |
 | userId    | string | uniq id of user, которого необходимо удалить из участников потока|
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "streamI":"5b0525134c0319001573485e",
-    "userId":"5b0534256c0319001573485e"
-  }
+  "streamI":"5b0525134c0319001573485e",
+  "userId":"5b0534256c0319001573485e"
 }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.member/remove
+  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }' https://api.workonflow.com/333ccc134c0319001573485e/stream.member/remove
 ```
 
 **Response example:**
@@ -346,7 +330,7 @@
 **Метод для добавления или изменения описания потока**
 
 ```js
-  api.workonflow.com/{teamid}/stream.description/set/{query}
+  api.workonflow.com/{teamid}/stream.description/set/{body}
 ```
 
 **Parameters:**
@@ -356,21 +340,19 @@
 | streamId  | string        | uniq id of stream      |
 | content   | string        | some text for description |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "streamId":"5b0525134c0319001573485e",
-    "content":"new description for stream"
-  }
+  "streamId":"5b0525134c0319001573485e",
+  "content":"new description for stream"
 }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "content":"new description for stream" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.description/set
+  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "content":"new description for stream" }' https://api.workonflow.com/333ccc134c0319001573485e/stream.description/set
 ```
 
 **Response example:**
@@ -385,7 +367,7 @@
 **Метод для добавления или изменения описания потока**
 
 ```js
-  api.workonflow.com/{teamid}/stream.description/get/{query}
+  api.workonflow.com/{teamid}/stream.description/get/{body}
 ```
 
 **Parameters:**
@@ -394,20 +376,19 @@
 | --------- |---------------| :---------------------|
 | streamId  | string        | uniq id of stream   |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
     "streamId":"5b0525134c0319001573485e"
   }
 }
-```
 
-**Query example:**
+
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.description/get
+  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/stream.description/get
 ```
 
 **Response example:**
@@ -421,7 +402,7 @@
 **Метод для создания нового статуса в потоке**
 
 ```js
-  api.workonflow.com/{teamid}/stream.status/create/{query}
+  api.workonflow.com/{teamid}/stream.status/create/{body}
 ```
 
 **Parameters:**
@@ -434,22 +415,21 @@
 | color     | string    | Color of status in the format: #c0c0c0 |
 | statusId  | string    | uniq id of new status in response |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
     "name": "End job",
-    "streamId": "5b0525134c0319001573485e",
-    "type": "Done",
+  "streamId": "5b0525134c0319001573485e",
+  "t": "Done",
     "color": "#c0c0c0"
   }
 }
 ```
 
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "streamId":"5b0525134c0319001573485e", "name":"End job", "type":"Done", "color":"#c0c0c0" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.status/create
+  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "name":"End job", "type":"Done", "color":"#c0c0c0" }' https://api.workonflow.com/333ccc134c0319001573485e/stream.status/create
 ```
 
 **Response example:**
@@ -463,7 +443,7 @@
 **Метод для получения статусов потока**
 
 ```js
-  api.workonflow.com/{teamid}/stream.status/get/{query}
+  api.workonflow.com/{teamid}/stream.status/get/{body}
 ```
 
 **Parameters:**
@@ -477,20 +457,18 @@
 | color     | string   | Color of status in the format: #c0c0c0 |
 | statusId  | string   | uniq id of new status in response |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "streamId":"5b0525134c0319001573485e",
-    "statusId":"5b0525134c0319001573456s"
-  }
+  "streamId":"5b0525134c0319001573485e",
+  "statusId":"5b0525134c0319001573456s"
 }
 ```
 
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "statusId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.status/get
+  curl -H "Content-Type: application/json" -X POST -d '{ "statusId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/stream.status/get
 ```
 
 **Response example:**
@@ -514,31 +492,29 @@
 **Метод для добавления или изменения имени статуса потока**
 
 ```js
-  api.workonflow.com/{teamid}/stream.status/set.name/{query}
+  api.workonflow.com/{teamid}/stream.status/set.name/{body}
 ```
 
-**Query params example:**
+**Body message example:**
 
 | field     | type          | description            |
 | --------- |---------------| :------------------ |
 | statusId  | string        | uniq id of status   |
 | name      | string        | new name for status |
 
-**Query example:**
+**Request example:**
 
 ```json
 {
-  "query":{
-    "statusId":"5b0525134c0319001573456s",
-    "name": "Testing",
-  }
+  "statusId":"5b0525134c0319001573456s",
+  "name": "Testing",
 }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "statusId":"5b0525134c0319001573485e", "name":"Testing" }}' https://api.workonflow.com/333ccc134c0319001573485e/stream.status/set.name
+  curl -H "Content-Type: application/json" -X POST -d '{ "statusId":"5b0525134c0319001573485e", "name":"Testing" }' https://api.workonflow.com/333ccc134c0319001573485e/stream.status/set.name
 ```
 
 **Response example:**
@@ -551,23 +527,21 @@
 ## stream.status/delete
 **Метод для удаления статуса у потока**
 ```js
-  api.workonflow.com/{teamid}/stream.status/delete/{query}
+  api.workonflow.com/{teamid}/stream.status/delete/{body}
 ```
 
-**Query params example:**
+**Body message example:**
 
 | field     | type    | description         |
 | --------- |---------| :-------------------|
 | streamId  | string  | uniq id of stream   |
 | statusId  | string  | uniq id of status   |
 
-**Query example:**
+**Request example:**
 ```json
 {
-  "query":{
-    "streamId": "5b0526a34c0319001573456s",
-    "statusId": "5b0525134c0319001573456s"
-  }
+  "streamId": "5b0526a34c0319001573456s",
+  "statusId": "5b0525134c0319001573456s"
 }
 ```
 
@@ -581,10 +555,10 @@
 
 **Метод для включения/отключения вилжетов стрима**
 ```js
-  api.workonflow.com/{teamid}/stream.field/set/{query}
+  api.workonflow.com/{teamid}/stream.field/set/{body}
 ```
 
-**Query params example:**
+**Body message example:**
 
 | field     | type    | description         |
 | --------- |---------| :-------------------|
@@ -595,13 +569,12 @@
 | points    | boolean | on/off field (optionally) |
 | timetoc   | boolean | on/off field (optionally) |
 
-**Query example:**
+**Request example:**
 ```json
 {
-  "query":{
     "streamId":"5b0526a34c0319001573456s",
-    "budget":"false",
-    "deadline":"false",
+  "budget":"false",
+  "deadl":"false",
     "priority":"true",
     "points":"false",
     "timetoc":"false"
@@ -620,23 +593,21 @@
 
 **Метод для изменения канала в потоке**
 ```js
-  api.workonflow.com/{teamId}/stream.channels/use.default/{query}
+  api.workonflow.com/{teamId}/stream.channels/use.default/{body}
 ```
 
-**Query params example:**
+**Body message example:**
 
 | field     | type    | description        |
 | --------- |---------| :------------------|
 | streamId  | string  | uniq id of stream  |
 | channelId | string  | uniq id of channel |
 
-**Query example:**
+**Request example:**
 ```json
 {
-  "query":{
-    "streamId":"5b0526a34c0319001573456s",
-    "channelId":"5b1635134c0319001573456s"
-  }
+  "streamId":"5b0526a34c0319001573456s",
+  "channelId":"5b1635134c0319001573456s"
 }
 ```
 

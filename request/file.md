@@ -5,7 +5,7 @@
 **Метод для получения url файла который находится на Amazon**
 
 ```js
-  api.workonflow.com/{teamid}/file/geturl/{query}
+  api.workonflow.com/{teamid}/file/geturl/{body}
 ```
 
 **Parameters:**
@@ -14,25 +14,23 @@
 | ---------|--------| :------------------                    |
 | fileId   | string | id of file                             |
 | fileIds  | array  | Array of file IDs                      |
-| filename | string | name of file                           | 
+| filename | string | name of file                           |
 | url      | string | url для скачивания или просмотра файла |
 
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "fileId":"5b0525134c0319001573485e",
-    "fileIds": ["5afd6d369a88ff00190baf79", "5afd6d369a88ff22190baf79", "5afd6d369a88ff00190bas12"]
-  }
+  "fileId":"5b0525134c0319001573485e",
+  "fileIds": ["5afd6d369a88ff00190baf79", "5afd6d369a88ff22190baf79", "5afd6d369a88ff00190bas12"]
 }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "fileId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/comment/count
+  curl -H "Content-Type: application/json" -X POST -d '{ "fileId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/comment/count
 ```
 
 **Response example:**
@@ -53,7 +51,7 @@
 
 **Метод получения url для загрузки файла на Amazon**
 
-```api.workonflow.com/{teamid}/file/puturl/{query}```
+```api.workonflow.com/{teamid}/file/puturl/{body}```
 
 **Parameters:**
 
@@ -62,21 +60,19 @@
 | filename      | string | fileName.format        |
 | size          | number | file size in bytes     |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "filename":"foto",
-    "size":2256
-  }
+  "filename":"foto",
+  "size":2256
 }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"filename":"foto", "size":"2256"}}' https://api.workonflow.com/333ccc134c0319001573485e/comment/count
+  curl -H "Content-Type: application/json" -X POST -d '{ "filename":"foto", "size":"2256" }' https://api.workonflow.com/333ccc134c0319001573485e/comment/count
 ```
 
 **Response example:**

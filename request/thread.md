@@ -5,7 +5,7 @@
 **Метод для получения информации по задаче**
 
 ```js
-  api.workonflow.com/{teamid}/thread/read/{query}
+  api.workonflow.com/{teamid}/thread/read/{body}
 ```
 
 **Parameters:**
@@ -32,24 +32,22 @@
 | updatedAt  | number | дата последнего обновления в формате timestamp |
 
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId":"5b0525134c0319001573485e",
-    "statusId":"5b0321234c0319001573485e",
-    "statusIds":["5afd6d369a88ff00190baf79", "5afd6d369a88ff22190baf79"],
-    "streamId":"5afd74659a88ff00190baf81",
-    "ltUpdatedAt":1256953732,
-    "gtUpdatedAt":1256953732
-  }
+  "threadId":"5b0525134c0319001573485e",
+  "statusId":"5b0321234c0319001573485e",
+  "statusIds":["5afd6d369a88ff00190baf79", "5afd6d369a88ff22190baf79"],
+  "streamId":"5afd74659a88ff00190baf81",
+  "ltUpdatedAt":1256953732,
+  "gtUpdatedAt":1256953732
 }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5afd6d369a88ff22190baf7x"}}' https://api.workonflow.com/333ccc134c0319001573485e/thread/read
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5afd6d369a88ff22190baf7x" }' https://api.workonflow.com/333ccc134c0319001573485e/thread/read
 ```
 
 **Response example:**
@@ -82,7 +80,7 @@
 **Метод для создания задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread/create/{query}
+  api.workonflow.com/{teamid}/thread/create/{body}
 ```
 
 **Parameters:**
@@ -100,26 +98,23 @@
 | updatedAt  | number | дата последнего обновления в формате timestamp |
 
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "statusId": "5b0321234c0319001573485e",
-    "streamId": "5afd74659a88ff00190baf81",
-    "title": "New thread",
-    "deadline": ["null", "1524902400000"],
-    "responsibleUserId": "5afd74659a88ff0010988f81",
-    "customerId": "5afd74659a88ff0010988f81",
-    "roles": "5afd74659a88ff0010988f81"
-  }
+  "statusId": "5b0321234c0319001573485e",
+  "streamId": "5afd74659a88ff00190baf81",
+  "title": "New thread",
+  "deadline": ["null", "1524902400000"],
+  "responsibleUserId": "5afd74659a88ff0010988f81",
+  "customerId": "5afd74659a88ff0010988f81",
 }
 ```
 
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"title":"new thread", "streamId":"5afd74659a88ff00190baf81"}}' https://api.workonflow.com/333ccc134c0319001573485e/thread/create
+  curl -H "Content-Type: application/json" -X POST -d '{ "title":"new thread", "streamId":"5afd74659a88ff00190baf81" }' https://api.workonflow.com/333ccc134c0319001573485e/thread/create
 ```
 
 > Если не указывать statusId, задача будет создана в первый статус
@@ -136,7 +131,7 @@
 **Метод для получения описания задачи:**
 
 ```js
-  api.workonflow.com/1/thread.description/get/{query}
+  api.workonflow.com/1/thread.description/get/{body}
 ```
 
 **Parameters:**
@@ -156,20 +151,17 @@
 | createdAt  | number | дата создания в формате timestamp |
 | updatedAt  | number | дата последнего обновления в формате timestamp |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "threadId":"5b0321234c0319001573485e"
-  }
+  "threadId":"5b0321234c0319001573485e"
 }
 ```
 
-**Query example:**
-
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e"}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.desctiption/get
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.desctiption/get
 ```
 
 **Response example:**
@@ -184,7 +176,6 @@
     descriptionId: "5b0321234c0319001573485x",
     threadId: "5b0321234c0319001573485e"
   }]
-
 }
 ```
 
@@ -199,7 +190,7 @@
 
 **Метод для добавления или ищменения описания задачи**
 ```js
-  api.workonflow.com/1/thread.description/set/{query}
+  api.workonflow.com/1/thread.description/set/{body}
 ```
 
 **Parameters:**
@@ -217,19 +208,16 @@
 | createdAt  | number | дата создания в формате timestamp |
 | updatedAt  | number | дата последнего обновления в формате timestamp |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId":"5b0321234c0319001573485e",
-    "content":"New description"
-  }
+  "threadId":"5b0321234c0319001573485e",
+  "content":"New description"
 }
 ```
 
-**Query example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e", "content":"new description"}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.desctiption/set
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "content":"new description" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.desctiption/set
 ```
 
 **Response example:**
@@ -243,7 +231,7 @@
 **Метод для изменения бюджета задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread.fields.budget/{query}
+  api.workonflow.com/{teamid}/thread.fields.budget/{body}
 ```
 
 **Parameters:**
@@ -260,20 +248,17 @@
 | createdAt  | number | дата создания в формате timestamp |
 | updatedAt  | number | дата последнего обновления в формате timestamp |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId":"5b0321234c0319001573485e",
-    "budget":100
-  }
+  "threadId":"5b0321234c0319001573485e",
+  "budget":100
 }
 ```
 
-**Query example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e", "budget":100}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.fields.budget
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "budget":100 }' https://api.workonflow.com/333ccc134c0319001573485e/thread.fields.budget
 ```
 
 **Response example:**
@@ -306,7 +291,7 @@
 
 **Метод для изменения дедлайна задачи**
 ```js
-  api.workonflow.com/{teamid}/thread.fields.deadline/{query}
+  api.workonflow.com/{teamid}/thread.fields.deadline/{body}
 ```
 
 **Parameters:**
@@ -323,21 +308,18 @@
 | createdAt  | number | дата создания в формате timestamp |
 | updatedAt  | number | дата последнего обновления в формате timestamp |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId":"5b0321234c0319001573485e",
-    "deadline":[null, 1524902400000]
-  }
+  "threadId":"5b0321234c0319001573485e",
+  "deadline":[null, 1524902400000]
 }
 ```
 
-
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e", "deadline":[null, 1524902400000]}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.fields.deadline
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "deadline":[null, 1524902400000] }' https://api.workonflow.com/333ccc134c0319001573485e/thread.fields.deadline
 ```
 
 **Response example:**
@@ -371,7 +353,7 @@
 **Метод для изменения приоритета задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread.fields.priority/{query}
+  api.workonflow.com/{teamid}/thread.fields.priority/{body}
 ```
 
 **Parameters:**
@@ -388,20 +370,17 @@
 | createdAt  | number | дата создания в формате timestamp |
 | updatedAt  | number | дата последнего обновления в формате timestamp |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId":"5b0321234c0319001573485e",
-    "priority":"HIGH"
-  }
+  "threadId":"5b0321234c0319001573485e",
+  "priority":"HIGH"
 }
 ```
 
-**Query example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e", "priority":"HIGH"}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.fields.priority
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "priority":"HIGH" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.fields.priority
 ```
 **Response example:**
 
@@ -437,7 +416,7 @@
 
 
 ```js
-  api.workonflow.com/{teamid}/thread.responsible/set/{query}
+  api.workonflow.com/{teamid}/thread.responsible/set/{body}
 ```
 
 **Parameters:**
@@ -454,20 +433,17 @@
 | createdAt  | number | дата создания в формате timestamp |
 | updatedAt  | number | дата последнего обновления в формате timestamp |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId":"5b0321234c0319001573485e",
-    "userId":"5b032123210319001573485e"
-  }
+  "threadId":"5b0321234c0319001573485e",
+  "userId":"5b032123210319001573485e"
 }
 ```
 
-**Query example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e", "userId":"5b032123210319001573485e"}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.responsible/set
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "userId":"5b032123210319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.responsible/set
 ```
 
 **Response example:**
@@ -501,7 +477,7 @@
 **Метод для изменения статуса задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread.status/update/{query}
+  api.workonflow.com/{teamid}/thread.status/update/{body}
 ```
 
 **Parameters:**
@@ -518,20 +494,17 @@
 | createdAt  | number | дата создания в формате timestamp |
 | updatedAt  | number | дата последнего обновления в формате timestamp |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId":"5b0321234c0319001573485e",
-    "statusId":"5b032123210319001573485f"
-  }
+  "threadId":"5b0321234c0319001573485e",
+  "statusId":"5b032123210319001573485f"
 }
 ```
 
-
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e","statusId":"5b032123210319001573485f"}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.responsible/set
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","statusId":"5b032123210319001573485f" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.responsible/set
 ```
 
 **Response example:**
@@ -565,7 +538,7 @@
 **Метод для изменения статуса задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread.points/{query}
+  api.workonflow.com/{teamid}/thread.points/{body}
 ```
 
 **Parameters:**
@@ -582,19 +555,16 @@
 | createdAt  | number | дата создания в формате timestamp |
 | updatedAt  | number | дата последнего обновления в формате timestamp |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId":"5b0321234c0319001573485e",
-    "points":20
-  }
+  "threadId":"5b0321234c0319001573485e",
+  "points":20
 }
 ```
 
-**Query example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e","points":20}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.points
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","points":20 }' https://api.workonflow.com/333ccc134c0319001573485e/thread.points
 ```
 
 **Response example:**
@@ -628,7 +598,7 @@
 **Метод для изменения времени завершения задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread.timetoc/{query}
+  api.workonflow.com/{teamid}/thread.timetoc/{body}
 ```
 
 **Parameters:**
@@ -645,20 +615,17 @@
 | createdAt  | number | дата создания в формате timestamp |
 | updatedAt  | number | дата последнего обновления в формате timestamp |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId":"5b0321234c0319001573485e",
-    "timetocompletion": 1524057338518
-  }
+  "threadId":"5b0321234c0319001573485e",
+  "timetocompletion": 1524057338518
 }
 ```
 
-
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e","timetocompletion":1524057338518}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.timetoc
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","timetocompletion":1524057338518 }' https://api.workonflow.com/333ccc134c0319001573485e/thread.timetoc
 ```
 
 **Response example:**
@@ -692,7 +659,7 @@
 **Метод для переноса задачи в другой поток**
 
 ```js
-  api.workonflow.com/{teamid}/thread.stream/{query}
+  api.workonflow.com/{teamid}/thread.stream/{body}
 ```
 
 **Parameters:**
@@ -709,20 +676,17 @@
 | createdAt  | number | дата создания в формате timestamp |
 | updatedAt  | number | дата последнего обновления в формате timestamp |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId":"5b0321234c0319001573485e",
-    "streamId":"5b0321324c0319001573485e"
-  }
+  "threadId":"5b0321234c0319001573485e",
+  "streamId":"5b0321324c0319001573485e"
 }
 ```
 
-**Query example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e","streamId":"5b0321324c0319001573485e"}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.stream
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","streamId":"5b0321324c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.stream
 ```
 
 **Response example:**
@@ -756,7 +720,7 @@
 **Метод изменения названия задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread.title.set/{query}
+  api.workonflow.com/{teamid}/thread.title.set/{body}
 ```
 
 **Parameters:**
@@ -766,20 +730,17 @@
 | threadId      | string        | id of thread         |
 | title         | string        | new title for thread |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId":"5b0321234c0319001573485e",
-    "title":"New title for thread"
-  }
+  "threadId":"5b0321234c0319001573485e",
+  "title":"New title for thread"
 }
 ```
 
-**Query example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e","title":"New title for thread"}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.title.set
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","title":"New title for thread" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.title.set
 ```
 
 **Response example:**
@@ -792,7 +753,7 @@
 
 **Метод для добавления клиентав задачу**
 ```js
-  api.workonflow.com/{teamid}/thread.customer/add/{query}
+  api.workonflow.com/{teamid}/thread.customer/add/{body}
 ```
 
 **Parameters:**
@@ -803,22 +764,19 @@
 | customerId    | string   | id of external user |
 | customerIds   | array    | array of ids external users |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId": "5b0321234c0319001573485e",
-    "customerId": "5b0321324c0319001573485e",
-    "customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"]
-  }
+  "threadId": "5b0321234c0319001573485e",
+  "customerId": "5b0321324c0319001573485e",
+  "customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"]
 }
 ```
 
-
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e","customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"]}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.customer/add
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"] }' https://api.workonflow.com/333ccc134c0319001573485e/thread.customer/add
 ```
 
 **Response example:**
@@ -830,7 +788,7 @@
 
 # Thread remove customers
 ```js
-  api.workonflow.com/{teamid}/thread.customer/remove/{query}
+  api.workonflow.com/{teamid}/thread.customer/remove/{body}
 ```
 
 **Parameters:**
@@ -841,22 +799,19 @@
 | customerId    | string        | id of external user |
 | customerIds   | array         | array of ids external users |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "threadId": "5b0321234c0319001573485e",
-    "customerId": "5b0321324c0319001573485e",
-    "customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"]
-  }
+  "threadId": "5b0321234c0319001573485e",
+  "customerId": "5b0321324c0319001573485e",
+  "customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"]
 }
 ```
 
-
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"threadId":"5b0321234c0319001573485e","customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"]}}' https://api.workonflow.com/333ccc134c0319001573485e/thread.customer/remove
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"] }' https://api.workonflow.com/333ccc134c0319001573485e/thread.customer/remove
 ```
 
 **Response example:**
@@ -869,7 +824,7 @@
 
 # Thread set followers
 ```js
-  api.workonflow.com/{teamid}/thread.followers/set/{query}
+  api.workonflow.com/{teamid}/thread.followers/set/{body}
 ```
 
 **Parameters:**
@@ -879,19 +834,15 @@
 | threadId      | string        | id of thread         |
 | userId        | string        | id of user |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-
-  }
-}
   threadId: '5b0321234c0319001573485e',
   userId: '5b0321324c0319001573485e'
+}
 ```
 
-
-**Query example:**
+**Request example:**
 
 
 
@@ -905,7 +856,7 @@
 
 # Thread remove followers
 ```js
-  api.workonflow.com/{teamid}/thread.responsible/followers/{query}
+  api.workonflow.com/{teamid}/thread.responsible/followers/{body}
 ```
 
 **Parameters:**
@@ -915,19 +866,15 @@
 | threadId      | string        | id of thread         |
 | userId        | string        | id of user |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-
-  }
-}
   threadId: '5b0321234c0319001573485e',
   userId: '5b0321324c0319001573485e'
+}
 ```
 
-
-**Query example:**
+**Request example:**
 
 
 

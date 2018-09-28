@@ -5,7 +5,7 @@
 **Метод для получения колличества комментариев**
 
 ```js
-  api.workonflow.com/{teamid}/comment/count/{query}
+  api.workonflow.com/{teamid}/comment/count/{body}
 ```
 
 **Parameters:**
@@ -16,19 +16,17 @@
 | threadIds     | array         | array ids of thread |
 | streamId      | string        | id of stream        |
 
-**Query params example:**
+**Body message example:**
 
 ```json
   {
-    "query": {
-      "threadId":"5b0525134c0319001573485e"
-    }
+    "threadId":"5b0525134c0319001573485e"
   }
 ```
 
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": { "threadId":"5b0525134c0319001573485e" }}' https://api.workonflow.com/333ccc134c0319001573485e/comment/count
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/comment/count
 ```
 
 **Response example:**
@@ -44,7 +42,7 @@
 **Метод для создания комментариев**
 
 ```js
-  api.workonflow.com/{teamid}/comment/create/{query}
+  api.workonflow.com/{teamid}/comment/create/{body}
 ```
 
 **Parameters:**
@@ -54,21 +52,25 @@
 | threadId      |string    | id of thread указываем если комментарий необходимо создать в задаче |
 | streamId      |string    | id of stream указываем если комнтарий необходимо создать в потоке |
 | to            |string    | id of user указываем если комнтарий необходимо отправить в личные сообщения |
-| att           |string/array| принимает текст либо массив типа: [{ type: 'text' data: { text: 'string' } }] (type - тип сообщения может быть text, file. data - объект с текстом либо id файла) |
+| text          |string    | содержимое комментария |
 | commentId     | string | идентификатор комментария, приходит в ответе на запрос |
+| type          | STRING  | тип комментария: text, file, image |
+| isPublic      | bool     |  публичный комментарий |
 
 > **Важно!** должен быть только один параметр получателя: streamId, threadId или to
 
-**Query params example:**
+**Body message example:**
 ```js
 {
   to: '5971f31881d3f800149760b4',
-  att: 'new comment'
+  text: 'new comment',
 }
 ```
 
-**Query example:**
-TODO
+**Request example:**
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{ "to":"5971f31881d3f800149760b4", "text": "new comment" }' https://api.workonflow.com/333ccc134c0319001573485e/comment/create
+```
 
 **Response example:**
 ```js
@@ -81,7 +83,7 @@ TODO
 **Метод для получения комментариев**
 
 ```js
-  api.workonflow.com/{teamid}/comment/read/{query}
+  api.workonflow.com/{teamid}/comment/read/{body}
 ```
 
 **Parameters:**
@@ -98,7 +100,8 @@ TODO
 | from          | string        | id of user который создал комментарий |
 | att           | string        | текст комментария |
 | channel       | string/null   | id of channel, приходит в ответе если комментарий был создан с использованием внешнего канала |
-**Query params example:**
+
+**Body message example:**
 ```js
 {
   threadId: '5b0525134c0319001573485e',
@@ -109,8 +112,10 @@ TODO
 }
 ```
 
-**Query example:**
-TODO
+**Request example:**
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5afd74659a88ff00190baf81" }' https://api.workonflow.com/333ccc134c0319001573485e/comment/read
+```
 
 **Response example:**
 
@@ -142,11 +147,3 @@ TODO
   }, ... ]
 }
 ```
-
-
-
-**Parameters:**
-**Query params example:**
-**Query example:**
-**Response example:**
-

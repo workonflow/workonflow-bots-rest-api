@@ -1,20 +1,22 @@
 # Mail requests
 
 ## Method for obtaining email channels
-```api.workonflow.com/{teamid}/channel.mail/get/{query}```
+```api.workonflow.com/{teamid}/channel.mail/account.get/{body}```
 
-### Query:
+### Parameters:
 | название      |тип            | описание                       |
 | ------------- |---------------| ----------------------|
 | userId        | string        | User ID (returns array of available channels) |
 | userIds       | array         | Array of user IDs (analogous to id) (optionally)  |
 | email         | string        | Mail channel (returns channel with indicated email address, optionally) |
 
-### Query example:
-```
-  userId: '5b0525134c0319001573485e',
-  userIds: ['5b0525134c03190015734abe', '5b0525134c03190015734851'],
-  email: 'email@email.com'
+### Body message example:
+```json
+  {
+    userId: "5b0525134c0319001573485e",
+    userIds: [ "5b0525134c03190015734abe", "5b0525134c03190015734851"],
+    email: "email@email.com"
+  }
 ```
 
 ### RESPONSES:
@@ -41,18 +43,20 @@
 
 
 # Method for receiving email channels
-```api.workonflow.com/{teamid}/channel.mail/read/{query}```
+```api.workonflow.com/{teamid}/channel.mail/read/{body}```
 
-### Query:
+### Parameters:
 |               |               |                       |
 | ------------- |---------------| ----------------------:|
-| emailId        | string        | email ID |
-| emailIds       | array         | Array of email IDs (optionally)  |
+| id        | string        | email ID |
+| ids       | array         | Array of email IDs (optionally)  |
 
-### Query example:
-```
-  emailId: '5b0525134c0319001573485e',
-  emailIds: ['5b0525134c03190015734abe', '5b0525134c03190015734851'],
+### Body message example:
+```json
+  {
+    id: '5b0525134c0319001573485e',
+    ids: ['5b0525134c03190015734abe', '5b0525134c03190015734851'],
+  }
 ```
 
 ### RESPONSES:
@@ -92,9 +96,9 @@
 
 
 # Method for sending email
-```api.workonflow.com/{teamid}/channel.mail/send/{query}```
+```api.workonflow.com/{teamid}/channel.mail/send/{body}```
 
-### Query:
+### Parameters:
 |               |               |                       |
 | ------------- |---------------| ----------------------:|
 | from        | string        | Must indicate an email channel |
@@ -105,10 +109,12 @@
 | text          | string        | Text of message (displayed in the absence of an HTML layout)  |
 | threadId      | string        | Thread ID |
 
-### Query example:
-```
-  from: 'fromEmail@email.com',
-  to: 'toEmail@email.com',
+### Body message example:
+```json
+  {
+    from: 'fromEmail@email.com',
+    to: 'toEmail@email.com',
+  }
 ```
 
 ### RESPONSES:
@@ -120,9 +126,9 @@
 # Telephony
 
 # Create user SIP
-```api.workonflow.com/{teamid}/channel.telephony/creat/{query}```
+```api.workonflow.com/{teamid}/channel.telephony/create/{body}```
 
-### Query:
+### Parameters:
 |               |               |                       |
 | ------------- |---------------| ----------------------:|
 | username        | string        | user name |
@@ -132,18 +138,18 @@
 
 
 # Method for deleting user SIP from telephony (still in development)
-```api.workonflow.com/{teamid}/channel.telephony/delete/{query}```
+```api.workonflow.com/{teamid}/channel.telephony/delete/{body}```
 
-### Query:
+### Parameters:
 |               |               |                       |
 | ------------- |---------------| ----------------------:|
 | sipId        | string        | SIP ID |
 
 
 # Method for obtaining user SIP
-```api.workonflow.com/{teamid}/channel.telephony/get/{query}```
+```api.workonflow.com/{teamid}/channel.telephony/get/{body}```
 
-### Query:
+### Parameters:
 |               |               |                       |
 | ------------- |---------------| ----------------------:|
 | username        | string        | user name |
@@ -152,9 +158,9 @@
 
 
 # Update user SIP method
-```api.workonflow.com/{teamid}/channel.telephony/update/{query}```
+```api.workonflow.com/{teamid}/channel.telephony/update/{body}```
 
-### Query:
+### Parameters:
 |               |               |                       |
 | ------------- |---------------| ----------------------:|
 | username        | string        | user name |

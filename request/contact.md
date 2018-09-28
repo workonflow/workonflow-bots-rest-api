@@ -5,7 +5,7 @@
 **Метод для создания контактов**
 
 ```js
-  api.workonflow.com/{teamid}/contact/create/{query}
+  api.workonflow.com/{teamid}/contact/create/{body}
 ```
 
 **Parameters:**
@@ -19,27 +19,25 @@
 | value         | string        | value of custom field  |
 | type          | string        | type of custom field   |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query": {
-    "basicData": {
-      "name": "Alex",
-      "email": "email@email.com"
-    },
-    "customFields": [
-      {"id": "B1R5NTS3z", "label": "Company", "value": "", "type": "company"},
-      {"id": "B1l094TB2M", "label": "Work phone", "value": "", "type": "phone"},
-      {"id": "rkbA9VTH3M", "label": "Work e-mail", "value": "", "type": "email"}
-    ]
-  }
+  "basicData": {
+    "name": "Alex",
+    "email": "email@email.com"
+  },
+  "customFields": [
+    {"id": "B1R5NTS3z", "label": "Company", "value": "", "type": "company"},
+    {"id": "B1l094TB2M", "label": "Work phone", "value": "", "type": "phone"},
+    {"id": "rkbA9VTH3M", "label": "Work e-mail", "value": "", "type": "email"}
+  ]
 }
 ```
 
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query": {"basicData": {"name": "Alex", "email": "email@email.com"}, "customFields": [{"id": "B1R5NTS3z", "label": "Company", "value": "", "type": "company"}, {"id": "B1l094TB2M", "label": "Work phone", "value": "", "type": "phone"}, {"id": "rkbA9VTH3M", "label": "Work e-mail", "value": "", "type": "email"}]}}' https://api.workonflow.com/333ccc134c0319001573485e/contact/create
+  curl -H "Content-Type: application/json" -X POST -d '{ "basicData": {"name": "Alex", "email": "email@email.com"}, "customFields": [{"id": "B1R5NTS3z", "label": "Company", "value": "", "type": "company"}, {"id": "B1l094TB2M", "label": "Work phone", "value": "", "type": "phone"}, {"id": "rkbA9VTH3M", "label": "Work e-mail", "value": "", "type": "email"}] }' https://api.workonflow.com/333ccc134c0319001573485e/contact/create
 ```
 
 **Response example:**
@@ -54,7 +52,7 @@
 **Метод для получения "языка" пользователя**
 
 ```js
-  api.workonflow.com/{teamid}/contact/local/{query}
+  api.workonflow.com/{teamid}/contact/local/{body}
 ```
 
 **Parameters:**
@@ -63,18 +61,16 @@
 | ------------- |---------------| ----------------------:|
 | userId     | string        | id of user |
 
-**Query params example:**
+**Body message example:**
 ```json
 {
-  "query":{
-    "userId":"5b0525134c0319001573485e"
-  }
+  "userId":"5b0525134c0319001573485e"
 }
 ```
 
-**Query example:**
+**Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query":{"userId":"5b0525134c0319001573485e"}}' https://api.workonflow.com/333ccc134c0319001573485e/contact/create
+  curl -H "Content-Type: application/json" -X POST -d '{ "userId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/contact/create
 ```
 
 **Response example:**
@@ -87,7 +83,7 @@
 
 **Метод для получения пользоватей**
 ```js
-  api.workonflow.com/{teamid}/contact/get/{query}
+  api.workonflow.com/{teamid}/contact/get/{body}
 ```
 
 **Parameters:**
@@ -106,21 +102,19 @@
 | status        | string  | статус пользователя онлайн или нет |
 | voiceRules    | array   | настройки голосовых каналов у пользователя |
 
-**Query params example:**
+**Body message example:**
 
 ```json
 {
-  "query":{
-    "userId":"5b0525134c0319001573485e",
-    "userIds":["5afd6d369a88ff00190baf79", "5afd6d369a88ff22190baf79"]
-  }
+  "userId":"5b0525134c0319001573485e",
+  "userIds":["5afd6d369a88ff00190baf79", "5afd6d369a88ff22190baf79"]
 }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{"query":{"userId":"5b0525134c0319001573485e"}}' https://api.workonflow.com/333ccc134c0319001573485e/contact/get
+  curl -H "Content-Type: application/json" -X POST -d '{ "userId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/contact/get
 ```
 **Response example:**
 

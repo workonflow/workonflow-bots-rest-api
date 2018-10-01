@@ -8,16 +8,16 @@
 
 | field     | type   | description  |
 | --------- |--------| :----------- |
-| eventType | string | тип события   | 
+| eventType | string | тип события   |
 | teamId    | string | id of team    |
-| id        | string | id of comment | 
-| createdAt | number | время создания коментария в формате timestamp | 
-| updatedAt | number | время последнего обнавления коментария в формате timestamp | 
+| id        | string | id of comment |
+| createdAt | number | время создания коментария в формате timestamp |
+| updatedAt | number | время последнего обнавления коментария в формате timestamp |
 | to        | string | id of user получателя |
 | threadId  | string | id of thread, если комментарий был создан в задаче |
 | streamId  | string | id of stream, если комментарий был создан в потоке |
-| from      | string | id of user создавший комментарий | 
-| attText   | string | comment text | 
+| from      | string | id of user создавший комментарий |
+| att   | string | object of transfered messages/audio/images/files |
 
 **Body example:**
 
@@ -31,7 +31,7 @@
   to: '595b405b81d3f80014976032',
   from: '595b405b81d3f80014976033',
   streamId: '595b405b81d3f80014976034',
-  attText: 'hello world',
+  att:  [ { "type": "text", "data": { "text": "ergerg" } } ]
 }
 ```
 ------------------------------------------------------------------------------------
@@ -44,13 +44,14 @@
 
 | field     | type   | description  |
 | --------- |--------| :----------- |
-| eventType | string | тип события   | 
+| eventType | string | тип события   |
 | teamId    | string | id of team    |
-| id        | string | id of comment | 
-| createdAt | number | время создания коментария в формате timestamp | 
-| updatedAt | number | время последнего обнавления коментария в формате timestamp | 
-| from      | string | id of user создавший комментарий | 
-| attText   | string | comment text | 
+| id        | string | id of comment |
+| createdAt | number | время создания коментария в формате timestamp |
+| updatedAt | number | время последнего обнавления коментария в формате timestamp |
+| from      | string | id of user создавший комментарий |
+| to        | string | id of user получившего комментарий |
+| att       | string | comment text |
 
 
 **Body example:**
@@ -63,7 +64,42 @@
   createdAt: 1524043332761,
   updatedAt: 1524043332761,
   from: '595b405b81d3f80014976033',
-  attText: 'hello world',
+  to: '595b405b81d3f800ldfgjeo3',
+  att: 'hello world',
+}
+```
+------------------------------------------------------------------------------------
+
+## comment.command
+
+**Событие создания команды в личном чате пользователя с ботом**
+
+**Parameters:**
+
+| field     | type   | description  |
+| --------- |--------| :----------- |
+| eventType | string | тип события   |
+| teamId    | string | id of team    |
+| id        | string | id of comment |
+| createdAt | number | время создания коментария в формате timestamp |
+| updatedAt | number | время последнего обнавления коментария в формате timestamp |
+| from      | string | id of user создавший комментарий |
+| to        | string | id of user получившего комментарий |
+| att       | string | comment text |
+
+
+**Body example:**
+
+```js
+{
+  eventType: 'comment.command',
+  teamId: '595b405b81d3f8001497603d',
+  id: '595b405b81d3f80014976031',
+  createdAt: 1524043332761,
+  updatedAt: 1524043332761,
+  from: '595b405b81d3f80014976033',
+  to: '595b405b81d3f800ldfgjeo3',
+  att: 'hello world',
 }
 ```
 ------------------------------------------------------------------------------------
@@ -76,13 +112,13 @@
 
 | field     | type   | description  |
 | --------- |--------| :----------- |
-| eventType | string | тип события   | 
+| eventType | string | тип события   |
 | teamId    | string | id of team    |
-| id        | string | id of comment | 
-| createdAt | number | время создания коментария в формате timestamp | 
-| updatedAt | number | время последнего обнавления коментария в формате timestamp | 
+| id        | string | id of comment |
+| createdAt | number | время создания коментария в формате timestamp |
+| updatedAt | number | время последнего обнавления коментария в формате timestamp |
 | streamId  | string | id of stream |
-| attText   | string | comment text with botId | 
+| attText   | string | comment text with botId |
 
 **Body example:**
 
@@ -98,6 +134,7 @@
   streamId: '595b405b81d3f80014976036',
 }
 ```
+------------------------------------------------------------------------------------
 
 ## comment.mention.thread
 
@@ -108,13 +145,13 @@
 
 | field     | type   | description  |
 | --------- |--------| :----------- |
-| eventType | string | тип события   | 
+| eventType | string | тип события   |
 | teamId    | string | id of team    |
-| id        | string | id of comment | 
-| createdAt | number | время создания коментария в формате timestamp | 
-| updatedAt | number | время последнего обнавления коментария в формате timestamp | 
+| id        | string | id of comment |
+| createdAt | number | время создания коментария в формате timestamp |
+| updatedAt | number | время последнего обнавления коментария в формате timestamp |
 | threadId  | string | id of thread |
-| attText   | string | comment text | 
+| attText   | string | comment text |
 
 
 **Body example:**

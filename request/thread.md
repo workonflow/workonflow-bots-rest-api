@@ -5,7 +5,7 @@
 **Метод для получения информации по задаче**
 
 ```js
-  api.workonflow.com/{teamid}/thread/read/{body}
+  https://botapi.workonflow.com/{teamid}/thread/read/{body}
 ```
 
 **Parameters:**
@@ -13,17 +13,16 @@
 | field      | type   | description|
 | -----------|--------| :---------------------|
 | threadId   | string | uniq id of thread      |
-| statusId   | string | Status ID (returns all threads with the indicated status) (optionally)  |
-| statusIds  | array  | array uniq ids of status (optionally) |
-| streamId   | string |Stream ID (returns all threads in a stream) (optionally)    |
-| ltUpdatedAt| number |(Less than) Time limit for creation > less than  (optionally)|
-| gtUpdatedAt| number |(Greater than) Time limit for creation < greater than (optionally) |
+| statusId   | string | Status ID (returns all threads with the indicated status)  |
+| statusIds  | array  | array uniq ids of status |
+| streamId   | string |Stream ID (returns all threads in a stream)    |
+| ltUpdatedAt| number |(Less than) Time limit for creation > less than |
+| gtUpdatedAt| number |(Greater than) Time limit for creation < greater than |
 | deadline   | array  | deadline of thread  |
 |responsibleUserId|string|id of user ответственный за задачу |
 | status     | string | id of status в котором находится задача |
 | streamId   | string | id of stream в котором находится задача |
-| teamId     | string | id of team    |
-| customerId | string | id of customer, ксли он 1 |
+| customerId | string | id of customer, eсли он 1 |
 | customerIds | array | список клиентов, если их несколько
 | title      | string | название задачи |
 | type       | string | глобальный тип задачи Wait, inProgress, Done|
@@ -34,28 +33,23 @@
 
 **Body message example:**
 ```json
-{
-  "threadId":"5b0525134c0319001573485e",
-  "statusId":"5b0321234c0319001573485e",
-  "statusIds":["5afd6d369a88ff00190baf79", "5afd6d369a88ff22190baf79"],
-  "streamId":"5afd74659a88ff00190baf81",
-  "ltUpdatedAt":1256953732,
-  "gtUpdatedAt":1256953732
-}
+  {
+    "threadId":"5b0525134c0319001573485e"
+  }
 ```
 
 **Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5afd6d369a88ff22190baf7x" }' https://api.workonflow.com/333ccc134c0319001573485e/thread/read
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5afd6d369a88ff22190baf7x" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/read
 ```
 
 **Response example:**
 ```js
- {
-   code: 200,
-   message: 'OK',
-   data: [{
+  {
+    code: 200,
+    message: 'OK',
+    data: [{
     threadId: "5b0525134c0319001573485e",
     createdAt: 1524055334667,
     deadline: [],
@@ -70,98 +64,75 @@
     type: "Wait",
     roles: ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
     updatedAt: 1524056052883,
-   }]
- }
+    }]
+  }
 ```
------------------------------------------------------------------------------
 
 ## thread/create
 
 **Метод для создания задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread/create/{body}
+  https://botapi.workonflow.com/{teamid}/thread/create/{body}
 ```
 
 **Parameters:**
-
-| field      | type   | description|
-| ------------- |---------------| ----------------------:        |
-| statusId      | string        | Status ID                      |
-| streamId      | string        | Stream ID                      |
+| field      | type   | description| required |
+| ------------- |---------------| ----------------------:        |-----:|
+| statusId      | string        | Status ID                      | yes |
+| streamId      | string        | Stream ID                      | yes |
 | title         | string        | name for thread                |
-| deadline      | array         | deadline for task (optionally) |
-| responsibleUserId | string    | id of user responsible (optionally) |
-| customerId    | string        | id of external user (optionally) |
-| roles         | string        | id followers of the thread (optionally) |
-| createdAt  | number | дата создания в формате timestamp |
-| updatedAt  | number | дата последнего обновления в формате timestamp |
-
+| deadline      | array         | deadline for task |
+| responsibleUserId | string    | id of user responsible |
+| customerId    | string        | id of external user |
+| roles         | string        | id followers of the thread |
 
 **Body message example:**
 ```json
 {
   "statusId": "5b0321234c0319001573485e",
   "streamId": "5afd74659a88ff00190baf81",
-  "title": "New thread",
-  "deadline": ["null", "1524902400000"],
-  "responsibleUserId": "5afd74659a88ff0010988f81",
-  "customerId": "5afd74659a88ff0010988f81",
+  "title": "New thread"
 }
 ```
-
 
 **Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "title":"new thread", "streamId":"5afd74659a88ff00190baf81" }' https://api.workonflow.com/333ccc134c0319001573485e/thread/create
+  curl -H "Content-Type: application/json" -X POST -d '{ "title":"New thread", "statusId": "5b0321234c0319001573485e","streamId":"5afd74659a88ff00190baf81" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/create
 ```
-
-> Если не указывать statusId, задача будет создана в первый статус
 
 **Response example:**
 
 ```js
   { code: 200, massage: 'OK', data: { threadId: '5afd74659a88ff0010900f81' } }
 ```
------------------------------------------------------------------------------------
 
-## thread.description/get
+## thread.description/read
 
 **Метод для получения описания задачи:**
 
 ```js
-  api.workonflow.com/1/thread.description/get/{body}
+  https://botapi.workonflow.com/thread.description/read/{body}
 ```
 
 **Parameters:**
 
-| field      | type   | description|
-| ---------- |--------| :---------------------- |
-| threadId   | string | uniq id of thread      |
-| content    | JSON   | JSON format example below in response |
-| created    | number | дата создания в формате timestamp |
-| teamId     | string | id of team   |
-| descriptionId|string| id of description |
-| responsibleUserId | string    | id of user responsible (optionally) |
-| customerId    | string        | id of external user (optionally) |
-| roles         | string        | id followers of the thread (optionally) |
-| title      | string | название задачи |
-| type       | string | глобальный тип задачи Wait, inProgress, Done|
-| createdAt  | number | дата создания в формате timestamp |
-| updatedAt  | number | дата последнего обновления в формате timestamp |
+| field      | type   | description | required |
+| ---------- |--------| :---------------------- |---:|
+| threadId   | string | uniq id of thread      | yes |
 
 **Body message example:**
 
 ```json
-{
-  "threadId":"5b0321234c0319001573485e"
-}
+  {
+    "threadId":"5b0321234c0319001573485e"
+  }
 ```
 
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.desctiption/get
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.desctiption/read
 ```
 
 **Response example:**
@@ -188,36 +159,28 @@
 
 ## thread.descriprion/set
 
-**Метод для добавления или ищменения описания задачи**
+**Метод для добавления или изменения описания задачи**
 ```js
-  api.workonflow.com/1/thread.description/set/{body}
+  https://botapi.workonflow.com/thread.description/set/{body}
 ```
 
 **Parameters:**
 
-| field    | type   | description         |
-| -------- |------- | :-------------------|
-| threadId | string | id of thread        |
-| content  | string | some text for description |
-| descriptionId|string| id of description |
-| responsibleUserId | string    | id of user responsible (optionally) |
-| customerId    | string        | id of external user (optionally) |
-| roles         | string        | id followers of the thread (optionally) |
-| title      | string | название задачи |
-| type       | string | глобальный тип задачи Wait, inProgress, Done|
-| createdAt  | number | дата создания в формате timestamp |
-| updatedAt  | number | дата последнего обновления в формате timestamp |
+| field    | type   | description         | required |
+| -------- |------- | :-------------------|----:|
+| threadId | string | id of thread        | yes |
+| content  | string | some text for description | yes |
 
 **Body message example:**
 ```json
-{
-  "threadId":"5b0321234c0319001573485e",
-  "content":"New description"
-}
+  {
+    "threadId":"5b0321234c0319001573485e",
+    "content":"New description"
+  }
 ```
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "content":"new description" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.desctiption/set
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "content":"new description" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.desctiption/set
 ```
 
 **Response example:**
@@ -231,34 +194,27 @@
 **Метод для изменения бюджета задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread.fields.budget/{body}
+  https://botapi.workonflow.com/{teamid}/thread.fields.budget/{body}
 ```
 
 **Parameters:**
 
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| threadId      | string        | id of thread         |
-| budget        | number        | Quantity of the thread’s budget |
-| responsibleUserId | string    | id of user responsible (optionally) |
-| customerId    | string        | id of external user (optionally) |
-| roles         | string        | id followers of the thread (optionally) |
-| title      | string | название задачи |
-| type       | string | глобальный тип задачи Wait, inProgress, Done|
-| createdAt  | number | дата создания в формате timestamp |
-| updatedAt  | number | дата последнего обновления в формате timestamp |
+| field         | type          | description | required |
+| ------------- |---------------| ----------------------:|----:|
+| threadId      | string        | id of thread         | yes |
+| budget        | number        | Quantity of the thread’s budget | yes |
 
 **Body message example:**
 ```json
-{
-  "threadId":"5b0321234c0319001573485e",
-  "budget":100
-}
+  {
+    "threadId":"5b0321234c0319001573485e",
+    "budget":100
+  }
 ```
 
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "budget":100 }' https://api.workonflow.com/333ccc134c0319001573485e/thread.fields.budget
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "budget":100 }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.budget
 ```
 
 **Response example:**
@@ -285,41 +241,34 @@
   }
 }
 ```
-----------------------------------------------------------------------------------
+
 
 ## thread.fields.deadline
 
 **Метод для изменения дедлайна задачи**
 ```js
-  api.workonflow.com/{teamid}/thread.fields.deadline/{body}
+  https://botapi.workonflow.com/{teamid}/thread.fields.deadline/{body}
 ```
 
 **Parameters:**
 
-| field         | type          | description|
-| ------------- |---------------| :---------------------|
-| threadId      | string        | id of thread         |
-| deadline      | array        | An array of data in the format of a time stamp. The first element is the start of the thread and the second is its end (if the first element is given a value of null, the thread will only display a deadline). |
-| responsibleUserId | string    | id of user responsible (optionally) |
-| customerId    | string        | id of external user (optionally) |
-| roles         | string        | id followers of the thread (optionally) |
-| title      | string | название задачи |
-| type       | string | глобальный тип задачи Wait, inProgress, Done|
-| createdAt  | number | дата создания в формате timestamp |
-| updatedAt  | number | дата последнего обновления в формате timestamp |
+| field         | type          | description | required |
+| ------------- |---------------| :---------------------|---:|
+| threadId      | string        | id of thread         | yes |
+| deadline      | array        | An array of data in the format of a time stamp. The first element is the start of the thread and the second is its end (if the first element is given a value of null, the thread will only display a deadline). | yes |
 
 **Body message example:**
 ```json
-{
-  "threadId":"5b0321234c0319001573485e",
-  "deadline":[null, 1524902400000]
-}
+  {
+    "threadId":"5b0321234c0319001573485e",
+    "deadline":[null, 1524902400000]
+  }
 ```
 
 **Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "deadline":[null, 1524902400000] }' https://api.workonflow.com/333ccc134c0319001573485e/thread.fields.deadline
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "deadline":[null, 1524902400000] }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.deadline
 ```
 
 **Response example:**
@@ -346,41 +295,34 @@
   }
 }
 ```
-----------------------------------------------------------------------------------
+
 
 ## thread.fields.priority
 
 **Метод для изменения приоритета задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread.fields.priority/{body}
+  https://botapi.workonflow.com/{teamid}/thread.fields.priority/{body}
 ```
 
 **Parameters:**
 
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| threadId      | string        | id of thread         |
-| priority        | string        | Priority level (one of two options: ‘HIGH’ or ‘NORMAL.’ Must be in upper case letters.) |
-| responsibleUserId | string    | id of user responsible (optionally) |
-| customerId    | string        | id of external user (optionally) |
-| roles         | string        | id followers of the thread (optionally) |
-| title      | string | название задачи |
-| type       | string | глобальный тип задачи Wait, inProgress, Done|
-| createdAt  | number | дата создания в формате timestamp |
-| updatedAt  | number | дата последнего обновления в формате timestamp |
+| field         | type          | description| required |
+| ------------- |---------------| ----------------------|---:|
+| threadId      | string        | id of thread         | yes |
+| priority        | string        | Priority level (one of two options: ‘HIGH’ or ‘NORMAL.’ Must be in upper case letters.) | yes |
 
 **Body message example:**
 ```json
-{
-  "threadId":"5b0321234c0319001573485e",
-  "priority":"HIGH"
-}
+  {
+    "threadId":"5b0321234c0319001573485e",
+    "priority":"HIGH"
+  }
 ```
 
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "priority":"HIGH" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.fields.priority
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "priority":"HIGH" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.priority
 ```
 **Response example:**
 
@@ -407,31 +349,23 @@
   }
 }
 ```
-----------------------------------------------------------------------------------
 
 
 ## thread.responsible/set
 
-**Метод для изменения приоритета задачи**
+**Метод для назначения ответственного за тред**
 
 
 ```js
-  api.workonflow.com/{teamid}/thread.responsible/set/{body}
+  https://botapi.workonflow.com/{teamid}/thread.responsible/set/{body}
 ```
 
 **Parameters:**
 
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| threadId      | string        | id of thread         |
-| userId        | string        | id of user |
-| responsibleUserId | string    | id of user responsible (optionally) |
-| customerId    | string        | id of external user (optionally) |
-| roles         | string        | id followers of the thread (optionally) |
-| title      | string | название задачи |
-| type       | string | глобальный тип задачи Wait, inProgress, Done|
-| createdAt  | number | дата создания в формате timestamp |
-| updatedAt  | number | дата последнего обновления в формате timestamp |
+| field         | type          | description| required |
+| ------------- |---------------| ----------------------|----:|
+| threadId      | string        | id of thread         | yes |
+| userId        | string        | id of user | yes |
 
 **Body message example:**
 ```json
@@ -443,7 +377,7 @@
 
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "userId":"5b032123210319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.responsible/set
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "userId":"5b032123210319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.responsible/set
 ```
 
 **Response example:**
@@ -470,41 +404,71 @@
   }
 }
 ```
-----------------------------------------------------------------------------------
 
-## thread.status/update
+## thread.responsible/remove
 
-**Метод для изменения статуса задачи**
+**Метод для назначения ответственного за тред**
+
 
 ```js
-  api.workonflow.com/{teamid}/thread.status/update/{body}
+  https://botapi.workonflow.com/{teamid}/thread.responsible/remove/{body}
 ```
 
 **Parameters:**
 
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| threadId      | string        | id of thread         |
-| statusId        | string        | id of status |
-| responsibleUserId | string    | id of user responsible (optionally) |
-| customerId    | string        | id of external user (optionally) |
-| roles         | string        | id followers of the thread (optionally) |
-| title      | string | название задачи |
-| type       | string | глобальный тип задачи Wait, inProgress, Done|
-| createdAt  | number | дата создания в формате timestamp |
-| updatedAt  | number | дата последнего обновления в формате timestamp |
+| field         | type          | description| required |
+| ------------- |---------------| ----------------------|----:|
+| threadId      | string        | id of thread         | yes |
+| userId        | string        | id of user | yes |
 
 **Body message example:**
 ```json
 {
   "threadId":"5b0321234c0319001573485e",
-  "statusId":"5b032123210319001573485f"
+  "userId":"5b032123210319001573485e"
 }
+```
+
+
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "userId":"5b032123210319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.responsible/remove
+```
+
+**Response example:**
+
+```js
+{
+  code: 200,
+  massage: 'OK'
+}
+```
+
+## thread.status
+
+**Метод для изменения статуса задачи**
+
+```js
+  https://botapi.workonflow.com/{teamid}/thread.status/{body}
+```
+
+**Parameters:**
+
+| field         | type          | description| required |
+| ------------- |---------------| ----------------------|---:|
+| threadId      | string        | id of thread         | yes |
+| statusId        | string        | id of status | yes |
+
+**Body message example:**
+```json
+  {
+    "threadId":"5b0321234c0319001573485e",
+    "statusId":"5b032123210319001573485f"
+  }
 ```
 
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","statusId":"5b032123210319001573485f" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.responsible/set
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","statusId":"5b032123210319001573485f" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.status
 ```
 
 **Response example:**
@@ -533,38 +497,31 @@
 ```
 ----------------------------------------------------------------------------------
 
-## thread.points
+## thread.fields.points
 
-**Метод для изменения статуса задачи**
+**Метод для изменения ранга задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread.points/{body}
+  https://botapi.workonflow.com/{teamid}/thread.fields.points/{body}
 ```
 
 **Parameters:**
 
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| threadId      | string        | id of thread         |
-| points        | number        | number of points |
-| responsibleUserId | string    | id of user responsible (optionally) |
-| customerId    | string        | id of external user (optionally) |
-| roles         | string        | id followers of the thread (optionally) |
-| title      | string | название задачи |
-| type       | string | глобальный тип задачи Wait, inProgress, Done|
-| createdAt  | number | дата создания в формате timestamp |
-| updatedAt  | number | дата последнего обновления в формате timestamp |
+| field         | type          | description| required |
+| ------------- |---------------| ----------------------|---:|
+| threadId      | string        | id of thread         | yes |
+| points        | number        | number of points | yes |
 
 **Body message example:**
 ```json
-{
-  "threadId":"5b0321234c0319001573485e",
-  "points":20
-}
+  {
+    "threadId":"5b0321234c0319001573485e",
+    "points":20
+  }
 ```
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","points":20 }' https://api.workonflow.com/333ccc134c0319001573485e/thread.points
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","points":20 }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.points
 ```
 
 **Response example:**
@@ -593,39 +550,32 @@
 ```
 ----------------------------------------------------------------------------------
 
-## thread.timetoc
+## thread.fields.timetoc
 
 **Метод для изменения времени завершения задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread.timetoc/{body}
+  https://botapi.workonflow.com/{teamid}/thread.fields.timetoc/{body}
 ```
 
 **Parameters:**
 
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| threadId      | string        | id of thread         |
-| timetocompletion        | number        | timestamp |
-| responsibleUserId | string    | id of user responsible (optionally) |
-| customerId    | string        | id of external user (optionally) |
-| roles         | string        | id followers of the thread (optionally) |
-| title      | string | название задачи |
-| type       | string | глобальный тип задачи Wait, inProgress, Done|
-| createdAt  | number | дата создания в формате timestamp |
-| updatedAt  | number | дата последнего обновления в формате timestamp |
+| field         | type          | description|required|
+| ------------- |---------------| ----------------------|---:|
+| threadId      | string        | id of thread         | yes |
+| timetocompletion        | number        | timestamp | yes |
 
 **Body message example:**
 ```json
-{
-  "threadId":"5b0321234c0319001573485e",
-  "timetocompletion": 1524057338518
-}
+  {
+    "threadId":"5b0321234c0319001573485e",
+    "timetocompletion": 1524057338518
+  }
 ```
 
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","timetocompletion":1524057338518 }' https://api.workonflow.com/333ccc134c0319001573485e/thread.timetoc
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","timetocompletion":1524057338518 }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.timetoc
 ```
 
 **Response example:**
@@ -652,41 +602,34 @@
   }
 }
 ```
-----------------------------------------------------------------------------------
+
 
 ## thread.stream
 
 **Метод для переноса задачи в другой поток**
 
 ```js
-  api.workonflow.com/{teamid}/thread.stream/{body}
+  https://botapi.workonflow.com/{teamid}/thread.stream/{body}
 ```
 
 **Parameters:**
 
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| threadId      | string        | id of thread         |
-| streamId        | string        | id of stream |
-| responsibleUserId | string    | id of user responsible (optionally) |
-| customerId    | string        | id of external user (optionally) |
-| roles         | string        | id followers of the thread (optionally) |
-| title      | string | название задачи |
-| type       | string | глобальный тип задачи Wait, inProgress, Done|
-| createdAt  | number | дата создания в формате timestamp |
-| updatedAt  | number | дата последнего обновления в формате timestamp |
+| field         | type          | description|required|
+| ------------- |---------------| ----------------------|---:|
+| threadId      | string        | id of thread         | yes |
+| streamId        | string        | id of stream | yes |
 
 **Body message example:**
 ```json
-{
-  "threadId":"5b0321234c0319001573485e",
-  "streamId":"5b0321324c0319001573485e"
-}
+  {
+    "threadId":"5b0321234c0319001573485e",
+    "streamId":"5b0321324c0319001573485e"
+  }
 ```
 
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","streamId":"5b0321324c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.stream
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","streamId":"5b0321324c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.stream
 ```
 
 **Response example:**
@@ -715,32 +658,32 @@
 ```
 ------------------------------------------------------------------------------------
 
-## thread.title.set
+## thread.title
 
 **Метод изменения названия задачи**
 
 ```js
-  api.workonflow.com/{teamid}/thread.title.set/{body}
+  https://botapi.workonflow.com/{teamid}/thread.title/{body}
 ```
 
 **Parameters:**
 
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| threadId      | string        | id of thread         |
-| title         | string        | new title for thread |
+| field         | type          | description| required|
+| ------------- |---------------| ----------------------|---:|
+| threadId      | string        | id of thread         |yes|
+| title         | string        | new title for thread |yes|
 
 **Body message example:**
 ```json
-{
-  "threadId":"5b0321234c0319001573485e",
-  "title":"New title for thread"
-}
+  {
+    "threadId":"5b0321234c0319001573485e",
+    "title":"New title for thread"
+  }
 ```
 
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","title":"New title for thread" }' https://api.workonflow.com/333ccc134c0319001573485e/thread.title.set
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","title":"New title for thread" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.title
 ```
 
 **Response example:**
@@ -753,30 +696,32 @@
 
 **Метод для добавления клиентав задачу**
 ```js
-  api.workonflow.com/{teamid}/thread.customer/add/{body}
+  https://botapi.workonflow.com/{teamid}/thread.customer/add/{body}
 ```
 
 **Parameters:**
+> **Warning!** One of the fields (customerId or customerIds) required
 
-| field         | type     | description|
-| ------------- |----------| ----------------------:|
-| threadId      | string   | id of thread         |
+| field         | type     | description| required |
+| ------------- |----------| ----------------------|---:|
+| threadId      | string   | id of thread         | yes |
 | customerId    | string   | id of external user |
 | customerIds   | array    | array of ids external users |
 
 **Body message example:**
 ```json
-{
-  "threadId": "5b0321234c0319001573485e",
-  "customerId": "5b0321324c0319001573485e",
-  "customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"]
-}
+  {
+    "threadId": "5b0321234c0319001573485e",
+    "customerId": "5b0321324c0319001573485e",
+    // or
+    "customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"]
+  }
 ```
 
 **Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"] }' https://api.workonflow.com/333ccc134c0319001573485e/thread.customer/add
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"] }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.customer/add
 ```
 
 **Response example:**
@@ -788,30 +733,31 @@
 
 # Thread remove customers
 ```js
-  api.workonflow.com/{teamid}/thread.customer/remove/{body}
+  https://botapi.workonflow.com/{teamid}/thread.customer/remove/{body}
 ```
 
 **Parameters:**
+> **Warning!** One of the fields (customerId or customerIds) required
 
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| threadId      | string        | id of thread         |
+| field         | type          | description| required |
+| ------------- |---------------| ----------------------|--:|
+| threadId      | string        | id of thread         | yes |
 | customerId    | string        | id of external user |
 | customerIds   | array         | array of ids external users |
 
 **Body message example:**
 ```json
-{
-  "threadId": "5b0321234c0319001573485e",
-  "customerId": "5b0321324c0319001573485e",
-  "customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"]
-}
+  {
+    "threadId": "5b0321234c0319001573485e",
+    "customerId": "5b0321324c0319001573485e",
+    "customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"]
+  }
 ```
 
 **Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"] }' https://api.workonflow.com/333ccc134c0319001573485e/thread.customer/remove
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"] }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.customer/remove
 ```
 
 **Response example:**
@@ -824,27 +770,28 @@
 
 # Thread set followers
 ```js
-  api.workonflow.com/{teamid}/thread.followers/set/{body}
+  https://botapi.workonflow.com/{teamid}/thread.followers/set/{body}
 ```
 
 **Parameters:**
 
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| threadId      | string        | id of thread         |
-| userId        | string        | id of user |
+| field         | type          | description| required |
+| ------------- |---------------| ----------------------|---:|
+| threadId      | string        | id of thread         | yes |
+| userId        | string        | id of user | yes |
 
 **Body message example:**
 ```json
-{
-  threadId: '5b0321234c0319001573485e',
-  userId: '5b0321324c0319001573485e'
-}
+  {
+    threadId: '5b0321234c0319001573485e',
+    userId: '5b0321324c0319001573485e'
+  }
 ```
 
 **Request example:**
-
-
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","userId": "5e1451234c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.followers/set
+```
 
 **Response example:**
 ```js
@@ -856,15 +803,15 @@
 
 # Thread remove followers
 ```js
-  api.workonflow.com/{teamid}/thread.responsible/followers/{body}
+  https://botapi.workonflow.com/{teamid}/thread.followers/remove/{body}
 ```
 
 **Parameters:**
 
-| field         | type          | description|
-| ------------- |---------------| ----------------------:|
-| threadId      | string        | id of thread         |
-| userId        | string        | id of user |
+| field         | type          | description| required |
+| ------------- |---------------| ----------------------|---:|
+| threadId      | string        | id of thread         | yes |
+| userId        | string        | id of user | yes |
 
 **Body message example:**
 ```json
@@ -875,7 +822,9 @@
 ```
 
 **Request example:**
-
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","userId": "5b0321324c0319001573484q" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.followers/remove
+```
 
 
 **Response example:**

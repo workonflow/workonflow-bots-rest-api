@@ -59,7 +59,7 @@
 
 **body** - передаваемые параметры для запроса
 
-Для того чтобы создать **signature** вам необходимо создать хэш sha256 в формате Hex, из **botId** + **secretkey** + timestamp в секундах
+Для того чтобы создать **signature** вам необходимо создать хэш sha256 в формате Hex, из **botId** + **secretkey** + **timestamp в секундах** + **body**
 
 **Пример создания signature:**
 ```js
@@ -70,10 +70,11 @@
 
 |Название заголовка| Значение |
 |-----|-----|
-|Api-key| Your registered botId |
+|X-Bot-Id| Your registered botId |
 |X-Signature| SHA256 encoding signature |
+|X-timestamp| timestamp in seconds |
 
-В случае если параметры не будут переданны или один из ключей не верный, ваш запрос будет неудачен, и вы получите ошибку HTTP 403.
+В случае если параметры не будут переданны или один из ключей не верный, ваш запрос будет неудачен, и вы получите ошибку HTTP 401.
 
 ### Общие правила запросов
 
@@ -84,7 +85,7 @@
 Чтобы отправить запрос, нужно использовать идентификаторы или «URI». URL любого API-запроса составляется следующим образом:
 
 ```js
-  https://api.workonflow.com/{teamId}/{URI}?{body}
+  https://botapi.workonflow.com/{teamId}/{URI}/{body}
 ```
 
 где
@@ -98,6 +99,14 @@
   https://api.workonflow.com/5b4484384e3e54001e267ed8/stream/read?body={"streamId":"7b4484384e3454001egh7847"}
 ```
 
+### Общие ответы для всех запросов
+|Код|Сообщение|
+|---|---|
+|200|OK|
+|400|No valid content. See documentaion or Incorrect teamId|
+|401|Not authorized|
+|500|Internal server error|
+
 #### Методы передачи параметров запроса
 
 |Метод|Назначение|
@@ -110,10 +119,10 @@
 |Название| Возможные действия    |  Возможные события          |
 |-----|:-----:|:------------:|
 | **channel** | [actions](./request/channel.md) |              |
-| **call**    | [actions](./request/call.md)    | [events](./events/call.md) |
 | **comment** | [actions](./request/comment.md) | [events](./events/comment.md)|
 | **contact** | [actions](./request/contact.md) |              |
 | **file**    | [actions](./request/file.md)    |              |
 | **stream**  | [actions](./request/stream.md)  | [events](./events/stream.md) |
 | **team**    | [actions](./request/team.md)    | [events](./events/team.md)   |
 | **thread**  | [actions](./request/thread.md)  | [events](./events/thread.md) |
+| **call** (In developing)    | [actions](./request/call.md)    | [events](./events/call.md) |

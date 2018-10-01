@@ -5,28 +5,27 @@
 **Метод для приглашения пользователя в систему workonflow**
 
 ```js
-  api.workonflow.com/{teamId}/team/invite.user/{body}
+  https://botapi.workonflow.com/{teamId}/invite.user/{body}
 ```
 **Parameters:**
 
-| field    | type   | description|
-| -------- |--------| :----------------------|
-| name     | string | new name for stream   |
-| email    | string | user name |
+| field    | type   | description| required |
+| -------- |--------| :----------------------|---:|
+| name     | string | User name   | yes |
+| email    | string | Email of user | yes |
 
 **Body message example:**
-
 ```json
-{
-  "name": "Jon Si",
-  "email": "true"
-}
+  {
+    "name": "Jon Si",
+    "email": "jon@www.com"
+  }
 ```
 
-**Query example:**
+**Request example:**
 
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "name":"New stream" }' https://api.workonflow.com/333ccc134c0319001573485e/team/invite.user
+  curl -H "Content-Type: application/json" -X POST -d '{ "name":"Jon Si", "email": "jon@www.com" }' https://botapi.workonflow.com/333ccc134c0319001573485e/invite.user
 ```
 
 **Response example:**

@@ -112,7 +112,7 @@
 | **channel** | [actions](./request/channel.md) |              |
 | **call**    | [actions](./request/call.md)    | [events](./events/call.md) |
 | **comment** | [actions](./request/comment.md) | [events](./events/comment.md)|
-| **contact** | [actions](./request/contact.md) |              |
+| **contact** | [actions](./request/contact.md) | [events](./events/contact.md)|             |
 | **file**    | [actions](./request/file.md)    |              |
 | **stream**  | [actions](./request/stream.md)  | [events](./events/stream.md) |
 | **team**    | [actions](./request/team.md)    | [events](./events/team.md)   |

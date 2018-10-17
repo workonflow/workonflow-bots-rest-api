@@ -71,7 +71,6 @@
 ```js
 {
   eventType: 'call.user.invited',
-  callId: '522a2f93-4463-4040-8176-947b2c77bd0f',
   threadId: '595b405b81d3f8001497603d',
   streamId: '595b405b81d3f8001497603d',
   userId: '595b405b81d3f8001497603d'
@@ -97,7 +96,6 @@
 ```js
 {
   eventType: 'call.user.removed',
-  callId: '522a2f93-4463-4040-8176-947b2c77bd0f',
   threadId: '595b405b81d3f8001497603d',
   streamId: '595b405b81d3f8001497603d',
   userId: '595b405b81d3f8001497603d'
@@ -123,7 +121,6 @@
 ```js
 {
   eventType: 'call.user.paused',
-  callId: '522a2f93-4463-4040-8176-947b2c77bd0f'
   threadId: '595b405b81d3f8001497603d',
   streamId: '595b405b81d3f8001497603d',
   userId: '595b405b81d3f8001497603d'
@@ -149,7 +146,6 @@
 ```js
 {
   eventType: 'call.user.unpaused',
-  callId: '522a2f93-4463-4040-8176-947b2c77bd0f'
   threadId: '595b405b81d3f8001497603d',
   streamId: '595b405b81d3f8001497603d',
   userId: '595b405b81d3f8001497603d'
@@ -175,8 +171,8 @@
 ```js
 {
   eventType: 'call.dtmf',
-  callId: '522a2f93-4463-4040-8176-947b2c77bd0f'
   threadId: '595b405b81d3f8001497603d',
   streamId: '595b405b81d3f8001497603d',
   dtmf: '1',
 }
+```

@@ -37,45 +37,8 @@
 
 ---
 
-### call/end
 
-**Метод завершения звонка в задаче**
-
-```js
-  api.workonflow.com/{teamid}/call/end/{body}
-```
-
-**Parameters**
-
-| field         | type          | description         |
-| ------------- |---------------| -----------------   |
-| threadId      | string        | id of thread        |
-| direction     | string        | direction of call   |
-| callDuration  | integer       | full call time in seconds|
-| dialogDuration| integer       | talk time in seconds|
-| result        | string        | result of the call  |
-
-**Body message example:**
-
-```json
-  {
-    "threadId":"5b0525134c0319001573485e"
-  }
-```
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call/end
-```
-
-**Response example:**
-
-```js
-  { code: 200, message: "OK", data: { callDuration, dialogDuration, result, direction } }
-```
-
----
-
-### call.user/invite
+### call/invite
 
 **Метод для приглашения пользователя(лей) в звонок**
 
@@ -89,6 +52,7 @@
 | ------------- |---------------| -----------------   |
 | threadId      | string        | id of thread        |
 | userId        | string        | id of user          |
+| phone         | string        | id of user          |
 | userIds       | array         | array of users ids  |
 | invitedUsersCount| string     | number of invited users|
 
@@ -115,9 +79,9 @@
 
 ---
 
-### call.user/exclude
+### call/kick
 
-**Метод для исключения пользовател(лей) из звонка**
+**Метод для исключения пользовател(лей)/тредов и прочего**
 
 ```js
   api.workonflow.com/{teamid}/call.user/exclude/{body}
@@ -155,9 +119,9 @@
 
 ---
 
-### call/pause
+### call.user/hold
 
-**Метод для постановки звонка на паузу**
+**Метод для постановки пользователя на паузу**
 
 ```js
   api.workonflow.com/{teamid}/call/pause/{body}
@@ -195,49 +159,10 @@
 
 ---
 
-### call/unpause
 
-**Метод для снятия звонка с паузы**
+### call.user/unhold
 
-```js
-  api.workonflow.com/{teamid}/call/unpause/{body}
-```
-
-**Parameters**
-
-| field         | type          | description         |
-| ------------- |---------------| -----------------   |
-| threadId      | string        | id of thread        |
-| userId        | string        | id of user          |
-| userIds       | array         | array of users ids  |
-| unpausedUsersCount| string    | number of users switched off pause|
-
-> **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
-
-**Body message example:**
-
-```json
-  {
-    "threadId":"5b0525134c0319001573485e",
-    "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
-  }
-```
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }' https://api.workonflow.com/333ccc134c0319001573485e/call/unpause
-```
-
-**Response example:**
-
-```js
-  { code: 200, message: "OK", data: { unpausedUsersCount: 1 } }
-```
-
----
-
-### call/unpause
-
-**Метод для снятия звонка с паузы**
+**Метод для снятия пользователя с паузы**
 
 ```js
   api.workonflow.com/{teamid}/call/unpause/{body}
@@ -288,6 +213,7 @@
 | field         | type          | description         |
 | ------------- |---------------| -----------------   |
 | threadId      | string        | id of thread        |
+| isLoop        | boolean       | loop audio file or not|
 | fileUrl       | string        | url of file, intended to play|
 
 > **Важно!** Аудиофайл должен иметь расширение mp3 или wav и не должен превышать размера в 10мб.

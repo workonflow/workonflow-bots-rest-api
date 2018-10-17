@@ -108,17 +108,19 @@
 | field         | type     | description|
 | ------------- |----------|:-----------------------------------------|
 | eventType     |string    | тип поступившего события                 |
+| phoneNumber   |string    | phone number of user                     |
 | threadId      |string    | id of thread, в котором совершён звонок  |
 | streamId      |string    | id of stream, в котором совершён звонок  |
-| userId        |string    | id of user, кого поставили на паузу      |
+| contactId     |string    | id of user, кого поставили на паузу      |
 
 **Body example:**
 ```js
 {
-  eventType: 'call.user.hold',
+  eventType: 'call.user.held',
+  phoneNumber: '89536052307',
   threadId: '595b405b81d3f8001497603d',
   streamId: '595b405b81d3f8001497603d',
-  userId: '595b405b81d3f8001497603d'
+  contactId: '595b405b81d3f8001497603d'
 }
 ```
 ----
@@ -132,17 +134,19 @@
 | field         | type     | description|
 | ------------- |----------|:-----------------------------------------|
 | eventType     |string    | тип поступившего события                 |
+| phoneNumber   |string    | phone number of user                     |
 | threadId      |string    | id of thread, в котором совершён звонок  |
 | streamId      |string    | id of stream, в котором совершён звонок  |
-| userId        |string    | id of user, кого сняли с паузы           |
+| contactId     |string    | id of user, кого сняли с паузы           |
 
 **Body example:**
 ```js
 {
-  eventType: 'call.user.unhold',
+  eventType: 'call.user.unheld',
+  phoneNumber: '89536052307',
   threadId: '595b405b81d3f8001497603d',
   streamId: '595b405b81d3f8001497603d',
-  userId: '595b405b81d3f8001497603d'
+  contactId: '595b405b81d3f8001497603d'
 }
 ```
 ----

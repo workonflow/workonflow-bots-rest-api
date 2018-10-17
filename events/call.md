@@ -73,7 +73,36 @@
 ```
 ----
 
-### call.user.kicked
+### call.user.endedInvite
+
+**Событие возникает во момент, когда пользователь принял/отклонил инвайт в конференцию**
+
+**Parameters:**
+
+| field         | type     | description|
+| ------------- |----------|:----------------------------------------|
+| eventType     |string    | тип поступившего события                |
+| phoneNumber   |string    | phone number of user                    |
+| threadId      |string    | id of thread, в котором совершён звонок |
+| streamId      |string    | id of stream, в котором совершён звонок |
+| contactId     |string    | id of user, кого призвали в конференцию |
+| answered      |boolean   | результат инвайта контакта в конференцию|
+
+
+**Body example:**
+```js
+{
+  eventType: 'call.user.invited',
+  phoneNumber: '89536052307',
+  threadId: '595b405b81d3f8001497603d',
+  streamId: '595b405b81d3f8001497603d',
+  contactId: '595b405b81d3f8001497603d',
+  answered: true
+}
+```
+----
+
+### call.user.leaved
 
 **Событие возникает при удалении участника звонка**
 

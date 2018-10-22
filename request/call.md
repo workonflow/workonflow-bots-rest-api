@@ -2,20 +2,19 @@
 
 # Call requests
 
-### call/start
+### call/get
 
-**Метод создания звонка в задаче**
+**Метод получения звонка**
 
 ```js
-  api.workonflow.com/{teamid}/call/start/{body}
+  https://botapi.workonflow.com/{teamid}/call/get/{body}
 ```
 
 **Parameters**
 
-| field         | type          | description         |
-| ------------- |---------------| -----------------   |
-| threadId      | string        | id of thread        |
-| direction     | string        | direction of call   |
+| field         | type          | description         | required |
+| ------------- |---------------| -----------------   |----------|
+| threadId      | string        | id of thread        | yes      |
 
 **Body message example:**
 
@@ -26,13 +25,24 @@
 ```
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call/start
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/call/get
 ```
 
 **Response example:**
 
 ```js
-  { code: 200, message: "OK", data: { direction } }
+{
+  code: 200,
+  message: 'OK',
+  data:
+  {
+    destinationId: '5bcda4d25ad71w0015771257',
+    streamId: '5bbc67c5522e2400149af76c',
+    originateUserId: '{"contactId":"5bcda4d2e74419001f6fe4b1","phone":"07112749","trunkId":"bambYXY3o"}',
+    typeDestination: 'thread-incoming',
+    destinationContacts: '[{"contactId":"5b72aaab444507001c8be443","isMute":false,"isHold":false,"isMeInvite":false,"isExtension":false,"answered":false,"isBot":false,"hasOriginator":false},{"contactId":"2bcda4d2e74419001f6fe4f0","answered":true,"hasOriginator":true,"channelId":"558d25da-d6e4-11e8-bd3d-4799aea902e9","isMute":false,"createdAt":"1540203730669","isHold":false,"phone":"07112749","trunkId":"bambYVY3o","isMeInvite":false,"isExtension":false,"isBot":false}]'
+  }
+}
 ```
 
 ---
@@ -43,38 +53,38 @@
 **Метод для приглашения пользователя(лей) в звонок**
 
 ```js
-  api.workonflow.com/{teamid}/call.user/invite/{body}
+  https://botapi.workonflow.com/{teamid}/call.user/invite/{body}
 ```
 
 **Parameters**
 
-| field         | type          | description         |
-| ------------- |---------------| -----------------   |
-| threadId      | string        | id of thread        |
-| userId        | string        | id of user          |
-| phone         | string        | id of user          |
-| userIds       | array         | array of users ids  |
-| invitedUsersCount| string     | number of invited users|
+| field         | type          | description         | required |
+| ------------- |---------------| -----------------   |----------|
+| threadId      | string        | id of thread        | yes      |
+| contactId     | string     | id of user             | yes       |
+| phone         | string        | number phone          |
+| userIds: [ { contactId, phone } ]       | array         | array of users ids with phone number  | yes      |
 
-> **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
+> **Важно!** Обязательно предоставить либо contactId либо userIds
 
 **Body message example:**
 
 ```json
   {
-    "threadId":"5b0525134c0319001573485e",
-    "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
+    threadId: "5bcdb5535ad82d00157712c5",
+    contactId: "5b72aaab444507001b8sw553",
+    phone: "89999999999"
   }
 ```
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }' https://api.workonflow.com/333ccc134c0319001573485e/call.user/invite
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }' https://botapi.workonflow.com/333ccc134c0319001573485e/call.user/invite
 ```
 
 **Response example:**
 
 ```js
-  { code: 200, message: "OK", data: { invitedUsersCount: 1 } }
+  { code: 200, message: "OK" }
 ```
 
 ---
@@ -84,37 +94,33 @@
 **Метод для исключения пользовател(лей)/тредов и прочего**
 
 ```js
-  api.workonflow.com/{teamid}/call.user/exclude/{body}
+  https://botapi.workonflow.com/{teamid}/call/kick/{body}
 ```
 
 **Parameters**
 
-| field         | type          | description         |
-| ------------- |---------------| -----------------   |
-| threadId      | string        | id of thread        |
-| userId        | string        | id of user          |
-| userIds       | array         | array of users ids  |
-| excludedUsersCount| string    | number of excluded users|
-
-> **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
+| field         | type          | description         | required |
+| ------------- |---------------| -----------------   |----|
+| threadId      | string        | id of thread        | yes |
+| contactId        | string        | id of user          |
+| phone       | string         | phonenumber  |
 
 **Body message example:**
 
 ```json
   {
-    "threadId":"5b0525134c0319001573485e",
-    "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
+    "threadId":"5b0525134c0319001573485e"
   }
 ```
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }' https://api.workonflow.com/333ccc134c0319001573485e/call.user/exclude
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }' https://botapi.workonflow.com/333ccc134c0319001573485e/call/kick
 ```
 
 **Response example:**
 
 ```js
-  { code: 200, message: "OK", data: { excludedUsersCount: 1 } }
+  { code: 200, message: "OK" }
 ```
 
 ---
@@ -124,37 +130,36 @@
 **Метод для постановки пользователя на паузу**
 
 ```js
-  api.workonflow.com/{teamid}/call/pause/{body}
+  https://botapi.workonflow.com/{teamid}/call.user/hold/{body}
 ```
 
 **Parameters**
 
-| field         | type          | description         |
-| ------------- |---------------| -----------------   |
-| threadId      | string        | id of thread        |
-| userId        | string        | id of user          |
-| userIds       | array         | array of users ids  |
-| pausedUsersCount| string      | number of users switched on pause|
+| field         | type          | description         | required |
+| ------------- |---------------| -----------------   |---|
+| threadId      | string        | id of thread        | yes |
+| contactId        | string        | id of user          |
+| phone       | number         | phonenumber  |
 
-> **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
+
 
 **Body message example:**
 
 ```json
   {
     "threadId":"5b0525134c0319001573485e",
-    "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
+    "contactId":"5b0525134c031900157348xd"
   }
 ```
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }' https://api.workonflow.com/333ccc134c0319001573485e/call/pause
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "contactId":"5b0525134c031900157348xd" }' https://botapi.workonflow.com/333ccc134c0319001573485e/call.user/hold
 ```
 
 **Response example:**
 
 ```js
-  { code: 200, message: "OK", data: { pausedUsersCount: 1 } }
+  { code: 200, message: "OK" }
 ```
 
 ---
@@ -165,37 +170,35 @@
 **Метод для снятия пользователя с паузы**
 
 ```js
-  api.workonflow.com/{teamid}/call/unpause/{body}
+  https://botapi.workonflow.com/{teamid}/call/unpause/{body}
 ```
 
 **Parameters**
 
-| field         | type          | description         |
-| ------------- |---------------| -----------------   |
-| threadId      | string        | id of thread        |
-| userId        | string        | id of user          |
-| userIds       | array         | array of users ids  |
-| unpausedUsersCount| string    | number of users switched off pause|
-
-> **Важно!** Обязательно предоставить либо userId либо userIds. При наличии обоих полей userIds будет проигнорирован.
+| field         | type          | description         | required |
+| ------------- |---------------| -----------------   |---|
+| threadId      | string        | id of thread        | yes |
+| contactId        | string        | id of user          |
+| phone       | number         | phonenumber  |
 
 **Body message example:**
 
 ```json
   {
     "threadId":"5b0525134c0319001573485e",
-    "userId": "5b4458eb1b2b33001bf213bf" // or "userIds": [ "5b4458eb1b2b33001bf213bf", "5b4458eb1b2b33001bf213bc"]
+    "contactId":"5b0525134c031900157348xd"
   }
 ```
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "userId": "5b4458eb1b2b33001bf213bf" }' https://api.workonflow.com/333ccc134c0319001573485e/call/unpause
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "contactId":"5b0525134c031900157348xd" }' https://botapi.workonflow.com/333ccc134c0319001573485e/call.user/unhold
 ```
+
 
 **Response example:**
 
 ```js
-  { code: 200, message: "OK", data: { unpausedUsersCount: 1 } }
+  { code: 200, message: "OK" }
 ```
 
 ---
@@ -205,7 +208,7 @@
 **Метод для загрузки и проигрывания аудиозаписи в звонке (для всех пользователей или для конкретных?)**
 
 ```js
-  api.workonflow.com/{teamid}/call.audio/play/{body}
+  https://botapi.workonflow.com/{teamid}/call.audio/play/{body}
 ```
 
 **Parameters**
@@ -214,7 +217,7 @@
 | ------------- |---------------| -----------------   |
 | threadId      | string        | id of thread        |
 | isLoop        | boolean       | loop audio file or not|
-| fileUrl       | string        | url of file, intended to play|
+| url       | string        | url of file, intended to play|
 
 > **Важно!** Аудиофайл должен иметь расширение mp3 или wav и не должен превышать размера в 10мб.
 
@@ -223,12 +226,13 @@
 ```json
   {
     "threadId":"5b0525134c0319001573485e",
-    "fileUrl": "https://url.to.your/audiofile.mp3"
+    "url": "https://url.to.your/audiofile.mp3",
+    "isLoop": true
   }
 ```
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "fileUrl": "https://url.to.your/audiofile.mp3"}' https://api.workonflow.com/333ccc134c0319001573485e/call.audio/play
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "isLoop": true, "url": "https://url.to.your/audiofile.mp3"}' https://botapi.workonflow.com/333ccc134c0319001573485e/call.audio/play
 ```
 
 **Response example:**
@@ -244,7 +248,7 @@
 **Метод для остановки проигрывания аудиозаписи в звонке (для всех пользователей или для конкретных?)**
 
 ```js
-  api.workonflow.com/{teamid}/call.audio/stop/{body}
+  https://botapi.workonflow.com/{teamid}/call.audio/stop/{body}
 ```
 
 **Parameters**
@@ -252,17 +256,20 @@
 | field         | type          | description         |
 | ------------- |---------------| -----------------   |
 | threadId      | string        | id of thread        |
+| url       | string        | url of file, intended to stop|
+
 
 **Body message example:**
 
 ```json
   {
     "threadId":"5b0525134c0319001573485e",
+    "url": "https://url.to.your/audiofile.mp3"
   }
 ```
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call.audio/stop
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e", "url": "https://url.to.your/audiofile.mp3"}' https://botapi.workonflow.com/333ccc134c0319001573485e/call.audio/stop
 ```
 
 **Response example:**
@@ -278,7 +285,7 @@
 **Метод для начала записи разговора в звонке**
 
 ```js
-  api.workonflow.com/{teamid}/call.recording/start/{body}
+  https://botapi.workonflow.com/{teamid}/call.recording/start/{body}
 ```
 
 **Parameters**
@@ -296,7 +303,7 @@
 ```
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call.recording/start
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/call.recording/start
 ```
 
 **Response example:**
@@ -312,7 +319,7 @@
 **Метод для остановки записи разговора в звонке**
 
 ```js
-  api.workonflow.com/{teamid}/call.recording/stop/{body}
+  https://botapi.workonflow.com/{teamid}/call.recording/stop/{body}
 ```
 
 **Parameters**
@@ -331,7 +338,7 @@
 ```
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call.recording/stop
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/call.recording/stop
 ```
 
 **Response example:**
@@ -347,7 +354,7 @@
 **Метод для начала стрима разговора в звонке**
 
 ```js
-  api.workonflow.com/{teamid}/call.stream/start/{body}
+  https://botapi.workonflow.com/{teamid}/call.stream/start/{body}
 ```
 
 **Parameters**
@@ -366,7 +373,7 @@
 ```
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call.stream/start
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/call.stream/start
 ```
 
 **Response example:**
@@ -382,7 +389,7 @@
 **Метод для остановки стрима разговора в звонке**
 
 ```js
-  api.workonflow.com/{teamid}/call.stream/stop/{body}
+  https://botapi.workonflow.com/{teamid}/call.stream/stop/{body}
 ```
 
 **Parameters**
@@ -400,7 +407,7 @@
 ```
 **Request example:**
 ```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://api.workonflow.com/333ccc134c0319001573485e/call.stream/stop
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/call.stream/stop
 ```
 
 **Response example:**

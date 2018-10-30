@@ -78,14 +78,14 @@
 
 **Parameters:**
 | field      | type   | description| required |
-| ------------- |---------------| ----------------------:        |-----:|
+| ------------- |---------------| ----------------------         |:----|
 | statusId      | string        | Status ID                      | yes |
 | streamId      | string        | Stream ID                      | yes |
-| title         | string        | name for thread                |
-| deadline      | array         | deadline for task |
-| responsibleUserId | string    | id of user responsible |
-| customerId    | string        | id of external user |
-| roles         | string        | id followers of the thread |
+| title         | string        | name for thread                ||
+| deadline      | array         | deadline for task              ||
+| responsibleUserId | string    | id of user responsible         ||
+| customerId    | string        | id of external user            ||
+| roles         | string        | id followers of the thread     ||
 
 **Body message example:**
 ```json

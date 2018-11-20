@@ -7,7 +7,7 @@
 **Метод получения звонка**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/call/get/{body}
+  https://botapi.workonflow.com/{teamid}/call/get
 ```
 
 **Parameters**
@@ -53,7 +53,7 @@
 **Метод для приглашения пользователя(лей) в звонок**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/call.user/invite/{body}
+  https://botapi.workonflow.com/{teamid}/call.user/invite
 ```
 
 **Parameters**
@@ -94,7 +94,7 @@
 **Метод для исключения пользовател(лей)/тредов и прочего**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/call/kick/{body}
+  https://botapi.workonflow.com/{teamid}/call/kick
 ```
 
 **Parameters**
@@ -130,7 +130,7 @@
 **Метод для постановки пользователя на паузу**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/call.user/hold/{body}
+  https://botapi.workonflow.com/{teamid}/call.user/hold
 ```
 
 **Parameters**
@@ -170,7 +170,7 @@
 **Метод для снятия пользователя с паузы**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/call/unpause/{body}
+  https://botapi.workonflow.com/{teamid}/call/unpause
 ```
 
 **Parameters**
@@ -208,7 +208,7 @@
 **Метод для загрузки и проигрывания аудиозаписи в звонке (для всех пользователей или для конкретных?)**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/call.audio/play/{body}
+  https://botapi.workonflow.com/{teamid}/call.audio/play
 ```
 
 **Parameters**
@@ -248,7 +248,7 @@
 **Метод для остановки проигрывания аудиозаписи в звонке (для всех пользователей или для конкретных?)**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/call.audio/stop/{body}
+  https://botapi.workonflow.com/{teamid}/call.audio/stop
 ```
 
 **Parameters**
@@ -285,7 +285,7 @@
 **Метод для начала записи разговора в звонке**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/call.recording/start/{body}
+  https://botapi.workonflow.com/{teamid}/call.recording/start
 ```
 
 **Parameters**
@@ -319,7 +319,7 @@
 **Метод для остановки записи разговора в звонке**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/call.recording/stop/{body}
+  https://botapi.workonflow.com/{teamid}/call.recording/stop
 ```
 
 **Parameters**
@@ -354,7 +354,7 @@
 **Метод для начала стрима разговора в звонке**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/call.stream/start/{body}
+  https://botapi.workonflow.com/{teamid}/call.stream/start
 ```
 
 **Parameters**
@@ -389,7 +389,7 @@
 **Метод для остановки стрима разговора в звонке**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/call.stream/stop/{body}
+  https://botapi.workonflow.com/{teamid}/call.stream/stop
 ```
 
 **Parameters**

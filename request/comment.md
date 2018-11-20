@@ -5,7 +5,7 @@
 **Метод для получения колличества комментариев**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/comment/count/{body}
+  https://botapi.workonflow.com/{teamid}/comment/count
 ```
 
 
@@ -43,7 +43,7 @@
 **Метод для создания комментариев**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/comment/create/{body}
+  https://botapi.workonflow.com/{teamid}/comment/create
 ```
 
 **Parameters:**
@@ -83,7 +83,7 @@
 **Метод для получения комментариев**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/comment/read/{body}
+  https://botapi.workonflow.com/{teamid}/comment/read
 ```
 
 **Parameters:**

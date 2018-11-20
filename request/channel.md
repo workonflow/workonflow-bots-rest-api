@@ -1,7 +1,7 @@
 # Mail requests
 
 ## Method for obtaining email channels
-```https://botapi.workonflow.com/{teamid}/channel.mail/account.get/{body}```
+```https://botapi.workonflow.com/{teamid}/channel.mail/account.get```
 
 ### Parameters:
 | name      |type            | description                       |
@@ -43,7 +43,7 @@
 ```
 
 # Method for receiving email channels
-```https://botapi.workonflow.com/{teamid}/channel.mail/read/{body}```
+```https://botapi.workonflow.com/{teamid}/channel.mail/read```
 
 ### Parameters:
 > **Warning!** One of the fields required
@@ -102,7 +102,7 @@
 
 
 # Method for sending email
-```https://botapi.workonflow.com/{teamid}/channel.mail/send/{body}```
+```https://botapi.workonflow.com/{teamid}/channel.mail/send```
 
 ### Parameters:
 |  name     |   type | description  | required |
@@ -139,7 +139,7 @@
 # Telephony
 
 # Create user SIP
-```https://botapi.workonflow.com/{teamid}/channel.telephony/create/{body}```
+```https://botapi.workonflow.com/{teamid}/channel.telephony/create```
 
 ### Parameters:
 |  name   |  type  | description | required |
@@ -173,7 +173,7 @@
 
 
 # Method for deleting user SIP from telephony (still in development)
-```https://botapi.workonflow.com/{teamid}/channel.telephony/delete/{body}```
+```https://botapi.workonflow.com/{teamid}/channel.telephony/delete```
 
 ### Parameters:
 |  name   |  type  |   description  | required |
@@ -199,7 +199,7 @@
 
 
 # Method for obtaining user SIP
-```https://botapi.workonflow.com/{teamid}/channel.telephony/get/{body}```
+```https://botapi.workonflow.com/{teamid}/channel.telephony/get```
 
 ### Parameters:
 |  name       |  type  | description   |
@@ -229,7 +229,7 @@
 
 
 # Update user SIP method
-```https://botapi.workonflow.com/{teamid}/channel.telephony/update/{body}```
+```https://botapi.workonflow.com/{teamid}/channel.telephony/update```
 
 ### Parameters:
 |  name      |  type  | description   | required |

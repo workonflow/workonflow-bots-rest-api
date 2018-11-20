@@ -5,7 +5,7 @@
 **Метод для получения url файла который находится на Amazon**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/file/get.url/{body}
+  https://botapi.workonflow.com/{teamid}/file/get.url
 ```
 
 **Parameters:**
@@ -50,7 +50,7 @@
 
 **Метод получения url для загрузки файла на Amazon**
 
-```https://botapi.workonflow.com/{teamid}/file/put.url/{body}```
+```https://botapi.workonflow.com/{teamid}/file/put.url```
 
 **Parameters:**
 > **Warning!** One of the fields (filename or filenames) required
@@ -96,7 +96,7 @@
 
 **Метод получения файлов в workonflow**
 
-```https://botapi.workonflow.com/{teamid}/file/read/{body}```
+```https://botapi.workonflow.com/{teamid}/file/read```
 
 **Parameters:**
 > **Warning!** One of the fields (id, streamId, ids, threadId, authorId) required

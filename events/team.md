@@ -1,7 +1,8 @@
-# Tema events
+# Team events
 
-## team.admin.status.give
+## Admin.User.set
 
+**Событие тимы**
 **Событие получения пользователем прав администратора**
 
 **Parameters:**
@@ -10,21 +11,30 @@
 | --------- | ------ | ------------  |
 | eventType | string | type of event |
 | teamId    | string | id of team    |
-| userId    | string | id of user    |
+| userId    | string | id of user, которому дали доступ |
+| initialUser| string | id of user, который дал доступ |
+| isAdmin    | boolean| is admin or not    |
+| billingType| string | bot/user/client    |
+| email     | string | user email    |
 
 **Body example:**
 
 ```js
 {
-  eventType: 'team.admin.status.give',
+  eventType: 'Admin.User.set',
   teamId: '5b0525134c0319001573485e',
-  userId: '5b0525134c0319001573485f'
+  userId: '5b0525134c0319001573485f',
+  initialUser: '5b0525134c0319001573485h',
+  email: 'example@gmail.com',
+  billingType: 'bots',
+  isAdmin: true  
 }
 ```
 -------------------------------------------
 
-## team.admin.status.revoked
+## Admin.User.revoked
 
+**Событие тимы**
 **Событие изъятия у пользователем прав администратора**
 
 **Parameters:**
@@ -33,46 +43,61 @@
 | --------- | ------ | ------------  |
 | eventType | string | type of event |
 | teamId    | string | id of team    |
-| userId    | string | id of user    |
+| userId    | string | id of user, которому дали доступ |
+| profileId    | string | global id of bot    |
+| initialUser| string | id of user, который дал доступ |
+| email     | string | user email    |
 
 **Body example:**
 
 ```js
 {
-  eventType: 'team.admin.status.revoked',
+  eventType: 'Admin.User.revoked',
   teamId: '5b0525134c0319001573485e',
-  userId: '5b0525134c0319001573485f' 
+  userId: '5b0525134c0319001573485f',
+  profileId: '58f5ec3a32e3a300154b5e50',
+  initialUser: '5b0525134c0319001573485h',
+  email: 'example@gmail.com'
 }
 ```
 ----------------
 
-## team.user.invited
+## Access.User.set
 
-**Событие приглашения пользователя в "тиму"**
+**Событие тимы**
+**Событие приглашения пользователя в группу**
 
 **Parameters:**
 
 | field     | type   | description   |
 | --------- | ------ | ------------  |
-| eventType | string | type of event |
 | teamId    | string | id of team    |
-| userId    | string | id of user    |
+| eventType | string | type of event |
+| userId    | string | id of user, которому дали доступ |
+| initialUser| string | id of user, который дал доступ |
+| billingType| string | bot/user/client    |
+| isAdmin    | boolean| is admin or not    |
 | email     | string | user email    |
+
 **Body example:**
 
 ```js
 {
-  eventType: 'team.user.invited',
+  eventType: 'Access.User.set',
   teamId: '5b0525134c0319001573485e',
-  userId: '5b0525134c0319001573485f' 
-  email: 'example@gmail.com'
+  userId: '5b0525134c0319001573485f',
+  email: 'example@gmail.com',
+  initialUser: '5b0525134c0319001573485h',
+  billingType: 'users',
+  isAdmin: true
 }
 ```
 ----------------------------------------------
 
-## team.user.removed
+## Access.User.revoked
 
-**Событие удаления пользователя из "тимы"**
+**Событие тимы**
+**Событие удаления пользователя из группы**
 
 **Parameters:**
 
@@ -80,47 +105,61 @@
 | --------- | ------ | ------------  |
 | eventType | string | type of event |
 | teamId    | string | id of team    |
-| userId    | string | id of user    |
+| profileId    | string | global id of user    |
+| userId    | string | id of user, которому дали доступ |
+| initialUser| string | id of user, который дал доступ |
+| email     | string | user email    |
 
 **Body example:**
 
 ```js
 {
-  eventType: 'team.user.removed',
+  eventType: 'Access.User.revoked',
   teamId: '5b0525134c0319001573485e',
-  userId: '5b0525134c0319001573485f' 
+  userId: '5b0525134c0319001573485f',
+  initialUser: '5b0525134c0319001573485h',
+  profileId: '58f5ec3a32e3a300154b5e50',
+  email: 'example@gmail.com',
 }
-  teamId: 'team id',
-  userId: 'user id'
 ```
 -------------------------
 
-## team.bot.invited
+## Access.Bot.set
 
-**Событие приглашения бота в "тиму"**
+**Событие тимы**
+**Событие приглашения бота в группу**
 
 **Parameters:**
 
 | field     | type   | description   |
 | --------- | ------ | ------------  |
-| eventType | string | type of event |
 | teamId    | string | id of team    |
-| userId    | string | id of user    |
+| eventType | string | type of event |
+| userId    | string | id of bot, которому дали доступ |
+| initialUser| string | id of bot, который дал доступ |
+| billingType| string | bot/user/client    |
+| isAdmin    | boolean| is admin or not    |
+| email     | string | bot email    |
 
 **Body example:**
 
 ```js
 {
-  eventType: 'team.bot.invited',
+  eventType: 'Access.Bot.set',
   teamId: '5b0525134c0319001573485e',
-  userId: '5b0525134c0319001573485f' 
+  userId: '5b0525134c0319001573485f',
+  email: 'example@gmail.com',
+  initialUser: '5b0525134c0319001573485h',
+  billingType: 'bots'
+  isAdmin: true
 }
 ```
 ------------------
 
-## team.bot.removed
+## Access.Bot.revoked
 
-**Событие удаления бота из "тимы"**
+**Событие тимы**
+**Событие удаления бота из группы**
 
 **Parameters:**
 
@@ -128,14 +167,82 @@
 | --------- | ------ | ------------  |
 | eventType | string | type of event |
 | teamId    | string | id of team    |
-| userId    | string | id of user    |
+| profileId    | string | global id of bot    |
+| userId    | string | id of bot, которому дали доступ |
+| initialUser| string | id of user, который дал доступ |
+| email     | string | bot email    |
 
 **Body example:**
 
 ```js
 {
-  eventType: 'team.bot.removed',
+  eventType: 'Access.Bot.revoked',
   teamId: '5b0525134c0319001573485e',
-  userId: '5b0525134c0319001573485f' 
+  userId: '5b0525134c0319001573485f',
+  initialUser: '5b0525134c0319001573485h',
+  profileId: '58f5ec3a32e3a300154b5e50',
+  email: 'example@gmail.com',
+}
+```
+---
+
+## Admin.Bot.set
+
+**Событие тимы**
+**Событие получения ботом прав администратора**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| userId    | string | id of bot, которому дали доступ |
+| initialUser| string | id of bot, который дал доступ |
+| isAdmin    | boolean| is admin or not    |
+| billingType| string | bot/user/client    |
+| email     | string | bot email    |
+
+**Body example:**
+
+```js
+{
+  eventType: 'Admin.Bot.set',
+  teamId: '5b0525134c0319001573485e',
+  userId: '5b0525134c0319001573485f',
+  initialUser: '5b0525134c0319001573485h',
+  email: 'example@gmail.com',
+  billingType: 'bots',
+  isAdmin: true  
+}
+```
+-------------------------------------------
+
+## Admin.Bot.revoked
+
+**Событие тимы**
+**Событие изъятия у бота прав администратора**
+
+**Parameters:**
+
+| field     | type   | description   |
+| --------- | ------ | ------------  |
+| eventType | string | type of event |
+| teamId    | string | id of team    |
+| userId    | string | id of bot, которому дали доступ |
+| profileId    | string | global id of bot    |
+| initialUser| string | id of bot, который дал доступ |
+| email     | string | bot email    |
+
+**Body example:**
+
+```js
+{
+  eventType: 'Admin.Bot.revoked',
+  teamId: '5b0525134c0319001573485e',
+  userId: '5b0525134c0319001573485f',
+  profileId: '58f5ec3a32e3a300154b5e50',
+  initialUser: '5b0525134c0319001573485h',
+  email: 'example@gmail.com'
 }
 ```

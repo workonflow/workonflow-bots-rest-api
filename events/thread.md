@@ -2,6 +2,7 @@
 
 ## Thread.created
 
+**Событие стрима**
 **Событие создания треда**
 
 **Parameters:**
@@ -31,6 +32,7 @@
 -------------------------------
 ## Thread.updated
 
+**Событие стрима**
 **Событие изменения треда**
 
 **Parameters:**
@@ -58,8 +60,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.status
+## Thread.Updated.status
 
+**Событие стрима**
 **Событие смены статуса треда**
 
 **Parameters:**
@@ -77,7 +80,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.status',
+  eventType: 'Thread.Updated.status',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   streamId: '5b0525134c0319001573485v',
@@ -87,8 +90,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.stream
+## Thread.Updated.stream
 
+**Событие стрима**
 **Событие смены стрима, в котором находится тред**
 
 **Parameters:**
@@ -105,7 +109,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.stream',
+  eventType: 'Thread.Updated.stream',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -114,8 +118,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.customer.set
+## Thread.Updated.Customer.set
 
+**Событие стрима**
 **Событие добавления кастомера (клиента) в тред**
 
 **Parameters:**
@@ -132,7 +137,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.customer.set',
+  eventType: 'Thread.Updated.Customer.set',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -141,8 +146,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.customer.remove
+## Thread.Updated.Customer.remove
 
+**Событие стрима**
 **Событие удаления кастомера (клиента) из треда**
 
 **Parameters:**
@@ -159,7 +165,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.customer.remove',
+  eventType: 'Thread.Updated.Customer.remove',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -168,8 +174,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.follower.set
+## Thread.Updated.Follower.set
 
+**Событие стрима**
 **Событие добавления сотрудника в тред**
 
 **Parameters:**
@@ -186,7 +193,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.follower.set',
+  eventType: 'Thread.Updated.Follower.set',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -195,8 +202,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.follower.remove
+## Thread.Updated.Follower.remove
 
+**Событие стрима**
 **Событие удаления сотрудника из треда**
 
 **Parameters:**
@@ -213,7 +221,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.follower.remove',
+  eventType: 'Thread.Updated.Follower.remove',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -222,8 +230,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.bot.follower.set
+## Thread.Updated.Bot.Follower.set
 
+**Событие стрима**
 **Событие добавления бота в тред**
 
 **Parameters:**
@@ -240,7 +249,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.bot.follower.set',
+  eventType: 'Thread.Updated.Bot.Follower.set',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -249,8 +258,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.bot.follower.remove
+## Thread.Updated.Bot.Follower.remove
 
+**Событие стрима**
 **Событие удаления бота из треда**
 
 **Parameters:**
@@ -267,7 +277,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.bot.follower.remove',
+  eventType: 'Thread.Updated.Bot.Follower.remove',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -276,8 +286,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.responsible.set
+## Thread.Updated.Responsible.set
 
+**Событие стрима**
 **Событие добавления (или смены) ответственного сотрудника в тред**
 
 **Parameters:**
@@ -294,7 +305,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.responsible.set',
+  eventType: 'Thread.Updated.Responsible.set',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -303,8 +314,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.responsible.remove
+## Thread.Updated.Responsible.remove
 
+**Событие стрима**
 **Событие удаления ответственного сотрудника из треда**
 
 **Parameters:**
@@ -321,7 +333,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.responsible.remove',
+  eventType: 'Thread.Updated.Responsible.remove',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -330,8 +342,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.budget
+## Thread.Updated.budget
 
+**Событие стрима**
 **Событие изменения бюджета треда**
 
 **Parameters:**
@@ -348,7 +361,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.budget',
+  eventType: 'Thread.Updated.budget',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -357,8 +370,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.deadline
+## Thread.Updated.deadline
 
+**Событие стрима**
 **Событие изменения дедлайна треда**
 
 **Parameters:**
@@ -375,7 +389,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.deadline',
+  eventType: 'Thread.Updated.deadline',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -384,8 +398,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.points
+## Thread.Updated.points
 
+**Событие стрима**
 **Событие изменения очков важности треда**
 
 **Parameters:**
@@ -402,7 +417,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.points',
+  eventType: 'Thread.Updated.points',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -411,8 +426,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.priority
+## Thread.Updated.priority
 
+**Событие стрима**
 **Событие изменения очков приоритета треда**
 
 **Parameters:**
@@ -429,7 +445,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.priority',
+  eventType: 'Thread.Updated.priority',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -438,8 +454,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.toc
+## Thread.Updated.toc
 
+**Событие стрима**
 **Событие изменения времени очков времени выполнения треда**
 
 **Parameters:**
@@ -456,7 +473,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.toc',
+  eventType: 'Thread.Updated.toc',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',
@@ -465,8 +482,9 @@
 }
 ```
 -------------------------------
-## Thread.Update.title
+## Thread.Updated.title
 
+**Событие стрима**
 **Событие изменения заголовка треда**
 
 **Parameters:**
@@ -483,7 +501,7 @@
 **Body example:**
 ```js
 {
-  eventType: 'Thread.Update.title',
+  eventType: 'Thread.Updated.title',
   teamId: '5b0525134c0319001573485e',
   threadId: '5b0525134c0319001573485f',
   userId: '5b0525134c0319001573485x',

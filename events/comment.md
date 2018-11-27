@@ -1,143 +1,152 @@
 # Comment events
 
-## comment.created
+## Comment.created
 
+**Событие стрима или треда**
 **Событие создания коментария**
 
 **Parameters:**
 
 | field     | type   | description  |
 | --------- |--------| :----------- |
-| eventType | string | тип события   |
 | teamId    | string | id of team    |
+| eventType | string | тип события   |
+| streamId  | string | id of stream, если комментарий был создан в потоке |
+| threadId  | string | id of thread, если комментарий был создан в задаче |
 | id        | string | id of comment |
 | createdAt | number | время создания коментария в формате timestamp |
 | updatedAt | number | время последнего обнавления коментария в формате timestamp |
+| type      | string | Тип комментария (звонок, письмо, сообщение и т.п.) |
 | to        | string | id of user получателя |
-| threadId  | string | id of thread, если комментарий был создан в задаче |
-| streamId  | string | id of stream, если комментарий был создан в потоке |
 | from      | string | id of user создавший комментарий |
-| att   | string | object of transfered messages/audio/images/files |
+| att       | array  | object of transfered messages/audio/images/files |
+
+> Пустой type означает что этот коммент - сообщение
 
 **Body example:**
 
 ```js
 {
-  eventType: 'comment.created',
   teamId: '595b405b81d3f8001497603d',
+  eventType: 'Comment.created',
+  streamId: '595b405b81d3f80014976034',
   id: '595b405b81d3f80014976031',
   createdAt: 1524043332761,
   updatedAt: 1524043332761,
+  type: '',
   to: '595b405b81d3f80014976032',
   from: '595b405b81d3f80014976033',
-  streamId: '595b405b81d3f80014976034',
-  att:  [ { "type": "text", "data": { "text": "ergerg" } } ]
+  att:  [ { "type": "text", "data": { "text": "hello world" } } ]
 }
 ```
-------------------------------------------------------------------------------------
+---
 
-## comment.direct
+## Comment.direct
 
+**Личное событие**
 **Событие создания комментария в личном чате пользователя с ботом**
 
 **Parameters:**
 
 | field     | type   | description  |
 | --------- |--------| :----------- |
-| eventType | string | тип события   |
 | teamId    | string | id of team    |
+| eventType | string | тип события   |
 | id        | string | id of comment |
 | createdAt | number | время создания коментария в формате timestamp |
 | updatedAt | number | время последнего обнавления коментария в формате timestamp |
 | from      | string | id of user создавший комментарий |
 | to        | string | id of user получившего комментарий |
-| att       | string | comment text |
+| att       | array  | object of transfered messages/audio/images/files |
 
 
 **Body example:**
 
 ```js
 {
-  eventType: 'comment.direct',
+  eventType: 'Сomment.direct',
   teamId: '595b405b81d3f8001497603d',
   id: '595b405b81d3f80014976031',
   createdAt: 1524043332761,
   updatedAt: 1524043332761,
   from: '595b405b81d3f80014976033',
   to: '595b405b81d3f800ldfgjeo3',
-  att: 'hello world',
+  att: [ { "type": "text", "data": { "text": "hello world" } } ]
 }
 ```
-------------------------------------------------------------------------------------
+---
 
-## comment.command
+## Comment.command
 
+**Личное событие**
 **Событие создания команды в личном чате пользователя с ботом**
 
 **Parameters:**
 
 | field     | type   | description  |
 | --------- |--------| :----------- |
-| eventType | string | тип события   |
 | teamId    | string | id of team    |
+| eventType | string | тип события   |
 | id        | string | id of comment |
 | createdAt | number | время создания коментария в формате timestamp |
 | updatedAt | number | время последнего обнавления коментария в формате timestamp |
 | from      | string | id of user создавший комментарий |
 | to        | string | id of user получившего комментарий |
-| att       | string | comment text |
+| att       | array  | object of transfered messages/audio/images/files |
 
 
 **Body example:**
 
 ```js
 {
-  eventType: 'comment.command',
   teamId: '595b405b81d3f8001497603d',
+  eventType: 'Comment.command',
   id: '595b405b81d3f80014976031',
   createdAt: 1524043332761,
   updatedAt: 1524043332761,
   from: '595b405b81d3f80014976033',
   to: '595b405b81d3f800ldfgjeo3',
-  att: 'hello world',
+  att: [ { "type": "text", "data": { "text": "hello world" } } ]
 }
 ```
 ------------------------------------------------------------------------------------
 
-## comment.mention.stream
+## Сomment.Mention.stream
 
+**Личное событие**
 **События создания коментария с упоминанием бот-id в потоке**
 
 **Parameters:**
 
 | field     | type   | description  |
 | --------- |--------| :----------- |
-| eventType | string | тип события   |
 | teamId    | string | id of team    |
+| eventType | string | тип события   |
+| streamId  | string | id of stream |
 | id        | string | id of comment |
 | createdAt | number | время создания коментария в формате timestamp |
 | updatedAt | number | время последнего обнавления коментария в формате timestamp |
-| streamId  | string | id of stream |
-| attText   | string | comment text with botId |
+| att       | array  | object of transfered messages/audio/images/files |
 
 **Body example:**
 
 ```js
 {
-  eventType: 'comment.mention.stream',
   teamId: '595b405b81d3f80014976033',
+  eventType: 'Сomment.Mention.stream',
+  streamId: '595b405b81d3f80014976036',
   id: '595b405b81d3f80014976034',
   userId: '595b405b81d3f80014976035',
   createdAt: 1524043332761,
   updatedAt: 1524043332761,
-  attText: '@595b405b81d3f80014976033@ some text',
-  streamId: '595b405b81d3f80014976036',
+  att: [ { "type": "text", "data": { "text": "@595b405b81d3f80014976033@ hello world" } } ]
 }
 ```
 ------------------------------------------------------------------------------------
 
-## comment.mention.thread
+## Comment.Mention.thread
 
+**Личное событие**
 **События создания коментария с упоминанием бот-id в задаче**
 
 
@@ -147,24 +156,25 @@
 | --------- |--------| :----------- |
 | eventType | string | тип события   |
 | teamId    | string | id of team    |
+| streamId  | string | id of stream |
+| threadId  | string | id of thread |
 | id        | string | id of comment |
 | createdAt | number | время создания коментария в формате timestamp |
 | updatedAt | number | время последнего обнавления коментария в формате timestamp |
-| threadId  | string | id of thread |
-| attText   | string | comment text |
-
+| att       | array  | object of transfered messages/audio/images/files |
 
 **Body example:**
 
 ```js
 {
-  eventType: 'comment.mention.stream',
   teamId: '595b405b81d3f80014976033',
+  eventType: 'Comment.Mention.thread',
+  streamId: '595b405b81d3f80014976036',
+  threadId: '595b405b81d3f80014976034',
   id: '595b405b81d3f80014976037',
   userId: '595b405b81d3f80014976036',
   createdAt: 1524043332761,
   updatedAt: 1524043332761,
-  attText: '@595b405b81d3f80014976035@ some text',
-  threadId: '595b405b81d3f80014976034',
+  att: [ { "type": "text", "data": { "text": "@595b405b81d3f80014976033@ hello world" } } ]
 }
 ```

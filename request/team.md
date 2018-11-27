@@ -5,7 +5,7 @@
 **Метод для приглашения пользователя в систему workonflow**
 
 ```js
-  https://botapi.workonflow.com/{teamId}/invite.user/{body}
+  https://botapi.workonflow.com/{teamId}/invite.user
 ```
 **Parameters:**
 

@@ -4,7 +4,7 @@
 
 **Метод для создания потока.**
 ```js
-  https://botapi.workonflow.com/{teamid}/stream/create/{body}
+  https://botapi.workonflow.com/{teamid}/stream/create
 ```
 
 **Parameters:**
@@ -35,7 +35,7 @@
 
 ## stream/delete
 ```js
-  https://botapi.workonflow.com/{teamid}/stream/delete/{body}
+  https://botapi.workonflow.com/{teamid}/stream/delete
 ```
 
 **Parameters:**
@@ -69,7 +69,7 @@
 **Метод для получения потоков**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/stream/read/{body}
+  https://botapi.workonflow.com/{teamid}/stream/read
 ```
 
 **Parameters:**
@@ -137,7 +137,7 @@
 **Метод для того что-бы задать или изменить имя потока**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/stream.name/set/{body}
+  https://botapi.workonflow.com/{teamid}/stream.name/set
 ```
 
 **Parameters:**
@@ -171,7 +171,7 @@
 
 **Метод для предоставления прав администратора участнику потока**
 ```js
-  https://botapi.workonflow.com/{teamid}/stream.member/set.admin/{body}
+  https://botapi.workonflow.com/{teamid}/stream.member/set.admin
 ```
 
 **Parameters:**
@@ -207,7 +207,7 @@
 **Метод для изъятия прав администратора у участника потока**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/stream.member/revoke.admin/{body}
+  https://botapi.workonflow.com/{teamid}/stream.member/revoke.admin
 ```
 
 **Parameters:**
@@ -242,7 +242,7 @@
 **Метод для добавления участника в поток**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/stream.member/add/{body}
+  https://botapi.workonflow.com/{teamid}/stream.member/add
 ```
 
 **Parameters:**
@@ -275,7 +275,7 @@
 
 # Stream remove member
 ```js
-  https://botapi.workonflow.com/{teamid}/stream.member/remove/{body}
+  https://botapi.workonflow.com/{teamid}/stream.member/remove
 ```
 
 **Parameters:**
@@ -310,7 +310,7 @@
 **Метод для добавления или изменения описания потока**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/stream.description/set/{body}
+  https://botapi.workonflow.com/{teamid}/stream.description/set
 ```
 
 **Parameters:**
@@ -346,7 +346,7 @@
 **Метод для добавления или изменения описания потока**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/stream.description/get/{body}
+  https://botapi.workonflow.com/{teamid}/stream.description/get
 ```
 
 **Parameters:**
@@ -392,7 +392,7 @@
 **Метод для создания нового статуса в потоке**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/stream.status/create/{body}
+  https://botapi.workonflow.com/{teamid}/stream.status/create
 ```
 
 **Parameters:**
@@ -431,7 +431,7 @@
 **Метод для получения статусов потока**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/stream.status/read/{body}
+  https://botapi.workonflow.com/{teamid}/stream.status/read
 ```
 
 **Parameters:**
@@ -477,7 +477,7 @@
 **Метод для добавления или изменения имени статуса потока**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/stream.status/set.name/{body}
+  https://botapi.workonflow.com/{teamid}/stream.status/set.name
 ```
 
 **Parameters:**
@@ -509,7 +509,7 @@
 ## stream.status/delete
 **Метод для удаления статуса у потока**
 ```js
-  https://botapi.workonflow.com/{teamid}/stream.status/delete/{body}
+  https://botapi.workonflow.com/{teamid}/stream.status/delete
 ```
 
 **Parameters:**
@@ -541,7 +541,7 @@
 
 **Метод для включения/отключения вилжетов стрима**
 ```js
-  https://botapi.workonflow.com/{teamid}/stream.field/set/{body}
+  https://botapi.workonflow.com/{teamid}/stream.field/set
 ```
 
 **Parameters:**
@@ -575,7 +575,7 @@
 
 **Метод для изменения канала в потоке**
 ```js
-  https://botapi.workonflow.com/{teamId}/stream.channels/use.default/{body}
+  https://botapi.workonflow.com/{teamId}/stream.channels/use.default
 ```
 
 **Parameters:**

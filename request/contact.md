@@ -82,7 +82,7 @@
   { code: 200, message: "OK", data: { userId: "5b0525134c0319001573485e", local: "us" } }
 ```
 ---
-## contact/get
+## contact/read
 
 **Метод для получения пользоватей**
 ```js
@@ -97,6 +97,7 @@
 | userId        | string  | Contact or user ID     |
 | userIds       | array   | Several contact or user IDs|
 | billingType   | string  | type of users: users, contacts or bots |
+| customField   | string  | any field at user (email, phone, etc)
 
 **Body message example:**
 
@@ -104,7 +105,8 @@
 {
   "userId":"5b0525134c0319001573485e",
   "userIds":["5afd6d369a88ff00190baf79", "5afd6d369a88ff22190baf79"],
-  "billingType": "users" // or "contacts", "bots"
+  "billingType": "users", // or "contacts", "bots",
+  "customField": "someemail@mail.com@
 }
 ```
 

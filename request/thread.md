@@ -5,7 +5,7 @@
 **Метод для получения информации по задаче**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/thread/read/{body}
+  https://botapi.workonflow.com/{teamid}/thread/read
 ```
 
 **Parameters:**
@@ -73,7 +73,7 @@
 **Метод для создания задачи**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/thread/create/{body}
+  https://botapi.workonflow.com/{teamid}/thread/create
 ```
 
 **Parameters:**
@@ -86,6 +86,7 @@
 | responsibleUserId | string    | id of user responsible         ||
 | customerId    | string        | id of external user            ||
 | roles         | string        | id followers of the thread     ||
+| description   | array         | принимает два вида объектов: { type: 'hashtag', name: '#имяхештега' }, { type: 'file', filename: 'имяФайла.txt', fileId: 'айди файла загруженного на амазон' }
 
 **Body message example:**
 ```json
@@ -113,7 +114,7 @@
 **Метод для получения описания задачи:**
 
 ```js
-  https://botapi.workonflow.com/thread.description/read/{body}
+  https://botapi.workonflow.com/thread.description/read
 ```
 
 **Parameters:**
@@ -161,7 +162,7 @@
 
 **Метод для добавления или изменения описания задачи**
 ```js
-  https://botapi.workonflow.com/thread.description/set/{body}
+  https://botapi.workonflow.com/thread.description/set
 ```
 
 **Parameters:**
@@ -194,7 +195,7 @@
 **Метод для изменения бюджета задачи**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.fields.budget/{body}
+  https://botapi.workonflow.com/{teamid}/thread.fields.budget
 ```
 
 **Parameters:**
@@ -247,7 +248,7 @@
 
 **Метод для изменения дедлайна задачи**
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.fields.deadline/{body}
+  https://botapi.workonflow.com/{teamid}/thread.fields.deadline
 ```
 
 **Parameters:**
@@ -302,7 +303,7 @@
 **Метод для изменения приоритета задачи**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.fields.priority/{body}
+  https://botapi.workonflow.com/{teamid}/thread.fields.priority
 ```
 
 **Parameters:**
@@ -357,7 +358,7 @@
 
 
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.responsible/set/{body}
+  https://botapi.workonflow.com/{teamid}/thread.responsible/set
 ```
 
 **Parameters:**
@@ -411,7 +412,7 @@
 
 
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.responsible/remove/{body}
+  https://botapi.workonflow.com/{teamid}/thread.responsible/remove
 ```
 
 **Parameters:**
@@ -448,7 +449,7 @@
 **Метод для изменения статуса задачи**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.status/{body}
+  https://botapi.workonflow.com/{teamid}/thread.status
 ```
 
 **Parameters:**
@@ -502,7 +503,7 @@
 **Метод для изменения ранга задачи**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.fields.points/{body}
+  https://botapi.workonflow.com/{teamid}/thread.fields.points
 ```
 
 **Parameters:**
@@ -555,7 +556,7 @@
 **Метод для изменения времени завершения задачи**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.fields.timetoc/{body}
+  https://botapi.workonflow.com/{teamid}/thread.fields.timetoc
 ```
 
 **Parameters:**
@@ -609,7 +610,7 @@
 **Метод для переноса задачи в другой поток**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.stream/{body}
+  https://botapi.workonflow.com/{teamid}/thread.stream
 ```
 
 **Parameters:**
@@ -663,7 +664,7 @@
 **Метод изменения названия задачи**
 
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.title/{body}
+  https://botapi.workonflow.com/{teamid}/thread.title
 ```
 
 **Parameters:**
@@ -696,7 +697,7 @@
 
 **Метод для добавления клиентав задачу**
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.customer/add/{body}
+  https://botapi.workonflow.com/{teamid}/thread.customer/add
 ```
 
 **Parameters:**
@@ -733,7 +734,7 @@
 
 # Thread remove customers
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.customer/remove/{body}
+  https://botapi.workonflow.com/{teamid}/thread.customer/remove
 ```
 
 **Parameters:**
@@ -766,11 +767,9 @@
 ```
 -----------------------------------------------------------------------------------
 
-
-
 # Thread set followers
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.followers/set/{body}
+  https://botapi.workonflow.com/{teamid}/thread.followers/set
 ```
 
 **Parameters:**
@@ -799,11 +798,9 @@
 ```
 -----------------------------------------------------------------------------------
 
-
-
 # Thread remove followers
 ```js
-  https://botapi.workonflow.com/{teamid}/thread.followers/remove/{body}
+  https://botapi.workonflow.com/{teamid}/thread.followers/remove
 ```
 
 **Parameters:**
@@ -824,6 +821,72 @@
 **Request example:**
 ```js
   curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","userId": "5b0321324c0319001573484q" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.followers/remove
+```
+
+
+**Response example:**
+```js
+  {code: 200, message: 'OK'}
+```
+
+# Add tag(s) to thread
+```js
+  https://botapi.workonflow.com/{teamid}/thread/pushtag
+```
+
+**Parameters:**
+> **Warning!** One of the fields (tagId or tagIds) required
+
+| field         | type          | description| required |
+| ------------- |---------------| ----------------------|---:|
+| threadId      | string        | id of thread         | yes |
+| tagId        | string        | id of tag |  |
+| tagIds        | array         | ids of tag  | |
+
+**Body message example:**
+```json
+{
+  "threadId": '5b0321234c0319001573485e',
+  "tagId": '5b0321324c0319001573485e'
+}
+```
+
+**Request example:**
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","tagId": "5b0321324c0319001573484q" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/pushtag
+```
+
+
+**Response example:**
+```js
+  {code: 200, message: 'OK'}
+```
+
+# Remove tag(s) at thread
+```js
+  https://botapi.workonflow.com/{teamid}/thread/pulltag
+```
+
+**Parameters:**
+> **Warning!** One of the fields (tagId or tagIds) required
+
+| field         | type          | description| required |
+| ------------- |---------------| ----------------------|---:|
+| threadId      | string        | id of thread         | yes |
+| tagId        | string        | id of tag |  |
+| tagIds        | array         | ids of tag  | |
+
+**Body message example:**
+```json
+{
+  "threadId": '5b0321234c0319001573485e',
+  "tagId": '5b0321324c0319001573485e'
+}
+```
+
+**Request example:**
+```js
+  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","tagId": "5b0321324c0319001573484q" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/pulltag
 ```
 
 

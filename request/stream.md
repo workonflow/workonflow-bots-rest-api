@@ -1,20 +1,16 @@
 # Stream requests
 
-## stream/create
+### Метод для создания потока.
 
-**Метод для создания потока.**
-```js
-  https://botapi.workonflow.com/{teamid}/stream/create
-```
+```https://botapi.workonflow.com/{teamid}/stream/create```
 
-**Parameters:**
+### Параметры:
 | field         | type    | description| required |
 | ------------- |---------| :----------------------|----:|
-| name          | string  | new name for stream   | yes |
-| isEmpty       | boolean | по умолчанию поток создаётся с 3мя статусами, если указать данный параметр будет создан пустой поток  |
+| name          | string  | имя стрима   | yes |
+| isEmpty       | boolean | по умолчанию поток создаётся с 3мя статусами, если указать данный параметр будет создан пустой поток, т.е. без статусов  |
 
-**Body message example:**
-
+### Пример тела запроса:
 ```json
 {
   "name": "New stream",
@@ -22,132 +18,109 @@
 }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "name":"New stream" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream/create
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "name":"New stream" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream/create```
+
+### Пример ответа:
+```json
+ {
+   "code": 200,
+   "message": 'OK',
+   "data": { "streamId": "5b0525134c0319001573485e" }
+ }
 ```
 
-**Response:**
-```js
- { code: 200, message: 'OK', data: { streamId: '5b0525134c0319001573485e' } }
-```
+### Метод для удаления потока
 
+```https://botapi.workonflow.com/{teamid}/stream/delete```
 
-## stream/delete
-```js
-  https://botapi.workonflow.com/{teamid}/stream/delete
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description         | required |
 | ------------- |---------------| :------------------ |---: |
-| streamId      | string        | uniq id of stream   | yes |
+| streamId      | string        | идентификатор стрима   | yes |
 
-**Body message example:**
-
+### Пример тела запроса:
 ```json
 {
   "streamId": "5b0525134c0319001573485e"
 }
 ```
 
-**Request example:**
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream/delete```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream/delete
+### Пример ответа:
+```json
+ { "code": 200, "message": "OK" }
 ```
 
-**Response:**
-```js
- { code: 200, message: 'OK' }
-```
+## Метод для получения потоков
 
+```https://botapi.workonflow.com/{teamid}/stream/read```
 
-## stream/read
-
-**Метод для получения потоков**
-
-```js
-  https://botapi.workonflow.com/{teamid}/stream/read
-```
-
-**Parameters:**
-> **Warning!** One of the fields (streamId or streamIds) required
+### Параметры:
+> **Внимание!** Одно из полей обязательно должно быть передано в запросе: streamId или streamIds
 
 | field         | type            | description                        |
 | ------------- |---------------  | :----------------------            |
-| streamId      | string          | uniq id of stream (optionally)     |
-| streamIds     | array of string | array uniq ids of stream  (optionally)|
+| streamId      | string          | индетификатор стрима     |
+| streamIds     | array of string | массив индетификаторов стримов |
 
-
-**Body message example:**
-
+### Пример тела запроса:
 ```json
 {
   "streamId": "5b0525134c0319001573485e",
-  // or
-  "streamIds": ["5b0525134c0319001573485e", "5b0525134c0319001573485e"]
 }
 ```
 
-**Request example:**
+### Пример запроса с помощью curl:
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId" : "5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream/read
-```
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId" : "5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream/read```
 
-**Response:**
+### Пример ответа:
 
-```js
+```json
 {
-  code: 200,
-  message: 'OK',
-  data: [ {
-    streamId: '5b0525134c0319001573485e',
-    name: 'stream name',
-    roles: ['5b0525134c0319001573485e', '5b0525134c0319001573485e'],
-    statuses: ['5b0525134c0319001573485e', '5b0525134c0319001573485e'],
-    settings: [{
-      widgets: {
-        DataTime: { on: true, options: 'deadline', type: 'DataTime' },
-        Priority: { on: true, type: 'Priority' },
-        Responsible: { on: true, type: 'Responsible' },
-        WorkflowStatus: { on: true, type: 'WorkflowStatus' },
-        StreamSelect: { on: true, type: 'StreamSelect' },
-        Customers: { type: 'Customers', on: true },
-        Points: { type: 'Points', on: true }
+  "code": 200,
+  "message": "OK",
+  "data": [ {
+    "streamId": "5b0525134c0319001573485e",
+    "name": "stream name",
+    "roles": ["5b0525134c0319001573485e", "5b0525134c0319001573485e"],
+    "statuses": ["5b0525134c0319001573485e", "5b0525134c0319001573485e"],
+    "settings": [{
+      "widgets": {
+        "DataTime": { "on": true, "options": "deadline", "type": "DataTime" },
+        "Priority": { "on": true, "type": "Priority" },
+        "Responsible": { "on": true, "type": "Responsible" },
+        "WorkflowStatus": { "on": true, "type": "WorkflowStatus" },
+        "StreamSelect": { "on": true, "type": "StreamSelect" },
+        "Customers": { "type": "Customers", "on": true },
+        "Points": { "type": "Points", "on": true }
       },
-      notify: {}
+      "notify": {}
     }],
-    teamId: '5b0525134c0319001573485e',
-    owner: '5b0525134c0319001573485e',
-    isPrivate: true,
-    createdAt: 1516360789475,
-    updatedAt: 1516360789475,
-    admins: ['5b0525134c0319001573485e', '5b0525134c0319001573485e']
+    "teamId": "5b0525134c0319001573485e",
+    "owner": "5b0525134c0319001573485e",
+    "isPrivate": true,
+    "createdAt": 1516360789475,
+    "updatedAt": 1516360789475,
+    "admins": ["5b0525134c0319001573485e", "5b0525134c0319001573485e"]
   } ]
 }
 ```
 
+## Метод изменения имени потока
 
+```https://botapi.workonflow.com/{teamid}/stream.name/set```
 
-## stream.name/set
-
-**Метод для того что-бы задать или изменить имя потока**
-
-```js
-  https://botapi.workonflow.com/{teamid}/stream.name/set
-```
-
-**Parameters:**
-
+### Параметры:
 | field      | type      | description         | required |
 | ---------- |-----------| :-------------------|----:|
-| streamId   | string    | uniq id of stream   | yes |
-| name       | string    | new name for stream | yes |
+| streamId   | string    | индетификатор стрима   | yes |
+| name       | string    | новое имя стрима | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
 {
   "streamId":"5b0525134c0319001573485e",
@@ -155,34 +128,24 @@
 }
 ```
 
-**Request example:**
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "name":"For sales" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.name/set```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "name":"For sales" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.name/set
+### Пример ответа:
+```json
+  { "code": 200, "message": 'OK' }
 ```
 
-**Response:**
-```js
-  { code: 200, message: 'OK' }
-```
+## Метод для предоставления прав администратора участнику потока
+```https://botapi.workonflow.com/{teamid}/stream.member/set.admin```
 
-
-## stream.member/set.admin
-
-**Метод для предоставления прав администратора участнику потока**
-```js
-  https://botapi.workonflow.com/{teamid}/stream.member/set.admin
-```
-
-**Parameters:**
-
+### Параметры:
 | field      | type      | description         | required |
 | ---------- |-----------| :-------------------|----: |
-| streamId   | string    | uniq id of stream   | yes |
-| userId     | string    | uniq id of user для предоставления прав | yes |
+| streamId   | string    | индетификатор стрима   | yes |
+| userId     | string    | индетификатор юзера для предоставления прав | yes |
 
-**Body message example:**
-
+### Пример тела запроса:
 ```json
 {
   "streamId": "5b0525134c0319001573485e",
@@ -190,70 +153,50 @@
 }
 ```
 
-**Request example:**
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.member/set.admin```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.member/set.admin
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK" }
 ```
 
-**Response:**
-```js
-  { code: 200, message: 'OK' }
-```
+## Метод для изъятия прав администратора у участника потока
+```https://botapi.workonflow.com/{teamid}/stream.member/revoke.admin```
 
-
-## stream.member/revoke.admin
-
-**Метод для изъятия прав администратора у участника потока**
-
-```js
-  https://botapi.workonflow.com/{teamid}/stream.member/revoke.admin
-```
-
-**Parameters:**
+### Параметры:
 
 | field      | type      | description         | required |
 | -----------|-----------| :----------------------|-----:|
-| streamId   | string    | uniq id of stream | yes |
-| userId     | string    | uniq id of user для изъятия прав администратора | yes |
+| streamId   | string    | индетификатор стрима | yes |
+| userId     | string    | индетификатор юзера для лишения прав администратора | yes |
 
-**Body message example:**
-
+### Пример тела запроса:
 ```json
 {
   "streamId":"5b0525134c0319001573485e",
   "userId":"5b1535134c0319001573485e"
 }
 ```
-**Request example:**
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.member/revoke.admin
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.member/revoke.admin```
+
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK" }
 ```
 
-**Response:**
-```js
-  { code: 200, message: 'OK' }
-```
-----------------------------------------------------------------------------------------------------
+## Метод для добавления участника в поток
+```https://botapi.workonflow.com/{teamid}/stream.member/add```
 
-## stream.member/add
-
-**Метод для добавления участника в поток**
-
-```js
-  https://botapi.workonflow.com/{teamid}/stream.member/add
-```
-
-**Parameters:**
-
+### Параметры:
 | field      | type      | description                 | required |
 | ---------- |-----------| :----------------------     |---:|
-| streamId   | string    | uniq id of stream           | yes |
-| userId     | string    | uniq id of user которого приглашают в поток  | yes |
+| streamId   | string    | индетификатор стрима           | yes |
+| userId     | string    | индетификатор юзера которого приглашают в поток  | yes |
 
-**Body message example:**
-
+### Пример тела запроса:
 ```json
 {
   "streamId":"5b0525134c0319001573485e",
@@ -261,32 +204,24 @@
 }
 ```
 
-**Request example:**
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.member/add```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.member/add
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK" }
 ```
 
-**Response:**
-```js
-  { code: 200, message: 'OK' }
-```
+## Метод для удаления участника стрима
+```https://botapi.workonflow.com/{teamid}/stream.member/remove```
 
-
-# Stream remove member
-```js
-  https://botapi.workonflow.com/{teamid}/stream.member/remove
-```
-
-**Parameters:**
-
+### Параметры:
 | field     | type   | description                     | required |
 | --------- |--------| :-------------------------------|----:|
-| streamId  | string | uniq id of stream               | yes |
-| userId    | string | uniq id of user, которого необходимо удалить из участников потока| yes |
+| streamId  | string | индетификатор стрима               | yes |
+| userId    | string | индетификатор юзера, которого необходимо удалить из участников потока| yes |
 
-**Body message example:**
-
+### Пример тела запроса:
 ```json
 {
   "streamId":"5b0525134c0319001573485e",
@@ -294,34 +229,24 @@
 }
 ```
 
-**Request example:**
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.member/remove```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "userId":"5b0525134c0319001573426a" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.member/remove
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK" }
 ```
 
-**Response:**
-```js
-  { code: 200, message: 'OK' }
-```
+## Метод для добавления или изменения описания потока
+```https://botapi.workonflow.com/{teamid}/stream.description/set```
 
-## stream.description/set
-
-**Метод для добавления или изменения описания потока**
-
-```js
-  https://botapi.workonflow.com/{teamid}/stream.description/set
-```
-
-**Parameters:**
-
+### Параметры:
 | field     | type          | description             | required |
 | --------- |---------------| :----------------------|-------:|
-| streamId  | string        | uniq id of stream      | yes |
-| content   | string        | some text for description |
+| streamId  | string        | индетификатор stream      | yes |
+| content   | string        | some text for description | yes |
 
-**Body message example:**
-
+### Пример тела запроса:
 ```json
 {
   "streamId":"5b0525134c0319001573485e",
@@ -329,83 +254,61 @@
 }
 ```
 
-**Request example:**
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "content":"new description for stream" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.description/set```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "content":"new description for stream" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.description/set
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK" }
 ```
 
-**Response:**
-```js
-  { code: 200, message: 'OK' }
-```
+## Метод для добавления или изменения описания потока
+```https://botapi.workonflow.com/{teamid}/stream.description/get```
 
-
-## stream.description/get
-
-**Метод для добавления или изменения описания потока**
-
-```js
-  https://botapi.workonflow.com/{teamid}/stream.description/get
-```
-
-**Parameters:**
-
+### Параметры:
 | field     | type          | description            | required |
 | --------- |---------------| :---------------------|-----:|
-| streamId  | string        | uniq id of stream   | yes |
+| streamId  | string        | индетификатор стрима   | yes |
 
-**Body message example:**
-
+### Пример тела запроса:
 ```json
   {
     "streamId":"5b0525134c0319001573485e"
   }
 ```
 
-**Request example:**
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.description/get```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.description/get
-```
-
-**Response:**
-```js
+### Пример ответа:
+```json
   {
-    code: 200,
-    message: 'OK',
-    data: {
-      content: "{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Some description of stream"}]}]}"
-      createdAt: 1525346261387
-      editing: null
-      format: "prosemirror"
-      teamId: "5aeaefd59a88ff00190baccb"
-      updatedAt: 1538385417996
-      _id: "5b0525134c0319001573485e"
+    "code": 200,
+    "message": "OK",
+    "data": {
+      "content": "{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Some description of stream"}]}]}",
+      "createdAt": 1525346261387,
+      "editing": null,
+      "format": "prosemirror",
+      "teamId": "5aeaefd59a88ff00190baccb",
+      "updatedAt": 1538385417996,
+      "_id": "5b0525134c0319001573485e"
     }
   }
 ```
 
+## Метод для создания нового статуса в потоке
+```https://botapi.workonflow.com/{teamid}/stream.status/create```
 
-## stream.status/create
-
-**Метод для создания нового статуса в потоке**
-
-```js
-  https://botapi.workonflow.com/{teamid}/stream.status/create
-```
-
-**Parameters:**
-
+### Параметры:
 | field     | type      | description           | required |
 | --------- |-----------| :---------------------|-----:|
-| name      | string    | new name for status   | yes |
-| streamId  | string    | uniq id of stream     | yes |
-| type      | string    | on of the types: Wait, In Progress, Done| yes |
-| color     | string    | Color of status in the format: #c0c0c0 |
+| name      | string    | имя статуса   | yes |
+| streamId  | string    | индетификатор стрима     | yes |
+| type      | string    | тип статуса: Wait, In Progress, Done| yes |
+| color     | string    | цвет статуса в hex-формате: #c0c0c0 |
 
-**Body message example:**
-
+### Пример тела запроса:
 ```json
 {
   "name": "End job",
@@ -415,80 +318,60 @@
 }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "name":"End job", "type":"Done", "color":"#c0c0c0" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.status/create
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0525134c0319001573485e", "name":"End job", "type":"Done", "color":"#c0c0c0" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.status/create```
+
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK", "data": { "statusId": "5b0525134c0319001533485e" } }
 ```
 
-**Response:**
-```js
-  { code: 200, message: 'OK', data: { statusId: '5b0525134c0319001533485e' } }
-```
-----------------------------------------------------------------------------------------------------
+## Метод для получения статусов потока
+```https://botapi.workonflow.com/{teamid}/stream.status/read```
 
-## stream.status/read
-
-**Метод для получения статусов потока**
-
-```js
-  https://botapi.workonflow.com/{teamid}/stream.status/read
-```
-
-**Parameters:**
-> **Warning!** One of the fields (streamId or statisId) required
+### Параметры:
+> **Внимание!** Один из параметров обязательно должен быть передан в запросе: streamId или statisId
 
 | field     | type     | description            |
 | --------- |----------| :----------------------|
-| streamId  | string   | uniq id of stream (optionally)|
-| statusId  | string   | uniq id of status      |
+| streamId  | string   | индетификатор стриа|
+| statusId  | string   | индетификатор статуса      |
 
-**Body message example:**
-
+### Пример тела запроса:
 ```json
 {
-  "streamId":"5b0525134c0319001573485e",
-  // or
-  "statusId":"5b0525134c0319001573456s"
+  "streamId":"5b0525134c0319001573485e"
 }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "statusId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.status/read
-```
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "statusId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.status/read```
 
-**Response:**
-```js
+### Пример ответа:
+```json
   {
-    code: 200,
-    message: 'OK',
-    data:[{
-      color: "#c0c0c0",
-      name: "End job",
-      streamId: "5b0525134c0319001573485e",
-      type: "Done",
-      statusId: "5b0525134c0319001573485e"
+    "code": 200,
+    "message": "OK",
+    "data":[{
+      "color": "#c0c0c0",
+      "name": "End job",
+      "streamId": "5b0525134c0319001573485e",
+      "type": "Done",
+      "statusId": "5b0525134c0319001573485e"
     }]
   }
 ```
 
-## stream.status/set.name
+## Метод для добавления или изменения имени статуса потока
+```https://botapi.workonflow.com/{teamid}/stream.status/set.name```
 
-**Метод для добавления или изменения имени статуса потока**
-
-```js
-  https://botapi.workonflow.com/{teamid}/stream.status/set.name
-```
-
-**Parameters:**
-
+### Параметры:
 | field     | type          | description            | required |
 | --------- |---------------| :------------------ | ----:|
-| statusId  | string        | uniq id of status   | yes |
-| name      | string        | new name for status | yes |
+| statusId  | string        | индетификатор статуса   | yes |
+| name      | string        | новое имя для статуса | yes |
 
-**Body message example:**
-
+### Пример тела запроса:
 ```json
   {
     "statusId":"5b0525134c0319001573456s",
@@ -496,63 +379,50 @@
   }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "statusId":"5b0525134c0319001573485e", "name":"Testing" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.status/set.name
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "statusId":"5b0525134c0319001573485e", "name":"Testing" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.status/set.name```
+
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK" }
 ```
 
-**Response:**
-```js
-  { code: 200, message: 'OK' }
-```
+## Метод для удаления статуса у потока
+```https://botapi.workonflow.com/{teamid}/stream.status/delete```
 
-## stream.status/delete
-**Метод для удаления статуса у потока**
-```js
-  https://botapi.workonflow.com/{teamid}/stream.status/delete
-```
-
-**Parameters:**
+### Параметры:
 
 | field     | type    | description         | required |
 | --------- |---------| :-------------------|----:|
-| streamId  | string  | uniq id of stream   | yes |
-| statusId  | string  | uniq id of status   | yes |
+| streamId  | string  | индетификатор стрима   | yes |
+| statusId  | string  | индетификатор статуса   | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "streamId": "5b0526a34c0319001573456s",
     "statusId": "5b0525134c0319001573456s"
   }
 ```
-**Request example:**
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0526a34c0319001573456s", "statusId":"5b0525134c0319001573456s" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.status/delete```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0526a34c0319001573456s", "statusId":"5b0525134c0319001573456s" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.status/delete
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK" }
 ```
 
-**Response:**
-```js
-  { code: 200, message: 'OK' }
-```
+## Метод для включения/отключения вилжетов стрима
+```https://botapi.workonflow.com/{teamid}/stream.field/set```
 
-## stream.field/set
-
-**Метод для включения/отключения вилжетов стрима**
-```js
-  https://botapi.workonflow.com/{teamid}/stream.field/set
-```
-
-**Parameters:**
-
+### Параметры:
 | field     | type    | description         | required |
 | --------- |---------| :-------------------|----:|
-| streamId  | string  | uniq id of stream   | yes |
+| streamId  | string  | индетификатор stream   | yes |
 | type      | string  | ones of types: Budget, DataTime, Priority, Points, TimeBudget, Responsible, WorkflowStatus, externalFollowers | yes |
 | on        | bool    | on/off field        | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "streamId":"5b0526a34c0319001573456s",
@@ -560,43 +430,35 @@
     "on": true
   }
 ```
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0526a34c0319001573456s", "type":"Budget", "on": true }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.field/set
+
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0526a34c0319001573456s", "type":"Budget", "on": true }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.field/set```
+
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK" }
 ```
 
-**Response:**
-```js
-  { code: 200, message: 'OK' }
-```
+## Метод для изменения канала в потоке
+```https://botapi.workonflow.com/{teamId}/stream.channels/use.default```
 
-
-## stream.channels/use.default
-
-**Метод для изменения канала в потоке**
-```js
-  https://botapi.workonflow.com/{teamId}/stream.channels/use.default
-```
-
-**Parameters:**
-
+### Параметры:
 | field     | type    | description        | required |
 | --------- |---------| :------------------|---:|
-| streamId  | string  | uniq id of stream  | yes |
-| channelId | string  | uniq id of channel | yes |
+| streamId  | string  | индетификатор stream  | yes |
+| channelId | string  | индетификатор channel | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
 {
   "streamId":"5b0526a34c0319001573456s",
   "channelId":"5b1635134c0319001573456s"
 }
 ```
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0526a34c0319001573456s", "channelId":"5b1635134c0319001573456s" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.channels/use.default
-```
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5b0526a34c0319001573456s", "channelId":"5b1635134c0319001573456s" }' https://botapi.workonflow.com/333ccc134c0319001573485e/stream.channels/use.default```
 
-**Response:**
-```js
-  { code: 200, message: 'OK' }
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK" }
 ```

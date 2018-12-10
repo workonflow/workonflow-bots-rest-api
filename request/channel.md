@@ -1,72 +1,86 @@
 # Mail requests
 
-## Method for obtaining email channels
+## Метод для получения информации о существующих почтовых каналов
 ```https://botapi.workonflow.com/{teamid}/channel.mail/account.get```
 
-### Parameters:
-| name      |type            | description                       |
-| ------------- |---------------| ----------------------|
-| userId        | string        | User ID (returns array of available channels) |
-| userIds       | array         | Array of user IDs (analogous to id) (optionally)  |
-| email         | string        | Mail channel (returns channel with indicated email address, optionally) |
+### Параметры:
+| name      |type            | description                       | required |
+| ------------- |---------------| ----------------------|---:|
+| id        | string        | индетификатор канала. Вернет запрашиваемый объект. | no |
+| ids       | array         | Массив индетификаторов канала. Вернет массив запрашиваемых объектов. (optionally)  | no |
+| email         | string        | Почтовый логин. Вернет объект, совпадающий с почтовым логином. | no |
+| isPrivate         | bool        | Вернет массив объектов: все приватные (если указано true), или публичные (если указано false) почтовые каналы | no |
 
-### Body message example:
+### Пример тела запроса:
 ```json
   {
-    userId: "5b0525134c0319001573485e",
-    userIds: [ "5b0525134c03190015734abe", "5b0525134c03190015734851"],
-    email: "email@email.com"
-  }
-```
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "userId":"5b0525134c0319121573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.mail/account.get
-```
-### Response:
-```json
-  {
-    code: 200,
-    message: OK,
-    data: [{
-      email: "channel mail",
-      name: "name channel",
-      outgoing: false,
-      private: false,
-      status: true,
-      streamId: "stream id",
-      teamId: "team id",
-      token: "",
-      userId: "creator user id",
-      _id: "channel id"
-    }]
+    "email": "email@email.com"
   }
 ```
 
-# Method for receiving email channels
+### Пример запроса с помощью curl:
+```
+curl -H "Content-Type: application/json" -X POST -d '{ "email":"email@email.com" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.mail/account.get
+```
+
+### Ответ:
+```json
+ {
+  "code": 200,
+  "message": "OK",
+  "data":
+   [ { "_id": "5a0ac1e74673cb4d73e5bde3",
+       "email": "email@email.com",
+       "name": "My postman-channel",
+       "private": false,
+       "userId": "59e5fafd8bd74500195f7da0",
+       "outgoing": true,
+       "streamId": "59e9c89c2cc5b200164e8398",
+       "server": "email.com",
+       "teamId": "333ccc134c0319001573485e",
+       "status": true,
+       "error": false,
+       "seenBy": [Array],
+       "visibleInStreams": [Array],
+       "outgoingStreams:" [Array],
+       "isVisibleToAll": true }
+   ]
+  }
+```
+
+### Если сделать запрос с пустым объектом - вернется массив объектов не приватных почтовых каналов:
+
+### Пример запроса с помощью curl:
+```
+curl -H "Content-Type: application/json" -X POST -d '{}' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.mail/account.get
+```
+
+# Метод для получения информации о письмах
 ```https://botapi.workonflow.com/{teamid}/channel.mail/read```
 
-### Parameters:
-> **Warning!** One of the fields required
+### Параметры:
+> **Внимание!** Один из параметров обязательно должен быть передан: id, ids, type
 
-|  name          |    type  |  description  |
-| ------------- |---------------| ----------------------:|
-| id        | string        | email ID |
-| ids       | array         | Array of email IDs (optionally)  |
+|  name          |    type  |  description  | required |
+| ------------- |---------------| ----------------------:|----:|
+| id        | string        | идентификатор письма. Вернет объект письма. | |
+| ids       | array         | Массив индетификаторов писем. Вернет массив объектов писем | |
+| type      | string        | В зависимости от типа (outgoing/incoming) вернет все исходящие или входящие письма| |
 
-### Body message example:
-```js
+### Пример тела запроса:
+```json
   {
-    id: '5b0525134c0319001573485e',
-    // or
-    ids: ['5b0525134c03190015734abe', '5b0525134c03190015734851'],
+    "id": "5b0525134c0319001573485e",
   }
 ```
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "id":"5b0525134c0319121573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.mail/read
+
+### Пример запроса с помощью curl:
 ```
-### Response:
+curl -H "Content-Type: application/json" -X POST -d '{ "id":"5b0525134c0319121573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.mail/read
 ```
+
+### Ответ:
+```json
   {
     code: 200,
     message: OK,
@@ -91,65 +105,26 @@
       threadId: "thread id",
       to: "channel mail",
       type: "incoming",
-      _id: "conversation id",
-    }, {
-      // если запрос был по ids, вернёт несколько елементов
-    }, {
-      ...
-    }]
-  }
-```
-
-
-# Method for sending email
-```https://botapi.workonflow.com/{teamid}/channel.mail/send```
-
-### Parameters:
-|  name     |   type | description  | required |
-| ------------- |---------------| ----------------------:|---:|
-| from        | string        | Must indicate an email channel | yes |
-| to          | string        | Email of recipient  | yes |
-| html       | string         | HTML layout for the letter. It not indicated in the letter, the text parameter will be displayed.  |
-| messageId     | string        | ID of message in the form of an email client (leave blank if unknown) |
-| subject       | string        | Subject of message |
-| text          | string        | Text of message (displayed in the absence of an HTML layout)  |
-| threadId      | string        | Thread ID | yes|
-
-### Body message example:
-```json
-  {
-    from: 'fromEmail@email.com',
-    to: 'toEmail@email.com',
-    subject: 'new mail',
-    text: 'Hello, world!'
-  }
-```
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "from": "fromEmail@email.com", "to": "toEmail@email.com", "subject": "new mail", "text": "Hello, world!" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.mail/send
-```
-### Response:
-```json
-  {
-    code: 200,
-    message: OK
+      _id: "5b0525134c0319121573485e",
+    }
+   ]
   }
 ```
 
 # Telephony
 
-# Create user SIP
+# Создание SIP-юзера
 ```https://botapi.workonflow.com/{teamid}/channel.telephony/create```
 
-### Parameters:
+### Параметры:
 |  name   |  type  | description | required |
 | ------------- |---------------| ----------------------:|---:|
-| username        | string        | user name | yes |
-| password          | string        | user password  | yes |
-| domain          | string        | domain  | yes |
-| contactId          | string        | User ID  | yes |
+| username        | string        | имя юзера | yes |
+| password          | string        | пароль юзера  | yes |
+| domain          | string        | домен  | yes |
+| contactId          | string        | идентификатор юзера  | yes |
 
-### Body message example
+### Пример тела запроса:
 ```json
   {
     "username": "John Wick",
@@ -158,38 +133,41 @@
     "contactId":  "333ccc134c0319001543481e"
   }
 ```
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "username": "John Wick", "password": "somePassForJohn", "domain": "john@pbx.com", "contactId": "333ccc134c0319001543481e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/create
+
+### Пример запроса с помощью curl:
 ```
-### Response:
+curl -H "Content-Type: application/json" -X POST -d '{ "username": "John Wick", "password": "somePassForJohn", "domain": "john@pbx.com", "contactId": "333ccc134c0319001543481e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/create
+```
+
+### Ответ:
 ```json
   {
-    code: 200,
-    message: OK,
-    data: { id: "33s231134c0319001543481e"}
+    "code": 201,
+    "message": "Channel created",
+    "data": { "id": "33s231134c0319001543481e" }
   }
 ```
 
-
-# Method for deleting user SIP from telephony (still in development)
+# Метод для удаления SIP-юзера (находится в разработке)
 ```https://botapi.workonflow.com/{teamid}/channel.telephony/delete```
 
-### Parameters:
+### Параметры:
 |  name   |  type  |   description  | required |
 | ------------- |---------------| ----------------------:|---:|
 | sipId        | string        | SIP ID | yes|
-### Body message example
+
+### Пример тела запроса:
 ```json
   {
     "sipId":  "333cbv134c0319001543481e"
   }
 ```
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "sipId": "333cbv134c0319001543481e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/delete
+
+### Пример запроса с помощью curl:
 ```
-### Response:
+curl -H "Content-Type: application/json" -X POST -d '{ "sipId": "333cbv134c0319001543481e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/delete
+```
+### Ответ:
 ```json
   {
     code: 200,
@@ -198,60 +176,86 @@
 ```
 
 
-# Method for obtaining user SIP
+# Метод для получения SIP-юзера
 ```https://botapi.workonflow.com/{teamid}/channel.telephony/get```
 
-### Parameters:
-|  name       |  type  | description   |
-| ------------- |---------------| ----------------------:|
-| username        | string        | user name |
-| sipId          | string        | SIP ID  |
-| contactId          | string        | User ID  |
-### Body message example
+### Параметры:
+|  name       |  type  | description   | required |
+| ------------- |---------------| ----------------------:|---:|
+| username        | string        | имя юзера |
+| sipId          | string        | идентификатор SIP-аккаунта  |
+| contactId          | string        | идентификатор юзера  |
+
+### Пример тела запроса:
 ```json
   {
-    "username": "John Wick",
-    "sipId": "392ccc134c0319001543481b",
-    "contactId":  "333ccc134c0319001543481b"
-  }
-```
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "username": "John Wick", "sipId": "392ccc134c0319001543481b", "contactId": "333ccc134c0319001543481b" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/get
-```
-### Response:
-```json
-  {
-    code: 200,
-    message: OK
+    "sipId": "58"
   }
 ```
 
+### Пример запроса с помощью curl:
+```
+curl -H "Content-Type: application/json" -X POST -d '{ "sipId": "58" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/get
+```
 
-# Update user SIP method
+### Ответ:
+```json
+{
+  "code": 200,
+  "message": "OK",
+  "data":
+   [ {
+     "id": 58,
+     "username": "5a2668c0906f27001ce5ae54",
+       "domain": "develop.workonflow.com",
+       "email_address": "",
+       "rpid": null,
+       "teamId": "59e5f928ef5fcf001cfd5cef",
+       "constactId": null,
+       "contactId": "5a2668c0906f27001ce5ae54",
+       "alias": "",
+       "enable": null,
+       "product": "workonflow"
+     }
+   ]
+}
+```
+
+### Если сделать запрос с пустым объектом - вернется массив объектов SIP-аккаунтов:
+
+### Пример запроса с помощью curl:
+```
+curl -H "Content-Type: application/json" -X POST -d '{}' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/get
+```
+
+# Метод для обновления SIP-юзера
 ```https://botapi.workonflow.com/{teamid}/channel.telephony/update```
 
-### Parameters:
+### Параметры:
 |  name      |  type  | description   | required |
 | ------------- |---------------| ----------------------:|-----:|
-| username        | string        | user name | yes |
-| password          | string        | user pass  | yes |
-| domain          | string        | domain  | yes|
-| contactId          | string        | User ID  | yes |
-### Body message example
+| username        | string        | имя юзера | yes |
+| password          | string        | пароль юзера  | yes |
+| domain          | string        | домен  | yes|
+| contactId          | string        | идентификатор юзера  | yes |
+| sipId               | string      | идентификатор SIP-аккаунта | yes |
+
+### Пример тела запроса:
 ```json
   {
     "username": "John Wick",
     "password": "somePassForJohn",
     "domain": "john@pbx.com",
-    "contactId": "333ccc134c0319001543481e"
+    "contactId": "333ccc134c0319001543481e",
+    "sipId": "111"
   }
 ```
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "username": "John Wick", "password": "somePassForJohn", "domain": "john@pbx.com", "contactId": "333ccc134c0319001543481e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/update
+### Пример запроса с помощью curl:
 ```
-### Response:
+curl -H "Content-Type: application/json" -X POST -d '{ "username": "John Wick", "password": "somePassForJohn", "domain": "john@pbx.com", "contactId": "333ccc134c0319001543481e", "sipId": "111" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/update
+```
+
+### Ответ:
 ```json
   {
     code: 200,

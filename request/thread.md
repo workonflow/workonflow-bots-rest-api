@@ -157,7 +157,7 @@
   { "code": 200, "message": "OK", "data": { "descriptionId": "333ccc134c0319001573485x" } }
 ```
 
-## Метод для изменения бюджета задачи**
+## Метод для изменения бюджета задачи
 ```https://botapi.workonflow.com/{teamid}/thread.fields.budget```
 
 ### Параметры:
@@ -272,7 +272,7 @@
   "code": 200,
   "massage": "OK",
   "data": {
-    "priority": 'HIGH',
+    "priority": "HIGH",
     "threadId": "5b0525134c0319001573485e",
     "createdAt": 1524055334667,
     "deadline": [null, 1524902400000],

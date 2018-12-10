@@ -75,7 +75,6 @@
     "data": { "userId": "5b0525134c0319001573485e", "local": "us" }
   }
 ```
----
 
 ## Метод для получения пользоватей
 Метод позволяет получить всех пользователей, находящихся в тиме.
@@ -107,33 +106,33 @@
 ### Пример ответа:
 ```json
 {
-  code: 200,
-  message: 'OK',
-  data: [ {
-    billingType: 'users',
-    basicData: {
-      name: 'user name',
-      email: [ 'user email' ],
-      phone: [ 'user phone' ]
+  "code": 200,
+  "message": "OK",
+  "data": [ {
+    "billingType": "users",
+    "basicData": {
+      "name": "user name",
+      "email": [ "user email" ],
+      "phone": [ "user phone" ]
     },
-    extension: 'number extension in system',
-    teamId: 'team id',
-    createdAt: '2017-10-30T10:15:53.245Z',
-    updatedAt: 1517574060991,
-    color: '#ffffff',
-    status: 'off',
-    voiceRules: [ {
-      type: 'webrtc',
-      enabled: true,
-      timeout: '',
-      extension: '100*9 (default number extension + *9)',
-      visible: true
+    "extension": "number extension in system",
+    "teamId": "team id",
+    "createdAt": "2017-10-30T10:15:53.245Z",
+    "updatedAt": 1517574060991,
+    "color": "#ffffff",
+    "status": "off",
+    "voiceRules": [ {
+      "type": "webrtc",
+      "enabled": true,
+      "timeout": "",
+      "extension": "100*9 (default number extension + *9)",
+      "visible": true
     }, {
-      type: 'sip',
-      enabled: true,
-      timeout: '',
-      extension: '100*1 (default number extenseion + *1)',
-      visible: true
+      "type": "sip",
+      "enabled": true,
+      "timeout": "",
+      "extension": "100*1 (default number extenseion + *1)",
+      "visible": true
     } ]
   } ]
 }

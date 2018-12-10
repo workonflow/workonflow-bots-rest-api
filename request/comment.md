@@ -2,9 +2,7 @@
 
 ## Метод для получения колличества комментариев
 
-```
-https://botapi.workonflow.com/{teamid}/comment/count
-```
+```https://botapi.workonflow.com/{teamid}/comment/count```
 
 ### Параметры:
 > **Внимание!** Один из параметров обязательно должен быть передан: threadId, threadIds, streamId
@@ -24,21 +22,16 @@ https://botapi.workonflow.com/{teamid}/comment/count
 ```
 
 ### Пример запроса:
-```
-curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/comment/count
-```
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/comment/count```
 
 ### Ответ:
 
 ```json
-  { code: 200, message: "OK", data: { count: 1 } }
+  { "code": 200, "message": "OK", "data": { "count": 1 } }
 ```
 
 ## Метод для создания комментариев
-
-```
-https://botapi.workonflow.com/{teamid}/comment/create
-```
+```https://botapi.workonflow.com/{teamid}/comment/create```
 
 ### Параметры:
 > **Важно!** Должен быть только один параметр получателя: streamId, threadId или to
@@ -62,9 +55,7 @@ https://botapi.workonflow.com/{teamid}/comment/create
 ```
 
 ### Пример запроса:
-```
-curl -H "Content-Type: application/json" -X POST -d '{ "to":"5971f31881d3f800149760b4", "text": "new comment" }' https://botapi.workonflow.com/333ccc134c0319001573485e/comment/create
-```
+```curl -H "Content-Type: application/json" -X POST -d '{ "to":"5971f31881d3f800149760b4", "text": "new comment" }' https://botapi.workonflow.com/333ccc134c0319001573485e/comment/create```
 
 ### Пример ответа:
 ```json
@@ -75,13 +66,9 @@ curl -H "Content-Type: application/json" -X POST -d '{ "to":"5971f31881d3f800149
 ```
 
 ## Метод для получения комментариев
-
-```
-https://botapi.workonflow.com/{teamid}/comment/read
-```
+```https://botapi.workonflow.com/{teamid}/comment/read```
 
 ### Параметры:
-
 | field         | type          | description|
 | ------------- |---------------|:----------------------|
 | threadId      | string        | идентификатор треда    |
@@ -99,9 +86,7 @@ https://botapi.workonflow.com/{teamid}/comment/read
 ```
 
 ### Пример запроса:
-```
-curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5afd74659a88ff00190baf81" }' https://botapi.workonflow.com/333ccc134c0319001573485e/comment/read
-```
+```curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5afd74659a88ff00190baf81" }' https://botapi.workonflow.com/333ccc134c0319001573485e/comment/read```
 
 ### Пример ответа:
 

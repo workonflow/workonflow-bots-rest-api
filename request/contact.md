@@ -1,123 +1,123 @@
 # Contact requests
 
-### contact/create
+## Метод для создания контактов
+Метод позволяет создавать внешних юзеров, которых можно прикрепить к треду, и общаться с ними посредством почты или телефонии
 
-**Метод для создания контактов**
-
-```js
-  https://botapi.workonflow.com/{teamid}/contact/create/{body}
+```
+https://botapi.workonflow.com/{teamid}/contact/create/{body}
 ```
 
-**Parameters:**
+### Параметры:
 
 | field         | type          | description| required |
-| ------------- |---------------| :---------------------- |----:|
-| basicData     | object        | Takes an object with the name of the contact | yes
-| customFields  | array         | Field for adding channels to the contact, содержит в себе объекты содержащие не типичную информацию о пользователе |
+| ------------- |---------------| ----------------------|----:|
+| basicData     | object        | принимает объект с одним обязательным полем **name** - имя пользователя | yes
+| customFields  | array of objects  | Массив объектов, содержащих дополнительную информацию о пользователе, такую как: рабочий/домашний телефон, скайп, эл. почта и пр. |
 
-|customFields|| |
-|-----|----|-----|
-| label         | string        | name of custom field   |
-| value         | string        | value of custom field  |
-| type          | string        | type of custom field   |
-| id            | string        | uniq id for custom field |
+|Пример объекта для customFields |  type | description | required|
+|-----|----:|-----:|---:|
+| label         | string        | имя кастомного поля   | yes |
+| value         | string        | значение кастомного поля  | yes |
+| type          | string        | тип кастомного поля (email, phone)   | yes |
+| id            | string        | уникальные идентификатор кастомного поля | yes |
 
-**Body message example:**
+### Пример тела запроса:
 
 ```json
 {
   "basicData": {
-    "name": "Alex",
-    "email": "email@email.com"
+    "name": "Alex"
   },
   "customFields": [
-    {"id": "B1R5NTS3z", "label": "Company", "value": "", "type": "company"},
-    {"id": "B1l094TB2M", "label": "Work phone", "value": "", "type": "phone"},
-    {"id": "rkbA9VTH3M", "label": "Work e-mail", "value": "", "type": "email"}
+    {"id": "B1R5NTS3z", "label": "Company", "value": "OOO TS", "type": "company"},
+    {"id": "B1l094TB2M", "label": "Work phone", "value": "777", "type": "phone"},
+    {"id": "rkbA9VTH3M", "label": "Work e-mail", "value": "work@work.com", "type": "email"}
   ]
 }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "basicData": {"name": "Alex", "email": "email@email.com"}, "customFields": [{"id": "B1R5NTS3z", "label": "Company", "value": "", "type": "company"}, {"id": "B1l094TB2M", "label": "Work phone", "value": "", "type": "phone"}, {"id": "rkbA9VTH3M", "label": "Work e-mail", "value": "", "type": "email"}] }' https://botapi.workonflow.com/333ccc134c0319001573485e/contact/create
+### Пример запроса с помощью curl:
+```
+curl -H "Content-Type: application/json" -X POST -d '{ "basicData": {"name": "Alex", "email": "email@email.com"}, "customFields": [{"id": "B1R5NTS3z", "label": "Company", "value": "OOO TS", "type": "company"}, {"id": "B1l094TB2M", "label": "Work phone", "value": "777", "type": "phone"}, {"id": "rkbA9VTH3M", "label": "Work e-mail", "value": "work@work.com", "type": "email"}] }' https://botapi.workonflow.com/333ccc134c0319001573485e/contact/create
 ```
 
-**Response:**
-
-```js
-  { code: 200, message: "OK", data: { contactId: '1491eh1029318du1dqw9' } }
+### Пример ответа:
+```json
+  {
+    "code": 200,
+    "message": "OK",
+    "data": { "contactId": "1491eh1029318du1dqw9" } }
 ```
 ---
 
-## contact/local
+## Метод для получения "языка" пользователя
 
-**Метод для получения "языка" пользователя**
-
-```js
-  https://botapi.workonflow.com/{teamid}/contact/local/{body}
+```
+https://botapi.workonflow.com/{teamid}/contact/local/{body}
 ```
 
-**Parameters:**
+### Параметры:
 
 | field         | type          | description| required |
 | ------------- |---------------| ----------------------:| ----:|
-| userId     | string        | id of user | yes |
+| userId     | string        | идентификатор юзера | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
 {
   "userId":"5b0525134c0319001573485e"
 }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "userId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/contact/create
+### Пример запроса с помощью curl:
+```
+curl -H "Content-Type: application/json" -X POST -d '{ "userId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/contact/create
 ```
 
-**Response:**
+### Пример ответа:
 
-```js
-  { code: 200, message: "OK", data: { userId: "5b0525134c0319001573485e", local: "us" } }
+```json
+  {
+    "code": 200,
+    "message": "OK",
+    "data": { "userId": "5b0525134c0319001573485e", "local": "us" }
+  }
 ```
 ---
-## contact/read
 
-**Метод для получения пользоватей**
-```js
-  https://botapi.workonflow.com/{teamid}/contact/read/{body}
+## Метод для получения пользоватей
+Метод позволяет получить всех пользователей, находящихся в тиме.
+
+```
+https://botapi.workonflow.com/{teamid}/contact/read/{body}
 ```
 
-**Parameters:**
-> **Warning!** One of the fields (userId or userIds) required
+### Параметры:
+> Внимание! Одно из полей обязательно должно быть передано в запросе: userId, userIds, customField
 
 | field         | type    | description|
 | ------------- |---------| ----------------------:|
-| userId        | string  | Contact or user ID     |
-| userIds       | array   | Several contact or user IDs|
-| billingType   | string  | type of users: users, contacts or bots |
-| customField   | string  | any field at user (email, phone, etc)
+| userId        | string  | индетификатор юзера     |
+| userIds       | array   | массив идентификаторов юзеров|
+| billingType   | string  | тип юзера: users, contacts or bots |
+| customField   | string  | кастомное поля юзера (почта, телефон и т.п.)
 
-**Body message example:**
+### Пример тела запроса:
 
 ```json
 {
-  "userId":"5b0525134c0319001573485e",
-  "userIds":["5afd6d369a88ff00190baf79", "5afd6d369a88ff22190baf79"],
-  "billingType": "users", // or "contacts", "bots",
-  "customField": "someemail@mail.com@
+  "billingType": "users"
 }
 ```
 
-**Request example:**
+### Пример запроса с помощью curl:
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "billingType" : "users" }' https://botapi.workonflow.com/333ccc134c0319001573485e/contact/read
 ```
-**Response:**
+curl -H "Content-Type: application/json" -X POST -d '{ "billingType" : "users" }' https://botapi.workonflow.com/333ccc134c0319001573485e/contact/read
+```
+### Пример ответа:
 
-```js
+```json
 {
   code: 200,
   message: 'OK',

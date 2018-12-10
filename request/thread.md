@@ -1,94 +1,79 @@
 # Thread requests
 
-## thread/read
+## Метод для получения информации по задаче
+```https://botapi.workonflow.com/{teamid}/thread/read```
 
-**Метод для получения информации по задаче**
-
-```js
-  https://botapi.workonflow.com/{teamid}/thread/read
-```
-
-**Parameters:**
-
+### Параметры:
 | field      | type   | description|
 | -----------|--------| :---------------------|
-| threadId   | string | uniq id of thread      |
-| statusId   | string | Status ID (returns all threads with the indicated status)  |
-| statusIds  | array  | array uniq ids of status |
-| streamId   | string |Stream ID (returns all threads in a stream)    |
-| ltUpdatedAt| number |(Less than) Time limit for creation > less than |
-| gtUpdatedAt| number |(Greater than) Time limit for creation < greater than |
-| deadline   | array  | deadline of thread  |
-|responsibleUserId|string|id of user ответственный за задачу |
-| status     | string | id of status в котором находится задача |
-| streamId   | string | id of stream в котором находится задача |
-| customerId | string | id of customer, eсли он 1 |
+| threadId   | string |  индетификатор треда      |
+| statusId   | string | индетификатор статуса (возвращает все треды в указанном статусе)  |
+| statusIds  | array  | массив индетификаторов статусов |
+| streamId   | string | индетификатор стрима (возвращает все треды в указанном стриме)    |
+| ltUpdatedAt| timestamp in seconds | возвращает все треды которые обновлялись раньше указанного времени |
+| gtUpdatedAt| timestamp in seconds | возвращает все треды которые обновлялись позже указанного времени |
+| deadline   | array  | возвращает треды с указанным дедлайном  |
+|responsibleUserId|string| индетификатор ответственного за задачу |
+| status     | string | индетификатор статуса в котором находится задача |
+| streamId   | string | индетификатор стрима в котором находится задача |
+| customerId | string | индетификатор клиента, eсли он один |
 | customerIds | array | список клиентов, если их несколько
 | title      | string | название задачи |
-| type       | string | глобальный тип задачи Wait, inProgress, Done|
+| type       | string | глобальный тип задачи: Wait, inProgress, Done|
 | roles      | array  | список участников задачи |
-| createdAt  | number | дата создания в формате timestamp |
-| updatedAt  | number | дата последнего обновления в формате timestamp |
+| createdAt  | timestamp in seconds | дата создания в формате timestamp |
+| updatedAt  | timestamp in seconds | дата последнего обновления в формате timestamp |
 
-
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "threadId":"5b0525134c0319001573485e"
   }
 ```
 
-**Request example:**
+### Пример запроса:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5afd6d369a88ff22190baf7x" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/read```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5afd6d369a88ff22190baf7x" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/read
-```
-
-**Response example:**
-```js
+### Пример ответа:
+```json
   {
-    code: 200,
-    message: 'OK',
-    data: [{
-    threadId: "5b0525134c0319001573485e",
-    createdAt: 1524055334667,
-    deadline: [],
-    responsibleUserId: "",
-    status: "5b0525134c0319001573485f",
-    streamId: "5b0525134c0319001573485s",
-    teamId: "5b0525134c0319001573485c",
-    title: "title name",
-    customerId: "5b0525134c0319001573485a",
-    customerIds: [],
-    commentsFilter: {},
-    type: "Wait",
-    roles: ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
-    updatedAt: 1524056052883,
+    "code": 200,
+    "message": "OK",
+    "data": [{
+    "threadId": "5b0525134c0319001573485e",
+    "createdAt": 1524055334667,
+    "deadline": [],
+    "responsibleUserId": "",
+    "status": "5b0525134c0319001573485f",
+    "streamId": "5b0525134c0319001573485s",
+    "teamId": "5b0525134c0319001573485c",
+    "title": "title name",
+    "customerId": "5b0525134c0319001573485a",
+    "customerIds": [],
+    "commentsFilter": {},
+    "type": "Wait",
+    "roles": ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
+    "updatedAt": 1524056052883,
     }]
   }
 ```
 
-## thread/create
+## Метод для создания задачи
+```https://botapi.workonflow.com/{teamid}/thread/create```
 
-**Метод для создания задачи**
-
-```js
-  https://botapi.workonflow.com/{teamid}/thread/create
-```
-
-**Parameters:**
+### Параметры:
 | field      | type   | description| required |
-| ------------- |---------------| ----------------------         |:----|
-| statusId      | string        | Status ID                      | yes |
-| streamId      | string        | Stream ID                      | yes |
-| title         | string        | name for thread                ||
-| deadline      | array         | deadline for task              ||
-| responsibleUserId | string    | id of user responsible         ||
-| customerId    | string        | id of external user            ||
-| roles         | string        | id followers of the thread     ||
-| description   | array         | принимает два вида объектов: { type: 'hashtag', name: '#имяхештега' }, { type: 'file', filename: 'имяФайла.txt', fileId: 'айди файла загруженного на амазон' }
+| ------------- |---------------| ----------------------         |----:|
+| statusId      | string        | индетификатор статуса                      | yes |
+| streamId      | string        | индетификатор стрима                      | yes |
+| title         | string        | имя задачи                | no|
+| deadline      | array         | дедлайн задачи              |no|
+| responsibleUserId | string    | индетификатор ответственного за задачу         |no|
+| customerId    | string        | индетификатор внешнего кастомера            |no|
+| roles         | string        | индетификатор(-ы) фолловеров задачи     |no|
+| description   | array         | принимает два вида объектов: ```{ type: 'hashtag', name: '#имяхештега' }, { type: 'file', filename: 'имяФайла.txt', fileId: 'айди файла загруженного на амазон' }``` |no|
 
-**Body message example:**
+### Пример тела запроса:
 ```json
 {
   "statusId": "5b0321234c0319001573485e",
@@ -97,33 +82,25 @@
 }
 ```
 
-**Request example:**
-
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "title":"New thread", "statusId": "5b0321234c0319001573485e","streamId":"5afd74659a88ff00190baf81" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/create
+### Пример запроса:
+```curl -H "Content-Type: application/json" -X POST -d '{ "title":"New thread", "statusId": "5b0321234c0319001573485e","streamId":"5afd74659a88ff00190baf81" }'https://botapi.workonflow.com/333ccc134c0319001573485e/thread/create
 ```
 
-**Response example:**
-
-```js
-  { code: 200, massage: 'OK', data: { threadId: '5afd74659a88ff0010900f81' } }
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK", "data": { "threadId": "5afd74659a88ff0010900f81" } }
 ```
 
-## thread.description/read
+## Метод для получения описания задачи:
+```https://botapi.workonflow.com/thread.description/read```
 
-**Метод для получения описания задачи:**
-
-```js
-  https://botapi.workonflow.com/thread.description/read
-```
-
-**Parameters:**
+### Параметры:
 
 | field      | type   | description | required |
-| ---------- |--------| :---------------------- |---:|
-| threadId   | string | uniq id of thread      | yes |
+| ---------- |--------| ----------------------|---:|
+| threadId   | string | индетификатор треда      | yes |
 
-**Body message example:**
+### Пример тела запроса:
 
 ```json
   {
@@ -131,48 +108,41 @@
   }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.desctiption/read
-```
+### Пример запроса:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/threaddesctiption/read```
 
-**Response example:**
-```js
+### Пример ответа:
+```json
 {
-  code: 200,
-  message: 'OK',
-  data: [{
-    content: "{}", // JSON format example below
-    created: 1515487277798,
-    teamId: "5b0321234c0319001573485f",
-    descriptionId: "5b0321234c0319001573485x",
-    threadId: "5b0321234c0319001573485e"
+  "code": 200,
+  "message": "OK",
+  "data": [{
+    "content": "{}", // JSON format example. See below
+    "created": 1515487277798,
+    "teamId": "5b0321234c0319001573485f",
+    "descriptionId": "5b0321234c0319001573485x",
+    "threadId": "5b0321234c0319001573485e"
   }]
 }
 ```
 
 ***example JSON description by content field:***
-
-```
+```json
 "{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","marks":[],"text":"text"}]},{"type":"paragraph","content":[{"type":"text","marks":[],"text":"text"}]},{"type":"paragraph","content":[{"type":"text","marks":[],"text":"text"}]},{"type":"paragraph","content":[{"type":"text","marks":[{"type":"strike"}],"text":"text"}]},{"type":"paragraph"},{"type":"paragraph","content":[{"type":"text","marks":[{"type":"underline"}],"text":"text"}]},{"type":"paragraph","content":[{"type":"text","marks":[{"type":"em"}],"text":"text"}]},{"type":"paragraph","content":[{"type":"text","marks":[{"type":"strong"}],"text":"text"}]},{"type":"ordered_check_list","content":[{"type":"check_list_item","attrs":{"isCheck":false},"content":[{"type":"paragraph","content":[{"type":"text","marks":[],"text":"text"}]}]}]},{"type":"ordered_list","content":[{"type":"list_item","attrs":{"id":null},"content":[{"type":"paragraph","content":[{"type":"text","marks":[],"text":"text"}]}]}]},{"type":"ordered_number_list","attrs":{"order":1},"content":[{"type":"list_item","attrs":{"id":null},"content":[{"type":"paragraph"},{"type":"horizontal_rule"},{"type":"paragraph"}]}]},{"type":"paragraph","content":[{"type":"text","marks":[],"text":"text text"}]}]}"
 ```
 ------------------------------------------------------------------------------------
 
-## thread.descriprion/set
+## Метод для добавления или изменения описания задачи
+```https://botapi.workonflow.com/thread.description/set```
 
-**Метод для добавления или изменения описания задачи**
-```js
-  https://botapi.workonflow.com/thread.description/set
-```
-
-**Parameters:**
+### Параметры:
 
 | field    | type   | description         | required |
 | -------- |------- | :-------------------|----:|
-| threadId | string | id of thread        | yes |
-| content  | string | some text for description | yes |
+| threadId | string | индетификатор треда        | yes |
+| content  | string | техт для описания задачи | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "threadId":"5b0321234c0319001573485e",
@@ -180,32 +150,23 @@
   }
 ```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "content":"new description" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.desctiption/set
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "content":"new description" }' https://botapi.workonflow.com/333ccc134c0319001573485e/threaddesctiption/set```
+
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK", "data": { "descriptionId": "333ccc134c0319001573485x" } }
 ```
 
-**Response example:**
-```js
-  { code: 200, message: 'OK', data: { descriptionId: '333ccc134c0319001573485x' } }
-```
----------------------------------------------------------------------------------
+## Метод для изменения бюджета задачи**
+```https://botapi.workonflow.com/{teamid}/thread.fields.budget```
 
-## thread.fields.budget
-
-**Метод для изменения бюджета задачи**
-
-```js
-  https://botapi.workonflow.com/{teamid}/thread.fields.budget
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description | required |
 | ------------- |---------------| ----------------------:|----:|
-| threadId      | string        | id of thread         | yes |
-| budget        | number        | Quantity of the thread’s budget | yes |
+| threadId      | string        | индетификатор треда         | yes |
+| budget        | number        | бюджет задачи | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "threadId":"5b0321234c0319001573485e",
@@ -213,52 +174,44 @@
   }
 ```
 
+### Пример запроса с помошью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "budget":100 }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.budget```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "budget":100 }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.budget
-```
-
-**Response example:**
-```js
+### Пример ответа:
+```json
 {
-  code: 200,
-  massage: 'OK',
-  data: {
-    budget: 100,
-    threadId: "5b0525134c0319001573485e",
-    createdAt: 1524055334667,
-    deadline: [],
-    responsibleUserId: "",
-    status: "5b0525134c0319001573485f",
-    streamId: "5b0525134c0319001573485s",
-    teamId: "5b0525134c0319001573485c",
-    title: "title name",
-    customerId: "5b0525134c0319001573485a",
-    customerIds: [],
-    commentsFilter: {},
-    type: "Wait",
-    roles: ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
-    updatedAt: 1524056052883,
+  "code": 200,
+  "massage": "OK",
+  "data": {
+    "budget": 100,
+    "threadId": "5b0321234c0319001573485e",
+    "createdAt": 1524055334667,
+    "deadline": [],
+    "responsibleUserId": "",
+    "status": "5b0525134c0319001573485f",
+    "streamId": "5b0525134c0319001573485s",
+    "teamId": "5b0525134c0319001573485c",
+    "title": "title name",
+    "customerId": "5b0525134c0319001573485a",
+    "customerIds": [],
+    "commentsFilter": {},
+    "type": "Wait",
+    "roles": ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
+    "updatedAt": 1524056052883,
   }
 }
 ```
 
+## Метод для изменения дедлайна задачи
+```https://botapi.workonflow.com/{teamid}/thread.fields.deadline```
 
-## thread.fields.deadline
-
-**Метод для изменения дедлайна задачи**
-```js
-  https://botapi.workonflow.com/{teamid}/thread.fields.deadline
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description | required |
 | ------------- |---------------| :---------------------|---:|
-| threadId      | string        | id of thread         | yes |
-| deadline      | array        | An array of data in the format of a time stamp. The first element is the start of the thread and the second is its end (if the first element is given a value of null, the thread will only display a deadline). | yes |
+| threadId      | string        | индетификатор треда         | yes |
+| deadline      | array        | Массив состоит из двух элементов, в виде таймстампа в секундах. Первый элемент отвечает за старт задачи, второй элемент в массиве за дедлайн задачи (если первый элемент не указан, то просто отображается дедлайн, а не промежуток между датами). | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "threadId":"5b0321234c0319001573485e",
@@ -266,54 +219,43 @@
   }
 ```
 
-**Request example:**
+### Пример запроса:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "deadline":[null, 1524902400000] }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fieldsdeadline```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "deadline":[null, 1524902400000] }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.deadline
-```
-
-**Response example:**
-
-```js
+### Пример ответа:
+```json
 {
-  code: 200,
-  massage: 'OK',
-  data: {
-    threadId: "5b0525134c0319001573485e",
-    createdAt: 1524055334667,
-    deadline: [null, 1524902400000],
-    responsibleUserId: "",
-    status: "5b0525134c0319001573485f",
-    streamId: "5b0525134c0319001573485s",
-    teamId: "5b0525134c0319001573485c",
-    title: "title name",
-    customerId: "5b0525134c0319001573485a",
-    customerIds: [],
-    commentsFilter: {},
-    type: "Wait",
-    roles: ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
-    updatedAt: 1524056052883,
+  "code": 200,
+  "massage": "OK",
+  "data": {
+    "threadId": "5b0525134c0319001573485e",
+    "createdAt": 1524055334667,
+    "deadline": [null, 1524902400000],
+    "responsibleUserId": "",
+    "status": "5b0525134c0319001573485f",
+    "streamId": "5b0525134c0319001573485s",
+    "teamId": "5b0525134c0319001573485c",
+    "title": "title name",
+    "customerId": "5b0525134c0319001573485a",
+    "customerIds": [],
+    "commentsFilter": {},
+    "type": "Wait",
+    "roles": ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
+    "updatedAt": 1524056052883,
   }
 }
 ```
 
+## Метод для изменения приоритета задачи
+```https://botapi.workonflow.com/{teamid}/thread.fields.priority```
 
-## thread.fields.priority
-
-**Метод для изменения приоритета задачи**
-
-```js
-  https://botapi.workonflow.com/{teamid}/thread.fields.priority
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description| required |
 | ------------- |---------------| ----------------------|---:|
-| threadId      | string        | id of thread         | yes |
-| priority        | string        | Priority level (one of two options: ‘HIGH’ or ‘NORMAL.’ Must be in upper case letters.) | yes |
+| threadId      | string        | индетификатор треда | yes |
+| priority        | string        | Приоритет задачи. Может быть либо ‘HIGH’,либо ‘NORMAL’. Обязательно передавать значение этого поля в верхнем регистре. | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "threadId":"5b0321234c0319001573485e",
@@ -321,54 +263,44 @@
   }
 ```
 
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "priority":"HIGH" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fieldspriority```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "priority":"HIGH" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.priority
-```
-**Response example:**
-
-```js
+### Пример ответа:
+```json
 {
-  code: 200,
-  massage: 'OK',
-  data: {
-    priority: 'HIGH',
-    threadId: "5b0525134c0319001573485e",
-    createdAt: 1524055334667,
-    deadline: [null, 1524902400000],
-    responsibleUserId: "",
-    status: "5b0525134c0319001573485f",
-    streamId: "5b0525134c0319001573485s",
-    teamId: "5b0525134c0319001573485c",
-    title: "title name",
-    customerId: "5b0525134c0319001573485a",
-    customerIds: [],
-    commentsFilter: {},
-    type: "Wait",
-    roles: ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
-    updatedAt: 1524056052883,
+  "code": 200,
+  "massage": "OK",
+  "data": {
+    "priority": 'HIGH',
+    "threadId": "5b0525134c0319001573485e",
+    "createdAt": 1524055334667,
+    "deadline": [null, 1524902400000],
+    "responsibleUserId": "",
+    "status": "5b0525134c0319001573485f",
+    "streamId": "5b0525134c0319001573485s",
+    "teamId": "5b0525134c0319001573485c",
+    "title": "title name",
+    "customerId": "5b0525134c0319001573485a",
+    "customerIds": [],
+    "commentsFilter": {},
+    "type": "Wait",
+    "roles": ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
+    "updatedAt": 1524056052883,
   }
 }
 ```
 
+## Метод для назначения ответственного за тред
+```https://botapi.workonflow.com/{teamid}/thread.responsible/set```
 
-## thread.responsible/set
-
-**Метод для назначения ответственного за тред**
-
-
-```js
-  https://botapi.workonflow.com/{teamid}/thread.responsible/set
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description| required |
 | ------------- |---------------| ----------------------|----:|
-| threadId      | string        | id of thread         | yes |
-| userId        | string        | id of user | yes |
+| threadId      | string        | индетификатор треда | yes |
+| userId        | string        | индетификатор  ответственного юзера | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
 {
   "threadId":"5b0321234c0319001573485e",
@@ -376,53 +308,44 @@
 }
 ```
 
-
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "userId":"5b032123210319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.responsible/set
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "userId":"5b032123210319001573485e" }'https://botapi.workonflow.com/333ccc134c0319001573485e/thread.responsible/set
 ```
 
-**Response example:**
-
-```js
+### Пример ответа:
+```json
 {
-  code: 200,
-  massage: 'OK',
-  data: {
-    threadId: "5b0525134c0319001573485e",
-    createdAt: 1524055334667,
-    deadline: [null, 1524902400000],
-    responsibleUserId: "5b032123210319001573485e",
-    status: "5b0525134c0319001573485f",
-    streamId: "5b0525134c0319001573485s",
-    teamId: "5b0525134c0319001573485c",
-    title: "title name",
-    customerId: "5b0525134c0319001573485a",
-    customerIds: [],
-    commentsFilter: {},
-    type: "Wait",
-    roles: ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
-    updatedAt: 1524056052883,
+  "code": 200,
+  "massage": "OK",
+  "data": {
+    "threadId": "5b0525134c0319001573485e",
+    "createdAt": 1524055334667,
+    "deadline": [null, 1524902400000],
+    "responsibleUserId": "5b032123210319001573485e",
+    "status": "5b0525134c0319001573485f",
+    "streamId": "5b0525134c0319001573485s",
+    "teamId": "5b0525134c0319001573485c",
+    "title": "title name",
+    "customerId": "5b0525134c0319001573485a",
+    "customerIds": [],
+    "commentsFilter": {},
+    "type": "Wait",
+    "roles": ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
+    "updatedAt": 1524056052883,
   }
 }
 ```
 
-## thread.responsible/remove
+## Метод для удаления ответственного за тред
+```https://botapi.workonflow.com/{teamid}/thread.responsible/remove```
 
-**Метод для назначения ответственного за тред**
-
-
-```js
-  https://botapi.workonflow.com/{teamid}/thread.responsible/remove
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description| required |
 | ------------- |---------------| ----------------------|----:|
-| threadId      | string        | id of thread         | yes |
-| userId        | string        | id of user | yes |
+| threadId      | string        | индетификатор треда         | yes |
+| userId        | string        | индетификатор ответственного за тред | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
 {
   "threadId":"5b0321234c0319001573485e",
@@ -430,36 +353,27 @@
 }
 ```
 
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "userId":"5b032123210319001573485e" }'https://botapi.workonflow.com/333ccc134c0319001573485e/thread.responsible/remove```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "userId":"5b032123210319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.responsible/remove
-```
-
-**Response example:**
-
+### Пример ответа:
 ```js
 {
-  code: 200,
-  massage: 'OK'
+  "code": 200,
+  "massage": "OK"
 }
 ```
 
-## thread.status
+## Метод для изменения статуса задачи
+```https://botapi.workonflow.com/{teamid}/thread.status```
 
-**Метод для изменения статуса задачи**
-
-```js
-  https://botapi.workonflow.com/{teamid}/thread.status
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description| required |
 | ------------- |---------------| ----------------------|---:|
-| threadId      | string        | id of thread         | yes |
-| statusId        | string        | id of status | yes |
+| threadId      | string        | индетификатор треда         | yes |
+| statusId        | string        | индетификатор статуса треда | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "threadId":"5b0321234c0319001573485e",
@@ -467,53 +381,43 @@
   }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","statusId":"5b032123210319001573485f" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.status
-```
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","statusId":"5b032123210319001573485f" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.status```
 
-**Response example:**
-
-```js
+### Пример ответа:
+```json
 {
-  code: 200,
-  massage: 'OK',
-  data: {
-    threadId: "5b0525134c0319001573485e",
-    createdAt: 1524055334667,
-    deadline: [null, 1524902400000],
-    responsibleUserId: "5b032123210319001573485e",
-    status: "5b0525134c0319001573485f",
-    streamId: "5b0525134c0319001573485s",
-    teamId: "5b0525134c0319001573485c",
-    title: "title name",
-    customerId: "5b0525134c0319001573485a",
-    customerIds: [],
-    commentsFilter: {},
-    type: "Wait",
-    roles: ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
-    updatedAt: 1524056052883,
+  "code": 200,
+  "massage": "OK",
+  "data": {
+    "threadId": "5b0525134c0319001573485e",
+    "createdAt": 1524055334667,
+    "deadline": [null, 1524902400000],
+    "responsibleUserId": "5b032123210319001573485e",
+    "status": "5b0525134c0319001573485f",
+    "streamId": "5b0525134c0319001573485s",
+    "teamId": "5b0525134c0319001573485c",
+    "title": "title name",
+    "customerId": "5b0525134c0319001573485a",
+    "customerIds": [],
+    "commentsFilter": {},
+    "type": "Wait",
+    "roles": ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
+    "updatedAt": 1524056052883,
   }
 }
 ```
-----------------------------------------------------------------------------------
 
-## thread.fields.points
+## Метод для изменения ранга задачи
+```https://botapi.workonflow.com/{teamid}/thread.fields.points```
 
-**Метод для изменения ранга задачи**
-
-```js
-  https://botapi.workonflow.com/{teamid}/thread.fields.points
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description| required |
 | ------------- |---------------| ----------------------|---:|
-| threadId      | string        | id of thread         | yes |
-| points        | number        | number of points | yes |
+| threadId      | string        | индетификатор треда | yes |
+| points        | number        | ранг задачи | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "threadId":"5b0321234c0319001573485e",
@@ -521,52 +425,43 @@
   }
 ```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","points":20 }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.points
-```
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","points":20 }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.points```
 
-**Response example:**
-
-```js
+### Пример ответа:
+```json
 {
-  code: 200,
-  massage: 'OK',
-  data: {
-    threadId: "5b0525134c0319001573485e",
-    createdAt: 1524055334667,
-    deadline: [null, 1524902400000],
-    responsibleUserId: "5b032123210319001573485e",
-    status: "5b0525134c0319001573485f",
-    streamId: "5b0525134c0319001573485s",
-    teamId: "5b0525134c0319001573485c",
-    title: "title name",
-    customerId: "5b0525134c0319001573485a",
-    customerIds: [],
-    commentsFilter: {},
-    type: "Wait",
-    roles: ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
-    updatedAt: 1524056052883,
+  "code": 200,
+  "massage": "OK",
+  "data": {
+    "threadId": "5b0525134c0319001573485e",
+    "createdAt": 1524055334667,
+    "deadline": [null, 1524902400000],
+    "responsibleUserId": "5b032123210319001573485e",
+    "status": "5b0525134c0319001573485f",
+    "streamId": "5b0525134c0319001573485s",
+    "teamId": "5b0525134c0319001573485c",
+    "title": "title name",
+    "customerId": "5b0525134c0319001573485a",
+    "customerIds": [],
+    "commentsFilter": {},
+    "type": "Wait",
+    "roles": ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
+    "updatedAt": 1524056052883,
   }
 }
 ```
-----------------------------------------------------------------------------------
 
-## thread.fields.timetoc
+## Метод для изменения времени завершения задачи
+```https://botapi.workonflow.com/{teamid}/thread.fields.timetoc```
 
-**Метод для изменения времени завершения задачи**
-
-```js
-  https://botapi.workonflow.com/{teamid}/thread.fields.timetoc
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description|required|
 | ------------- |---------------| ----------------------|---:|
-| threadId      | string        | id of thread         | yes |
-| timetocompletion        | number        | timestamp | yes |
+| threadId      | string        | индетификатор треда         | yes |
+| timetocompletion        | number        | таймстамп в секундах | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "threadId":"5b0321234c0319001573485e",
@@ -574,53 +469,43 @@
   }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","timetocompletion":1524057338518 }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.timetoc
-```
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","timetocompletion":1524057338518 }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.fields.timetoc```
 
-**Response example:**
-
-```js
+### Пример ответа:
+```json
 {
-  code: 200,
-  massage: 'OK',
-  data: {
-    threadId: "5b0525134c0319001573485e",
-    createdAt: 1524055334667,
-    deadline: [null, 1524902400000],
-    responsibleUserId: "5b032123210319001573485e",
-    status: "5b0525134c0319001573485f",
-    streamId: "5b0525134c0319001573485s",
-    teamId: "5b0525134c0319001573485c",
-    title: "title name",
-    customerId: "5b0525134c0319001573485a",
-    customerIds: [],
-    commentsFilter: {},
-    type: "Wait",
-    roles: ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
-    updatedAt: 1524056052883,
+  "code": 200,
+  "massage": "OK",
+  "data": {
+    "threadId": "5b0525134c0319001573485e",
+    "createdAt": 1524055334667,
+    "deadline": [null, 1524902400000],
+    "responsibleUserId": "5b032123210319001573485e",
+    "status": "5b0525134c0319001573485f",
+    "streamId": "5b0525134c0319001573485s",
+    "teamId": "5b0525134c0319001573485c",
+    "title": "title name",
+    "customerId": "5b0525134c0319001573485a",
+    "customerIds": [],
+    "commentsFilter": {},
+    "type": "Wait",
+    "roles": ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
+    "updatedAt": 1524056052883,
   }
 }
 ```
 
+## Метод для переноса задачи в другой поток
+```https://botapi.workonflow.com/{teamid}/thread.stream```
 
-## thread.stream
-
-**Метод для переноса задачи в другой поток**
-
-```js
-  https://botapi.workonflow.com/{teamid}/thread.stream
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description|required|
 | ------------- |---------------| ----------------------|---:|
-| threadId      | string        | id of thread         | yes |
-| streamId        | string        | id of stream | yes |
+| threadId      | string        | индетификатор треда         | yes |
+| streamId        | string        | индетификатор стрима | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "threadId":"5b0321234c0319001573485e",
@@ -628,53 +513,43 @@
   }
 ```
 
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","streamId":"5b0321324c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.stream```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","streamId":"5b0321324c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.stream
-```
-
-**Response example:**
-
-```js
+### Пример ответа:
+```json
 {
-  code: 200,
-  massage: 'OK',
-  data: {
-    threadId: "5b0525134c0319001573485e",
-    createdAt: 1524055334667,
-    deadline: [null, 1524902400000],
-    responsibleUserId: "5b032123210319001573485e",
-    status: "5b0525134c0319001573485f",
-    streamId: "5b0525134c0319001573485s",
-    teamId: "5b0525134c0319001573485c",
-    title: "title name",
-    customerId: "5b0525134c0319001573485a",
-    customerIds: [],
-    commentsFilter: {},
-    type: "Wait",
-    roles: ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
-    updatedAt: 1524056052883,
+  "code": 200,
+  "massage": "OK",
+  "data": {
+    "threadId": "5b0525134c0319001573485e",
+    "createdAt": 1524055334667,
+    "deadline": [null, 1524902400000],
+    "responsibleUserId": "5b032123210319001573485e",
+    "status": "5b0525134c0319001573485f",
+    "streamId": "5b0525134c0319001573485s",
+    "teamId": "5b0525134c0319001573485c",
+    "title": "title name",
+    "customerId": "5b0525134c0319001573485a",
+    "customerIds": [],
+    "commentsFilter": {},
+    "type": "Wait",
+    "roles": ["5b0525134c0319001573485x", "5b0525134c0319001573485o"],
+    "updatedAt": 1524056052883,
   }
 }
 ```
-------------------------------------------------------------------------------------
 
-## thread.title
+## Метод изменения названия задачи
+```https://botapi.workonflow.com/{teamid}/thread.title```
 
-**Метод изменения названия задачи**
-
-```js
-  https://botapi.workonflow.com/{teamid}/thread.title
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description| required|
 | ------------- |---------------| ----------------------|---:|
-| threadId      | string        | id of thread         |yes|
-| title         | string        | new title for thread |yes|
+| threadId      | string        | индетификатор треда         |yes|
+| title         | string        | новое имя задачи |yes|
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "threadId":"5b0321234c0319001573485e",
@@ -682,215 +557,175 @@
   }
 ```
 
+### Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","title":"New title for thread" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.title```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","title":"New title for thread" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.title
+### Пример ответа:
+```json
+  {"code": 200, "message": "OK"}
 ```
 
-**Response example:**
-```js
-  {code: 200, message: 'OK'}
-```
------------------------------------------------------------------------------------
+## Метод для добавления внешних фолловеров в задачу
+```https://botapi.workonflow.com/{teamid}/thread.customer/add```
 
-## thread.customer/add
-
-**Метод для добавления клиентав задачу**
-```js
-  https://botapi.workonflow.com/{teamid}/thread.customer/add
-```
-
-**Parameters:**
-> **Warning!** One of the fields (customerId or customerIds) required
+### Параметры:
+> **Внимание!** Одно из полей обязательно нужно передать в запросе: customerId или customerIds
 
 | field         | type     | description| required |
 | ------------- |----------| ----------------------|---:|
-| threadId      | string   | id of thread         | yes |
-| customerId    | string   | id of external user |
-| customerIds   | array    | array of ids external users |
+| threadId      | string   | индетификатор треда         | yes |
+| customerId    | string   | индетификатор клиента |
+| customerIds   | array    | массив индетификаторов клиентов |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "threadId": "5b0321234c0319001573485e",
-    "customerId": "5b0321324c0319001573485e",
-    // or
-    "customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"]
+    "customerId": "5b0321324c0319001573485e"
   }
 ```
 
-**Request example:**
+### Пример запроса:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","customerId": "5b0321324c0319001573484q" }'https://botapi.workonflow.com/333ccc134c0319001573485e/thread.customer/add```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"] }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.customer/add
+### Пример ответа:
+```json
+  {"code": 200, "message": "OK"}
 ```
 
-**Response example:**
-```js
-  {code: 200, message: "OK"}
-```
------------------------------------------------------------------------------------
+## Метод для удаления внешних фолловеров из задачи
+```https://botapi.workonflow.com/{teamid}/thread.customer/remove```
 
-
-# Thread remove customers
-```js
-  https://botapi.workonflow.com/{teamid}/thread.customer/remove
-```
-
-**Parameters:**
-> **Warning!** One of the fields (customerId or customerIds) required
+### Параметры:
+> **Внимание!** Одно из полей обязательно нужно передать в запросе: customerId или customerIds
 
 | field         | type          | description| required |
 | ------------- |---------------| ----------------------|--:|
-| threadId      | string        | id of thread         | yes |
-| customerId    | string        | id of external user |
-| customerIds   | array         | array of ids external users |
+| threadId      | string        | индетификатор треда         | yes |
+| customerId    | string   | индетификатор клиента |
+| customerIds   | array    | массив индетификаторов клиентов |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
     "threadId": "5b0321234c0319001573485e",
-    "customerId": "5b0321324c0319001573485e",
     "customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"]
   }
 ```
 
-**Request example:**
+### Пример запроса:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"] }'https://botapi.workonflow.com/333ccc134c0319001573485e/thread.customer/remove```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","customerIds": ["5b0321324c0319001573484q", "5e1451234c0319001573485e"] }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.customer/remove
+### Пример ответа:
+```json
+  {"code": 200, "message": "OK"}
 ```
 
-**Response example:**
-```js
-  {code: 200, message: 'OK'}
-```
------------------------------------------------------------------------------------
+## Метод для добавления внутренних пользователей в тред как фолловеров
+```https://botapi.workonflow.com/{teamid}/thread.followers/set```
 
-# Thread set followers
-```js
-  https://botapi.workonflow.com/{teamid}/thread.followers/set
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description| required |
 | ------------- |---------------| ----------------------|---:|
-| threadId      | string        | id of thread         | yes |
-| userId        | string        | id of user | yes |
+| threadId      | string        | индетификатор треда         | yes |
+| userId        | string        | индетификатор добавляемого юзера | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
   {
-    threadId: '5b0321234c0319001573485e',
-    userId: '5b0321324c0319001573485e'
+    "threadId": "5b0321234c0319001573485e",
+    "userId": "5b0321324c0319001573485e"
   }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","userId": "5e1451234c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.followers/set
+### Пример запроса:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","userId": "5e1451234c0319001573485e" }'https://botapi.workonflow.com/333ccc134c0319001573485e/thread.followers/set```
+
+### Пример ответа:
+```json
+  {"code": 200, "message": "OK"}
 ```
 
-**Response example:**
-```js
-  {code: 200, message: 'OK'}
-```
------------------------------------------------------------------------------------
+## Метод для удаления фолловеров из треда
+```https://botapi.workonflow.com/{teamid}/thread.followers/remove```
 
-# Thread remove followers
-```js
-  https://botapi.workonflow.com/{teamid}/thread.followers/remove
-```
-
-**Parameters:**
-
+### Параметры:
 | field         | type          | description| required |
 | ------------- |---------------| ----------------------|---:|
-| threadId      | string        | id of thread         | yes |
-| userId        | string        | id of user | yes |
+| threadId      | string        | индетификатор треда         | yes |
+| userId        | string        | индетификатор фолловера, которого нужно удалить из треда | yes |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
 {
-  threadId: '5b0321234c0319001573485e',
-  userId: '5b0321324c0319001573485e'
+  "threadId": "5b0321234c0319001573485e",
+  "userId": "5b0321324c0319001573485e"
 }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","userId": "5b0321324c0319001573484q" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread.followers/remove
+### Пример запроса:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","userId": "5b0321324c0319001573484q" }'https://botapi.workonflow.com/333ccc134c0319001573485e/thread.followers/remove```
+
+### Пример ответа:
+```json
+  {"code": 200, "message": "OK"}
 ```
 
+## Добавление тегов в тред
+```https://botapi.workonflow.com/{teamid}/thread/pushtag```
 
-**Response example:**
-```js
-  {code: 200, message: 'OK'}
-```
+> **Внимание!** На данный момент теги отображаются только на доске, где отображаются все задачи стрима. После изменения описания задачи - ТЕГ ПРОПАДЕТ.
 
-# Add tag(s) to thread
-```js
-  https://botapi.workonflow.com/{teamid}/thread/pushtag
-```
-
-**Parameters:**
-> **Warning!** One of the fields (tagId or tagIds) required
+### Параметры:
+> **Внимание!** Одно из полей нужно обязательно передать в запросе: tagId или tagIds
 
 | field         | type          | description| required |
 | ------------- |---------------| ----------------------|---:|
-| threadId      | string        | id of thread         | yes |
-| tagId        | string        | id of tag |  |
-| tagIds        | array         | ids of tag  | |
+| threadId      | string        | индетификатор треда         | yes |
+| tagId        | string        | индетификатор тега |  |
+| tagIds        | array         | индетификаторы тегов  | |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
 {
-  "threadId": '5b0321234c0319001573485e',
-  "tagId": '5b0321324c0319001573485e'
+  "threadId": "5b0321234c0319001573485e",
+  "tagId": "5b0321324c0319001573485e"
 }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","tagId": "5b0321324c0319001573484q" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/pushtag
+### Пример запроса:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","tagId": "5b0321324c0319001573484q" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/pushtag```
+
+### Пример ответа:
+```json
+  {"code": 200, "message": "OK"}
 ```
 
+## Удаление тегов из треда
+```https://botapi.workonflow.com/{teamid}/thread/pulltag```
 
-**Response example:**
-```js
-  {code: 200, message: 'OK'}
-```
-
-# Remove tag(s) at thread
-```js
-  https://botapi.workonflow.com/{teamid}/thread/pulltag
-```
-
-**Parameters:**
-> **Warning!** One of the fields (tagId or tagIds) required
+### Параметры:
+> **Внимание!** Одно из полей нужно обязательно передать в запросе: tagId или tagIds
 
 | field         | type          | description| required |
 | ------------- |---------------| ----------------------|---:|
-| threadId      | string        | id of thread         | yes |
-| tagId        | string        | id of tag |  |
-| tagIds        | array         | ids of tag  | |
+| threadId      | string        | индетификатор треда         | yes |
+| tagId        | string        | индетификатор тега |  |
+| tagIds        | array         | массив индетификаторов тегов  | |
 
-**Body message example:**
+### Пример тела запроса:
 ```json
 {
-  "threadId": '5b0321234c0319001573485e',
-  "tagId": '5b0321324c0319001573485e'
+  "threadId": "5b0321234c0319001573485e",
+  "tagId": "5b0321324c0319001573485e"
 }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","tagId": "5b0321324c0319001573484q" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/pulltag
-```
+### Пример запроса:
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","tagId": "5b0321324c0319001573484q" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/pulltag```
 
 
-**Response example:**
-```js
-  {code: 200, message: 'OK'}
+### Пример ответа:
+```json
+  {"code": 200, "message": "OK"}
 ```

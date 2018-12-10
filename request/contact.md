@@ -3,9 +3,7 @@
 ## Метод для создания контактов
 Метод позволяет создавать внешних юзеров, которых можно прикрепить к треду, и общаться с ними посредством почты или телефонии
 
-```
-https://botapi.workonflow.com/{teamid}/contact/create/{body}
-```
+```https://botapi.workonflow.com/{teamid}/contact/create/{body}```
 
 ### Параметры:
 
@@ -37,9 +35,7 @@ https://botapi.workonflow.com/{teamid}/contact/create/{body}
 ```
 
 ### Пример запроса с помощью curl:
-```
-curl -H "Content-Type: application/json" -X POST -d '{ "basicData": {"name": "Alex", "email": "email@email.com"}, "customFields": [{"id": "B1R5NTS3z", "label": "Company", "value": "OOO TS", "type": "company"}, {"id": "B1l094TB2M", "label": "Work phone", "value": "777", "type": "phone"}, {"id": "rkbA9VTH3M", "label": "Work e-mail", "value": "work@work.com", "type": "email"}] }' https://botapi.workonflow.com/333ccc134c0319001573485e/contact/create
-```
+```curl -H "Content-Type: application/json" -X POST -d '{ "basicData": {"name": "Alex", "email": "email@email.com"}, "customFields": [{"id": "B1R5NTS3z", "label": "Company", "value": "OOO TS", "type": "company"}, {"id": "B1l094TB2M", "label": "Work phone", "value": "777", "type": "phone"}, {"id": "rkbA9VTH3M", "label": "Work e-mail", "value": "work@work.com", "type": "email"}] }' https://botapi.workonflow.com/333ccc134c0319001573485e/contact/create```
 
 ### Пример ответа:
 ```json
@@ -52,9 +48,7 @@ curl -H "Content-Type: application/json" -X POST -d '{ "basicData": {"name": "Al
 
 ## Метод для получения "языка" пользователя
 
-```
-https://botapi.workonflow.com/{teamid}/contact/local/{body}
-```
+```https://botapi.workonflow.com/{teamid}/contact/local/{body}```
 
 ### Параметры:
 
@@ -70,9 +64,7 @@ https://botapi.workonflow.com/{teamid}/contact/local/{body}
 ```
 
 ### Пример запроса с помощью curl:
-```
-curl -H "Content-Type: application/json" -X POST -d '{ "userId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/contact/create
-```
+```curl -H "Content-Type: application/json" -X POST -d '{ "userId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/contact/create```
 
 ### Пример ответа:
 
@@ -88,12 +80,10 @@ curl -H "Content-Type: application/json" -X POST -d '{ "userId":"5b0525134c03190
 ## Метод для получения пользоватей
 Метод позволяет получить всех пользователей, находящихся в тиме.
 
-```
-https://botapi.workonflow.com/{teamid}/contact/read/{body}
-```
+```https://botapi.workonflow.com/{teamid}/contact/read/{body}```
 
 ### Параметры:
-> Внимание! Одно из полей обязательно должно быть передано в запросе: userId, userIds, customField
+> **Внимание!** Одно из полей обязательно должно быть передано в запросе: userId, userIds, customField
 
 | field         | type    | description|
 | ------------- |---------| ----------------------:|
@@ -112,11 +102,9 @@ https://botapi.workonflow.com/{teamid}/contact/read/{body}
 
 ### Пример запроса с помощью curl:
 
-```
-curl -H "Content-Type: application/json" -X POST -d '{ "billingType" : "users" }' https://botapi.workonflow.com/333ccc134c0319001573485e/contact/read
-```
-### Пример ответа:
+```curl -H "Content-Type: application/json" -X POST -d '{ "billingType" : "users" }' https://botapi.workonflow.com/333ccc134c0319001573485e/contact/read```
 
+### Пример ответа:
 ```json
 {
   code: 200,

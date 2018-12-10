@@ -19,9 +19,7 @@
 ```
 
 ### Пример запроса с помощью curl:
-```
-curl -H "Content-Type: application/json" -X POST -d '{ "email":"email@email.com" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.mail/account.get
-```
+```curl -H "Content-Type: application/json" -X POST -d '{ "email":"email@email.com" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.mail/account.get```
 
 ### Ответ:
 ```json
@@ -70,9 +68,7 @@ curl -H "Content-Type: application/json" -X POST -d '{ "email":"email@email.com"
 ```
 
 ### Пример запроса с помощью curl:
-```
-curl -H "Content-Type: application/json" -X POST -d '{ "id":"5b0525134c0319121573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.mail/read
-```
+```curl -H "Content-Type: application/json" -X POST -d '{ "id":"5b0525134c0319121573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.mail/read```
 
 ### Ответ:
 ```json
@@ -130,9 +126,7 @@ curl -H "Content-Type: application/json" -X POST -d '{ "id":"5b0525134c031912157
 ```
 
 ### Пример запроса с помощью curl:
-```
-curl -H "Content-Type: application/json" -X POST -d '{ "username": "John Wick", "password": "somePassForJohn", "domain": "john@pbx.com", "contactId": "333ccc134c0319001543481e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/create
-```
+```curl -H "Content-Type: application/json" -X POST -d '{ "username": "John Wick", "password": "somePassForJohn", "domain": "john@pbx.com", "contactId": "333ccc134c0319001543481e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/create```
 
 ### Ответ:
 ```json
@@ -159,9 +153,8 @@ curl -H "Content-Type: application/json" -X POST -d '{ "username": "John Wick", 
 ```
 
 ### Пример запроса с помощью curl:
-```
-curl -H "Content-Type: application/json" -X POST -d '{ "sipId": "333cbv134c0319001543481e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/delete
-```
+```curl -H "Content-Type: application/json" -X POST -d '{ "sipId": "333cbv134c0319001543481e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/delete```
+
 ### Ответ:
 ```json
   {
@@ -189,9 +182,7 @@ curl -H "Content-Type: application/json" -X POST -d '{ "sipId": "333cbv134c03190
 ```
 
 ### Пример запроса с помощью curl:
-```
-curl -H "Content-Type: application/json" -X POST -d '{ "sipId": "58" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/get
-```
+```curl -H "Content-Type: application/json" -X POST -d '{ "sipId": "58" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/get```
 
 ### Ответ:
 ```json
@@ -241,9 +232,7 @@ curl -H "Content-Type: application/json" -X POST -d '{ "sipId": "58" }' https://
   }
 ```
 ### Пример запроса с помощью curl:
-```
-curl -H "Content-Type: application/json" -X POST -d '{ "username": "John Wick", "password": "somePassForJohn", "domain": "john@pbx.com", "contactId": "333ccc134c0319001543481e", "sipId": "111" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/update
-```
+```curl -H "Content-Type: application/json" -X POST -d '{ "username": "John Wick", "password": "somePassForJohn", "domain": "john@pbx.com", "contactId": "333ccc134c0319001543481e", "sipId": "111" }' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/update```
 
 ### Ответ:
 ```json

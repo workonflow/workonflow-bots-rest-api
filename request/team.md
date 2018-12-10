@@ -1,20 +1,15 @@
 # Team requests
 
-## team/invite.user
+## Метод для приглашения пользователя в систему workonflow
+```https://botapi.workonflow.com/{teamId}/invite.user```
 
-**Метод для приглашения пользователя в систему workonflow**
-
-```js
-  https://botapi.workonflow.com/{teamId}/invite.user
-```
-**Parameters:**
-
+### Параметры:
 | field    | type   | description| required |
 | -------- |--------| :----------------------|---:|
-| name     | string | User name   | yes |
-| email    | string | Email of user | yes |
+| name     | string | имя юзера   | yes |
+| email    | string | эл. почта юзера | yes |
 
-**Body message example:**
+## Пример тела запроса:
 ```json
   {
     "name": "Jon Si",
@@ -22,13 +17,10 @@
   }
 ```
 
-**Request example:**
+## Пример запроса с помощью curl:
+```curl -H "Content-Type: application/json" -X POST -d '{ "name":"Jon Si", "email": "jon@www.com" }' https://botapi.workonflow.com/333ccc134c0319001573485e/invite.user```
 
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "name":"Jon Si", "email": "jon@www.com" }' https://botapi.workonflow.com/333ccc134c0319001573485e/invite.user
-```
-
-**Response example:**
-```js
- { code: 200, message: 'OK' }
+## Пример ответа:
+```json
+ { "code": 200, "message": "OK" }
 ```

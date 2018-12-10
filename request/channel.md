@@ -48,12 +48,7 @@ curl -H "Content-Type: application/json" -X POST -d '{ "email":"email@email.com"
   }
 ```
 
-### Если сделать запрос с пустым объектом - вернется массив объектов не приватных почтовых каналов:
-
-### Пример запроса с помощью curl:
-```
-curl -H "Content-Type: application/json" -X POST -d '{}' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.mail/account.get
-```
+> ### Если сделать запрос с пустым объектом - вернется массив объектов не приватных почтовых каналов:
 
 # Метод для получения информации о письмах
 ```https://botapi.workonflow.com/{teamid}/channel.mail/read```
@@ -221,12 +216,7 @@ curl -H "Content-Type: application/json" -X POST -d '{ "sipId": "58" }' https://
 }
 ```
 
-### Если сделать запрос с пустым объектом - вернется массив объектов SIP-аккаунтов:
-
-### Пример запроса с помощью curl:
-```
-curl -H "Content-Type: application/json" -X POST -d '{}' https://botapi.workonflow.com/333ccc134c0319001573485e/channel.telephony/get
-```
+> ### Если сделать запрос с пустым объектом - вернется массив объектов SIP-аккаунтов:
 
 # Метод для обновления SIP-юзера
 ```https://botapi.workonflow.com/{teamid}/channel.telephony/update```

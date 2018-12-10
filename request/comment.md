@@ -1,24 +1,21 @@
 # Comments requests
 
-### comment/count
+## Метод для получения колличества комментариев
 
-**Метод для получения колличества комментариев**
-
-```js
-  https://botapi.workonflow.com/{teamid}/comment/count
+```
+https://botapi.workonflow.com/{teamid}/comment/count
 ```
 
-
-**Parameters:**
-> **Warning!** One of the fields required
+### Параметры:
+> **Внимание!** Один из параметров обязательно должен быть передан: threadId, threadIds, streamId
 
 | field         | type          | description         |
 | ------------- |---------------| -----------------   |
-| threadId      | string        | id of thread        |
-| threadIds     | array         | array ids of thread |
-| streamId      | string        | id of stream        |
+| threadId      | string        | идентификатор треда        |
+| threadIds     | array         | массив идентификаторов треда |
+| streamId      | string        | идентификатор стрима        |
 
-**Body message example:**
+### Пример тела запроса:
 
 ```json
   {
@@ -26,124 +23,116 @@
   }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/comment/count
+### Пример запроса:
+```
+curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0525134c0319001573485e" }' https://botapi.workonflow.com/333ccc134c0319001573485e/comment/count
 ```
 
-**Response**
+### Ответ:
 
 ```json
   { code: 200, message: "OK", data: { count: 1 } }
 ```
 
+## Метод для создания комментариев
 
-### comment/create
-
-**Метод для создания комментариев**
-
-```js
-  https://botapi.workonflow.com/{teamid}/comment/create
+```
+https://botapi.workonflow.com/{teamid}/comment/create
 ```
 
-**Parameters:**
-> **Важно!** должен быть только один параметр получателя: streamId, threadId или to
+### Параметры:
+> **Важно!** Должен быть только один параметр получателя: streamId, threadId или to
 
 | field         | type     | description|
 | ------------- |----------|----------------------|
-| threadId      |string    | id of thread указываем если комментарий необходимо создать в задаче |
-| streamId      |string    | id of stream указываем если комнтарий необходимо создать в потоке |
-| to            |string    | id of user указываем если комнтарий необходимо отправить в личные сообщения |
+| threadId      |string    | идентификатор треда. передаем, если комментарий необходимо создать в задаче |
+| streamId      |string    | идентификатор стрима. передаем, если комментарий необходимо создать в потоке |
+| to            |string    | идентификатор юзера. передаем, если комментарий необходимо отправить в личные сообщения |
 | text          |string    | содержимое комментария |
-| commentId     | string | идентификатор комментария, приходит в ответе на запрос |
 | type          | STRING  | тип комментария: text, file, image |
-| isPublic      | bool     |  публичный комментарий |
+| isPublic      | bool     |  при значении true - отправится письмо, если к стриму подключена почта |
 
 
-**Body message example:**
-```js
+### Пример тела запроса:
+```json
 {
-  to: '5971f31881d3f800149760b4',
-  text: 'new comment',
+  "to": "5971f31881d3f800149760b4",
+  "text": "new comment",
 }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "to":"5971f31881d3f800149760b4", "text": "new comment" }' https://botapi.workonflow.com/333ccc134c0319001573485e/comment/create
+### Пример запроса:
+```
+curl -H "Content-Type: application/json" -X POST -d '{ "to":"5971f31881d3f800149760b4", "text": "new comment" }' https://botapi.workonflow.com/333ccc134c0319001573485e/comment/create
 ```
 
-**Response example:**
-```js
-  { code: 200, massage: "OK", data: { commentId: '5971f31881d3f800149760b4' } }
+### Пример ответа:
+```json
+  {
+    "code": 200,
+    "message": "OK",
+    "data": { "commentId": "5971f31881d3f800149760b4" } }
 ```
 
-### comment/read
+## Метод для получения комментариев
 
-**Метод для получения комментариев**
-
-```js
-  https://botapi.workonflow.com/{teamid}/comment/read
+```
+https://botapi.workonflow.com/{teamid}/comment/read
 ```
 
-**Parameters:**
+### Параметры:
 
 | field         | type          | description|
 | ------------- |---------------|:----------------------|
-| threadId      | string        | id of thread    |
-| streamId      | string        | id of stream    |
-| commentId     | string        | id of comment   |
-| skip          | number        | кол-во комментариев которые необходимо пропустить (optionally) |
-| type          | string        | type of comment |
-| createdAt     | number        | время создания комментария в формате timestamp |
-| to            | array         | id of user усли комментарий был отправлен в личные сообщения пользователю |
-| from          | string        | id of user который создал комментарий |
-| att           | string        | текст комментария |
-| channel       | string/null   | id of channel, приходит в ответе если комментарий был создан с использованием внешнего канала |
+| threadId      | string        | идентификатор треда    |
+| streamId      | string        | идентификатор стрима    |
+| commentId     | string        | идентификатор комментария   |
+| skip          | number        | кол-во комментариев которые необходимо пропустить |
+| type          | string        | тип комментария |
 
-**Body message example:**
-```js
+### Пример тела запроса:
+```json
 {
-  threadId: '5b0525134c0319001573485e',
-  streamId: '5afd74659a88ff00190baf81',
-  commentId: '5971f31881d3f800149760b4',
-  skip: 100,
-  type: 'file',
+  "streamId": "5afd74659a88ff00190baf81",
+  "type": "file"
 }
 ```
 
-**Request example:**
-```js
-  curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5afd74659a88ff00190baf81" }' https://botapi.workonflow.com/333ccc134c0319001573485e/comment/read
+### Пример запроса:
+```
+curl -H "Content-Type: application/json" -X POST -d '{ "streamId":"5afd74659a88ff00190baf81" }' https://botapi.workonflow.com/333ccc134c0319001573485e/comment/read
 ```
 
-**Response example:**
+### Пример ответа:
 
-```js
+```json
 {
-  code: 200,
-  message: 'OK',
-  data: [ {
-    type: 'type comment',
-    createdAt: 1520926199680,
-    to: [],
-    from: '',
-    att: '',
-    commentId: 'id comment',
-    channel: null,
-    threadId: 'some thread id',
-    streamId: 'some thread id',
+  "code": 200,
+  "message": "OK",
+  "data": [ {
+    "type": "file",
+    "createdAt": 1520926199680,
+    "to": [],
+    "from": "",
+    "att": "",
+    "commentId": "id comment",
+    "channel": null,
+    "threadId": "some thread id",
+    "streamId": "5afd74659a88ff00190baf81",
   }, {
-    type: 'type comment',
-    createdAt: 1520926199680,
-    to: [],
-    from: '',
-    att: '',
-    commentId: 'id comment',
-    teamId: 'some time id',
-    channel: null,
-    threadId: 'some thread id',
-    streamId: 'some thread id',
-  }, ... ]
+    "type": "file",
+    "createdAt": 1520926199680,
+    "to": [],
+    "from": "",
+    "att": "",
+    "commentId": "id comment",
+    "teamId": "some time id",
+    "channel": null,
+    "threadId": "some thread id",
+    "streamId": "5afd74659a88ff00190baf81",
+  }
+  ]
 }
 ```
+
+> ### Если сделать запрос с пустым объектом - вернется массив объектов всех комментариев в тиме

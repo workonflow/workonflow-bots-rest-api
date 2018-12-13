@@ -130,13 +130,13 @@
 ```json
 "{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","marks":[],"text":"text"}]},{"type":"paragraph","content":[{"type":"text","marks":[],"text":"text"}]},{"type":"paragraph","content":[{"type":"text","marks":[],"text":"text"}]},{"type":"paragraph","content":[{"type":"text","marks":[{"type":"strike"}],"text":"text"}]},{"type":"paragraph"},{"type":"paragraph","content":[{"type":"text","marks":[{"type":"underline"}],"text":"text"}]},{"type":"paragraph","content":[{"type":"text","marks":[{"type":"em"}],"text":"text"}]},{"type":"paragraph","content":[{"type":"text","marks":[{"type":"strong"}],"text":"text"}]},{"type":"ordered_check_list","content":[{"type":"check_list_item","attrs":{"isCheck":false},"content":[{"type":"paragraph","content":[{"type":"text","marks":[],"text":"text"}]}]}]},{"type":"ordered_list","content":[{"type":"list_item","attrs":{"id":null},"content":[{"type":"paragraph","content":[{"type":"text","marks":[],"text":"text"}]}]}]},{"type":"ordered_number_list","attrs":{"order":1},"content":[{"type":"list_item","attrs":{"id":null},"content":[{"type":"paragraph"},{"type":"horizontal_rule"},{"type":"paragraph"}]}]},{"type":"paragraph","content":[{"type":"text","marks":[],"text":"text text"}]}]}"
 ```
-------------------------------------------------------------------------------------
 
-## Метод для добавления или изменения описания задачи
+## Метод для полного обновления описания задачи
 ```https://botapi.workonflow.com/thread.description/set```
 
-### Параметры:
+> **Внимание!** Вызов этого метода приведет к тому, что старое описание задачи полностью заменится новым.
 
+### Параметры:
 | field    | type   | description         | required |
 | -------- |------- | :-------------------|----:|
 | threadId | string | индетификатор треда        | yes |
@@ -156,6 +156,37 @@
 ```json
   { "code": 200, "message": "OK", "data": { "descriptionId": "333ccc134c0319001573485x" } }
 ```
+
+## Метод для добавления контента (хештеги, текст, файлы) в конец описания задачи
+```https://botapi.workonflow.com/thread.description/addcontent```
+
+### Параметры:
+
+| field    | type   | description         | required |
+| -------- |------- | :-------------------|----:|
+| threadId | string | индетификатор треда        | yes |
+| content  | array of objects | массив объектов. Объект принимает в себя следующие поля: "type" - тип может быть следующим hashtag, text или file, в зависимости от добавляемого контента; "fileId" - индетификатор файла, загруженного на амазон; "filename" - имя добавляемого файла; "text" - добавляемый текст или имя хештега;  | yes |
+
+### Пример тела запроса:
+```json
+  {
+    "threadId":"5b0321234c0319001573485e",
+    "content": [
+      {
+        type: "hashtag",
+        text: "bot"
+      }
+    ]
+  }
+```
+
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "content":"new description" }' https://botapi.workonflow.com/333ccc134c0319001573485e/threaddesctiption/set```
+
+### Пример ответа:
+```json
+  { "code": 200, "message": "OK", "data": "5b0321234c0319001573485e" }
+```
+
 
 ## Метод для изменения бюджета задачи
 ```https://botapi.workonflow.com/{teamid}/thread.fields.budget```
@@ -665,65 +696,6 @@
 
 ### Пример запроса:
 ```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","userId": "5b0321324c0319001573484q" }'https://botapi.workonflow.com/333ccc134c0319001573485e/thread.followers/remove```
-
-### Пример ответа:
-```json
-  {"code": 200, "message": "OK"}
-```
-
-## Добавление тегов в тред
-```https://botapi.workonflow.com/{teamid}/thread/pushtag```
-
-> **Внимание!** На данный момент теги отображаются только на доске, где отображаются все задачи стрима. После изменения описания задачи - ТЕГ ПРОПАДЕТ.
-
-### Параметры:
-> **Внимание!** Одно из полей нужно обязательно передать в запросе: tagId или tagIds
-
-| field         | type          | description| required |
-| ------------- |---------------| ----------------------|---:|
-| threadId      | string        | индетификатор треда         | yes |
-| tagId        | string        | индетификатор тега |  |
-| tagIds        | array         | индетификаторы тегов  | |
-
-### Пример тела запроса:
-```json
-{
-  "threadId": "5b0321234c0319001573485e",
-  "tagId": "5b0321324c0319001573485e"
-}
-```
-
-### Пример запроса:
-```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","tagId": "5b0321324c0319001573484q" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/pushtag```
-
-### Пример ответа:
-```json
-  {"code": 200, "message": "OK"}
-```
-
-## Удаление тегов из треда
-```https://botapi.workonflow.com/{teamid}/thread/pulltag```
-
-### Параметры:
-> **Внимание!** Одно из полей нужно обязательно передать в запросе: tagId или tagIds
-
-| field         | type          | description| required |
-| ------------- |---------------| ----------------------|---:|
-| threadId      | string        | индетификатор треда         | yes |
-| tagId        | string        | индетификатор тега |  |
-| tagIds        | array         | массив индетификаторов тегов  | |
-
-### Пример тела запроса:
-```json
-{
-  "threadId": "5b0321234c0319001573485e",
-  "tagId": "5b0321324c0319001573485e"
-}
-```
-
-### Пример запроса:
-```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e","tagId": "5b0321324c0319001573484q" }' https://botapi.workonflow.com/333ccc134c0319001573485e/thread/pulltag```
-
 
 ### Пример ответа:
 ```json

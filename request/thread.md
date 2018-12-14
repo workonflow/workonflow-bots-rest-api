@@ -140,13 +140,18 @@
 | field    | type   | description         | required |
 | -------- |------- | :-------------------|----:|
 | threadId | string | индетификатор треда        | yes |
-| content  | string | техт для описания задачи | yes |
+| content  | array of objects | массив объектов. Объект принимает в себя следующие поля: "type" - тип может быть следующим hashtag, text или file, в зависимости от добавляемого контента; "fileId" - индетификатор файла, загруженного на амазон; "filename" - имя добавляемого файла; "text" - добавляемый текст или имя хештега;  | yes |
 
 ### Пример тела запроса:
 ```json
   {
     "threadId":"5b0321234c0319001573485e",
-    "content":"New description"
+    "content": [
+      {
+        "type": "hashtag",
+        "text": "bot"
+      }
+    ]
   }
 ```
 
@@ -154,14 +159,13 @@
 
 ### Пример ответа:
 ```json
-  { "code": 200, "message": "OK", "data": { "descriptionId": "333ccc134c0319001573485x" } }
+  { "code": 200, "message": "OK", "data": "5b0321234c0319001573485e" }
 ```
 
 ## Метод для добавления контента (хештеги, текст, файлы) в конец описания задачи
 ```https://botapi.workonflow.com/thread.description/addcontent```
 
 ### Параметры:
-
 | field    | type   | description         | required |
 | -------- |------- | :-------------------|----:|
 | threadId | string | индетификатор треда        | yes |
@@ -173,14 +177,14 @@
     "threadId":"5b0321234c0319001573485e",
     "content": [
       {
-        type: "hashtag",
-        text: "bot"
+        "type": "hashtag",
+        "text": "bot"
       }
     ]
   }
 ```
 
-```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "content":"new description" }' https://botapi.workonflow.com/333ccc134c0319001573485e/threaddesctiption/set```
+```curl -H "Content-Type: application/json" -X POST -d '{ "threadId":"5b0321234c0319001573485e", "content":"new description" }' https://botapi.workonflow.com/333ccc134c0319001573485e/threaddesctiption/addcontent```
 
 ### Пример ответа:
 ```json
